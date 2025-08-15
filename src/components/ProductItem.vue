@@ -1,7 +1,7 @@
 <script>
 
 import router from "@/router";
-import {useProductsStore} from "@/stores/products";
+import { useProductsStore } from "@/stores/products";
 
 export default {
   data() {
@@ -44,7 +44,7 @@ export default {
       router.push('/shop');
     },
     getImageLink(imageFile) {
-      return window.origin + '/assets/images/products/' + imageFile;
+      return '/assets/images/products/' + imageFile;
     },
     getRandomRating() {
       let min = Math.ceil(4.5);
@@ -125,33 +125,28 @@ export default {
   <div
     class="justify-center product flex flex-row border-gray-100 border-[1px] border-t-0 -mb-1 rounded-none cursor-pointer transition-all duration-200 ease-in-out">
     <div class="w-[50%] -ml-1" @click="navigate(product)">
-      <img :src="getImageLink(`${JSON.parse(product.images)[0]}`)"
-           class="pl-2 w-50 pt-2"
-           alt="">
+      <img :src="getImageLink(`${JSON.parse(product.images)[0]}`)" class="pl-2 w-50 pt-2" alt="">
     </div>
     <div class="w-[50%]">
       <div class="bg-[green-400] mt-4 pb-4 text-left px-4">
-        <vTag unstyled="true" :value=product.brand
-              class="bg-[#EFDA95] text-sm text-black p-1 px-2 rounded-[3px]"/>
-        <div
-          class="font-medium text-md pb-1 tracking-normal mt-2 leading-6 flex flex-wrap space-y-1"
+        <vTag unstyled="true" :value=product.brand class="bg-[#EFDA95] text-sm text-black p-1 px-2 rounded-[3px]" />
+        <div class="font-medium text-md pb-1 tracking-normal mt-2 leading-6 flex flex-wrap space-y-1"
           @click="navigate(product)">
-                        <span class="text-[15.5px]">
-                          {{ getProductNameOnly(product.name) }}
-                        </span>
-          <vTag :value=getProductWeight(product.name) severity="secondary"
-                class=""/>
+          <span class="text-[15.5px]">
+            {{ getProductNameOnly(product.name) }}
+          </span>
+          <vTag :value=getProductWeight(product.name) severity="secondary" class="" />
         </div>
         <div class="flex flex-col gap-1 mb-2" @click="navigate(product)">
           <span class="text-amber-800">{{ product.category }}</span>
           <div class="flex flex-row gap-2">
             <vRating v-model=productRating readonly=true></vRating>
             <span class="text-sm text-gray-700">({{
-                getRandomRatingCount()
+              getRandomRatingCount()
               }})</span>
           </div>
           <span class="text-sm text-gray-400">{{
-              getRandomPurchaseCount()
+            getRandomPurchaseCount()
             }} purchased recently.</span>
         </div>
         <div class="text-[18px] flex flex-col gap-1" @click="navigate(product)">
@@ -162,23 +157,17 @@ export default {
           </div>
         </div>
         <div class="mt-4 mb-1 flex flex-row items-center justify-between">
-          <vButton icon="pi pi-cart-plus" severity="contrast" variant="text"
-                   raised
-                   rounded
-                   aria-label="Favorite" @click="showProductCartDrawer(product)"/>
-          <vButton icon="pi pi-heart" variant="text" raised rounded
-                   aria-label="Favorite"/>
-          <vButton icon="pi pi-whatsapp" severity="success" variant="text" raised
-                   rounded
-                   aria-label="Favorite"/>
+          <vButton icon="pi pi-cart-plus" severity="contrast" variant="text" raised rounded aria-label="Favorite"
+            @click="showProductCartDrawer(product)" />
+          <vButton icon="pi pi-heart" variant="text" raised rounded aria-label="Favorite" />
+          <vButton icon="pi pi-whatsapp" severity="success" variant="text" raised rounded aria-label="Favorite" />
         </div>
       </div>
     </div>
   </div>
 
-  <vDrawer v-model:visible="productCartDrawerVisible" style="height: 55%;"
-           position="bottom"
-           @show="onShowCartDrawer" showCloseIcon dismissable blockScroll>
+  <vDrawer v-model:visible="productCartDrawerVisible" style="height: 55%;" position="bottom" @show="onShowCartDrawer"
+    showCloseIcon dismissable blockScroll>
     <template #header>
       <div class="justify-start flex flex-col">
         <span class="text-[17px] font-bold">
@@ -186,10 +175,8 @@ export default {
         </span>
       </div>
     </template>
-    <CartComponent :product="selectedProduct" :quantity="cartQuantity"/>
+    <CartComponent :product="selectedProduct" :quantity="cartQuantity" />
   </vDrawer>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
