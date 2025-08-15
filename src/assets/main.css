@@ -5,34 +5,35 @@
 
 @font-face {
   font-family: arumik-sans;
-  src: url('../../public/assets/fonts/outfit/Outfit.ttf');
+  src: url('/assets/fonts/outfit/Outfit.ttf');
 }
 
 @font-face {
   font-family: arumik-signature;
-  src: url('../../public/assets/fonts/quellany/Quellany.woff');
+  src: url('/assets/fonts/quellany/Quellany.woff');
 }
 
 @font-face {
   font-family: arumik-serif;
-  src: url('../../public/assets/fonts/crimson/CrimsonPro-Variable.ttf');
+  src: url('/assets/fonts/crimson/CrimsonPro-Variable.ttf');
 }
 
 html,
 body {
   font-size: 14px;
-  font-family: arumik-sans,
-  'segoe ui',
-  -apple-system,
-  BlinkMacSystemFont,
-  Roboto,
-  Oxygen,
-  Ubuntu,
-  Cantarell,
-  'Fira Sans',
-  'Droid Sans',
-  'Helvetica Neue',
-  sans-serif;
+  font-family:
+    arumik-sans,
+    'segoe ui',
+    -apple-system,
+    BlinkMacSystemFont,
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
 }
 
 /* Primary and Surface Palettes */

@@ -1,32 +1,26 @@
 <template>
   <NavBar>
-    <div v-if="loading"
-         class="mx-auto mt-37 gap-3 flex flex-wrap items-center justify-center">
-      <vProgressSpinner style="width: 40px; height: 40px" strokeWidth="3" fill="transparent"
-                        animationDuration=".5s" aria-label="loading"/>
+    <div v-if="loading" class="mx-auto mt-37 gap-3 flex flex-wrap items-center justify-center">
+      <vProgressSpinner style="width: 40px; height: 40px" strokeWidth="3" fill="transparent" animationDuration=".5s"
+        aria-label="loading" />
     </div>
     <div v-else id="body" class="bg-white flex flex-col">
       <div id="brands-section" class="flex flex-col">
-        <div id="brands-sub"
-             class="mt-14 mx-auto w-full items-center rounded-2xl h-55 content-center justify-center">
-          <div id="products-section"
-               class="flex flex-col text-center items-center justify-center">
-            <div id="title"
-                 class="flex flex-col pt-20 transition-all duration-[1s] ease-in-out">
+        <div id="brands-sub" class="mt-14 mx-auto w-full items-center rounded-2xl h-55 content-center justify-center">
+          <div id="products-section" class="flex flex-col text-center items-center justify-center">
+            <div id="title" class="flex flex-col pt-20 transition-all duration-[1s] ease-in-out">
               <img :src="getBrandImageLink(brand.logo)" width="100" :alt="brand.name">
             </div>
 
             <div id="brands-list-mobile" v-if="$isMobile()"
-                 class="mx-auto w-[95%] h-[100vh] grid grid-cols-1 justify-center items-center rounded-2xl">
+              class="mx-auto w-[95%] h-[100vh] grid grid-cols-1 justify-center items-center rounded-2xl">
               <!--                <div id="for-men" class="border-t-1 border-gray-100 mb-4"></div>-->
-              <DynamicScroller id="dsc" :items="products" :min-item-size="300"
-                               key-field="id" @scroll="onScrollView"
-                               class="h-[100vh] overflow-y-scroll overflow-x-hidden">
+              <DynamicScroller id="dsc" :items="products" :min-item-size="300" key-field="id" @scroll="onScrollView"
+                class="h-[100vh] overflow-y-scroll overflow-x-hidden">
                 <template v-slot="{ item, index, active }">
-                  <DynamicScrollerItem :item="item"
-                                       :active="active" :data-index="index"
-                                       :size-dependencies="[item.name, item.brand]">
-                    <ProductItem :key="item.id" :product="item"/>
+                  <DynamicScrollerItem :item="item" :active="active" :data-index="index"
+                    :size-dependencies="[item.name, item.brand]">
+                    <ProductItem :key="item.id" :product="item" />
                   </DynamicScrollerItem>
                 </template>
               </DynamicScroller>
@@ -34,7 +28,7 @@
           </div>
 
           <br> <br>
-          <AppFooter/>
+          <AppFooter />
         </div>
       </div>
     </div>
@@ -47,13 +41,13 @@ import topbar from 'topbar'
 import router from '@/router'
 import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
-import {useShare} from '@vueuse/core'
-import {useProductsStore} from '@/stores/products'
+import { useShare } from '@vueuse/core'
+import { useProductsStore } from '@/stores/products'
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
-import {FilterMatchMode, FilterOperator} from '@primevue/core/api';
-import {load} from "@/helpers/GlobalFuncs.js";
+import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
+import { load } from "@/helpers/GlobalFuncs.js";
 
-const {share, isSupported} = useShare()
+const { share, isSupported } = useShare()
 
 export default {
   data() {
@@ -93,7 +87,7 @@ export default {
       router.push('/shop');
     },
     getImageLink(imageFile) {
-      return window.location.href.replace('men', '') + 'public/assets/images/products/' + imageFile;
+      return window.location.href.replace('men', '') + '/assets/images/products/' + imageFile;
     },
     getRandomRating() {
       let min = Math.ceil(4.5);
@@ -224,7 +218,7 @@ export default {
   },
   mounted() {
     topbar.show();
-    
+
     load();
 
     window.scrollTo(0, 0);

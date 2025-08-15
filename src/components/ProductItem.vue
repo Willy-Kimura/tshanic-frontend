@@ -108,10 +108,10 @@ export default {
       }
     },
     getHDImageLink(imageFile) {
-      return window.origin + '/public/assets/images/products/hd/' + imageFile.replace('-300x300', '');
+      return window.origin + '/assets/images/products/hd/' + imageFile.replace('-300x300', '');
     },
     getBrandImageLink(imageFile) {
-      return window.origin + '/public/assets/images/brands/' + imageFile;
+      return window.origin + '/assets/images/brands/' + imageFile;
     },
     getStore() {
       return useProductsStore();
