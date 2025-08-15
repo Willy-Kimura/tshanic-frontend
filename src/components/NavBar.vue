@@ -19,8 +19,9 @@
           </div>
           <div class="content-center text-[14.5px] xl:flex hidden">
             <i class="pi pi-map-marker content-center" style="font-size: 13px"></i>&nbsp;
-            Jamia Mall, 1st Floor F60, Kimathi St., Nairobi &nbsp; | &nbsp; <a href="tel:0727866642"
-                                                                               class="text-[#D10274]">
+            Jamia Mall, 1st Floor F60, Kimathi St., Nairobi &nbsp;&nbsp; | &nbsp; &nbsp; <a
+            href="tel:0727866642"
+            class="text-[#D10274]">
             <i class="pi pi-whatsapp content-center" style="font-size: 12px"></i>&nbsp; Call Us:
             <b>0727-866-642</b></a>
           </div>
@@ -29,7 +30,7 @@
             <i class="pi pi-whatsapp content-center" style="font-size: 12px"></i>&nbsp; &nbsp;
             <a href="tel:0727866642">0727-866-642</a>
           </div>
-          <div class="flex flex-row float-right items-center justify-end mx-1">
+          <div class="sm:hidden flex flex-row float-right items-center justify-end mx-1">
             <span class="text-[14px] mr-2 sm:flex hidden">Ksh 2,000</span>
             <vOverlayBadge :value="cart().data.length" size="small" severity="danger"
                            class="mr-6" @click="navigate('/cart')">
@@ -43,7 +44,7 @@
       </div>
 
       <div id="menubar"
-           class="sm:flex flex w-full py-4 pl-4 sm:justify-end h-12 bg-[#F8FAFC] text-lg border-solid border-b-[1px] border-b-[#EBEBEB]">
+           class="sm:hidden flex w-full py-4 pl-4 sm:justify-end h-12 bg-[#F8FAFC] text-lg border-solid border-b-[1px] border-b-[#EBEBEB]">
         <div class="mx-auto lg:w-[70%] w-full flex justify-between items-center">
           <div
             class="gap-4 mx-2 flex w-full max-md:hidden max-sm:flex max-lg:hidden max-xl:hidden max-2xl:hidden min-xl:hidden">
@@ -58,7 +59,6 @@
                 <AutoComplete v-model="searchTerm"
                               :suggestions="filteredData"
                               @complete="search"
-                              completeOnFocus
                               @option-select="view(searchTerm)"
                               optionLabel="name"
                               scroll-height="220px"
@@ -94,7 +94,7 @@
           </div>
 
           <nav id="menu"
-               class="sm:flex hidden flex-row lg:gap-8 gap-6 w-full text-[15px] items-center float-right lg:justify-end justify-center">
+               class="hidden flex-row lg:gap-8 gap-6 w-full text-[15px] items-center float-right lg:justify-end justify-center">
             <RouterLink id="navLink" v-for="(item) in menuItems" :to="item.route" :key="item.label"
                         class="navLink transition-all duration-200 ease-in-out">
               {{ item.label }}

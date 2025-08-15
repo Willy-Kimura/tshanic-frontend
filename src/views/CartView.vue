@@ -265,8 +265,11 @@ export default {
       topbar.hide();
 
       let content = "Hello Tshanic, I'd like to place my order (*" + orderNo + "*) for the following:\n\n" + cartInfo + "\nThank you.";
-      // 254727866642
-      location.href = "https://api.whatsapp.com/send?phone=254712082798&text=" + encodeURIComponent(content);
+      location.href = "https://api.whatsapp.com/send?phone=254727866642&text=" + encodeURIComponent(content);
+
+      window.scrollTo({top: 0, behavior: 'smooth'});
+      
+      this.cart().$reset();
     },
     navigate(product) {
       if (product === 'home') {

@@ -1,263 +1,320 @@
 <template>
-  <KeepAlive>
-    <NavBar>
-      <div id="hero-section" class="w-full mt-30">
-        <section id="hero-image"
-                 class="shadow-2xl xl:h-110 max-md:h-80 max-lg:h-110 max-xl:h-110 max-sm:h-90 bg-top
+  <NavBar>
+    <div id="hero-section" class="w-full mt-30 sm:hidden">
+      <section id="hero-image"
+               class="shadow-2xl xl:h-110 max-md:h-80 max-lg:h-110 max-xl:h-110 max-sm:h-90 bg-top
                         xl:bg-[url(../../public/assets/images/identity/hero-banner-08.png)] bg-cover bg-no-repeat w-full
                         bg-gradient-to-tr from-amber-300 to-yellow-50">
 
-          <div id="desktop-hero"
-               class="text-[#202020] pt-10 mt-5 mr-[10%] float-right md:flex md:flex-col hidden mx-auto md:w-[50rem] justify-between">
-            <h2
-              class="text-4xl md:text-[45px] mr-20 font-bold tracking-tight max-sm:p-5 text-right">
-              <span class="font-bold">Fragrance </span>
-              <span class="font-normal text-[60px] font-[arumik-signature] ml-3 mr-1"> meets </span>
-              <span
-                class="font-bold">excellence.</span>
-            </h2>
-            <div
-              class="ml-2 mt-4 mr-20 mb-7 text-xl text-right text-balance float-right justify-end">
-              At Tshanic, we curate the finest selection of luxury
-              perfumes and premium cosmetics to help you look and feel your
-              absolute best. Whether you're searching for your signature scent,
-              a flawless foundation, or the perfect lipstick for any occasion, our
-              collection blends iconic brands with niche treasures from around the globe.
-              And, <span class="font-medium">we deliver!</span>
+        <div id="desktop-hero"
+             class="text-[#202020] pt-10 mt-5 mr-[10%] float-right md:flex md:flex-col hidden mx-auto md:w-[50rem] justify-between">
+          <h2
+            class="text-4xl md:text-[45px] mr-20 font-bold tracking-tight max-sm:p-5 text-right">
+            <span class="font-bold">Fragrance </span>
+            <span class="font-normal text-[60px] font-[arumik-signature] ml-3 mr-1"> meets </span>
+            <span
+              class="font-bold">excellence.</span>
+          </h2>
+          <div
+            class="ml-2 mt-4 mr-20 mb-7 text-xl text-right text-balance float-right justify-end">
+            At Tshanic, we curate the finest selection of luxury
+            perfumes and premium cosmetics to help you look and feel your
+            absolute best. Whether you're searching for your signature scent,
+            a flawless foundation, or the perfect lipstick for any occasion, our
+            collection blends iconic brands with niche treasures from around the globe.
+            And, <span class="font-medium">we deliver!</span>
+          </div>
+          <div class="float-right mr-20 flex gap-8 justify-end content-center">
+            <div class="flex content-center items-center text-[16px] gap-2 text-[#D10274]">
+              <span class="font-medium">@tshanic</span>
+              <i class="pi pi-instagram content-center" style="font-size: 19px;"></i>
             </div>
-            <div class="float-right mr-20 flex gap-8 justify-end content-center">
-              <div class="flex content-center items-center text-[16px] gap-2 text-[#D10274]">
-                <span class="font-medium">@tshanic</span>
-                <i class="pi pi-instagram content-center" style="font-size: 19px;"></i>
-              </div>
-              <vButton label="VIEW SHOP" @click="goToShop()" style="border-radius: 1px; padding: 10px;
+            <vButton label="VIEW SHOP" @click="goToShop()" style="border-radius: 1px; padding: 10px;
               padding-left: 20px; padding-right: 20px; background-color: transparent;
               border-color: #202020; color: #202020; border-width: 2px;"/>
-            </div>
-          </div>
-
-          <div id="mobile-hero"
-               class="pt-3 float-right flex flex-col mx-auto justify-between md:hidden">
-            <h2 class="text-3xl font-bold tracking-tight pt-6 pl-7 text-left">
-              <span class="font-normal"></span> <span class="font-bold">Fragrance </span>
-              <span class="font-normal text-[38px] font-[arumik-signature] ml-2 mr-1"> meets </span>
-              <span class="font-bold">excellence.</span>
-            </h2>
-            <div class="mb-7 mt-3 w-full pl-7 text-[16px] text-left text-balance tracking-tight">
-              Whether you're searching for your signature scent,
-              a flawless foundation, or the perfect lipstick for any occasion, Tshanic's
-              collection blends iconic brands with niche treasures from around the globe.
-              And, <span class="font-medium"> we deliver!</span>
-            </div>
-            <div class="flex content-center w-full justify-between">
-              <div class="pl-7">
-                <vButton label="VIEW SHOP" @click="goToShop()" style="border-radius: 1px; padding: 10px;
-                  outline-offset: 2px; border-width: 0px; padding-left: 20px; padding-right: 20px;
-                  color: black; background-color: white; outline: 1px solid white;"/>
-              </div>
-              <div
-                class="flex content-center items-center text-[16px] gap-4 text-black pr-10">
-                <a href="https://wa.me/254727866642">
-                  <i class="pi pi-whatsapp content-center" style="font-size: 19px;"></i>
-                </a>
-                <a href="https://www.instagram.com/tshanic_skin_scents">
-                  <i class="pi pi-instagram content-center" style="font-size: 19px;"></i>
-                </a>
-                <a href="https://vm.tiktok.com/ZMAJDUGkB/">
-                  <i class="pi pi-tiktok content-center" style="font-size: 19px;"></i>
-                </a>
-                <span class="font-medium flex text-xl"></span>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-
-      <div id="body" class="bg-white flex flex-col">
-        <div id="brands" class="mt-12 mx-auto w-full items-center rounded-2xl">
-          <div id="brands-list"
-               class="mx-auto w-[90%] justify-center grid grid-cols-2 sm:flex sm:flex-wrap flex-initial sm:gap-6 gap-4 items-center rounded-2xl">
-
-            <RouterLink id="pageLink" to="/women"
-                        class="navLink transition-all duration-200 ease-in-out">
-              <div
-                class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(../../public/assets/images/misc/women-perfumes.avif)] bg-cover bg-no-repeat">
-                <div
-                  class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">
-                  <b>Women</b> Perfumes
-                </div>
-              </div>
-            </RouterLink>
-
-            <RouterLink id="pageLink" to="/men"
-                        class="navLink transition-all duration-200 ease-in-out">
-              <div
-                class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(../../public/assets/images/misc/men-perfumes.webp)] bg-cover bg-no-repeat">
-                <div
-                  class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">
-                  <b>Men</b> Colognes
-                </div>
-              </div>
-            </RouterLink>
-
-            <RouterLink id="pageLink" to="/unisex"
-                        class="navLink transition-all duration-200 ease-in-out">
-              <div
-                class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(../../public/assets/images/misc/unisex-perfumes.png)] bg-cover bg-no-repeat">
-                <div
-                  class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">
-                  <b>Unisex</b> Perfumes
-                </div>
-              </div>
-            </RouterLink>
-
-            <!--            <RouterLink id="pageLink" to="/kids"-->
-            <!--                        class="navLink transition-all duration-200 ease-in-out">-->
-            <!--              <div-->
-            <!--                class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(../../public/assets/images/misc/kids-perfumes.webp)] bg-cover bg-no-repeat">-->
-            <!--                <div-->
-            <!--                  class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">-->
-            <!--                  <b>Kids</b> Perfumes-->
-            <!--                </div>-->
-            <!--              </div>-->
-            <!--            </RouterLink>-->
-
-            <!--            <RouterLink id="pageLink" to="/niche"-->
-            <!--                        class="navLink transition-all duration-200 ease-in-out">-->
-            <!--              <div-->
-            <!--                class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(../../public/assets/images/misc/niche-perfumes.jpg)] bg-cover bg-no-repeat">-->
-            <!--                <div-->
-            <!--                  class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">-->
-            <!--                  <b>Niche</b> Perfumes-->
-            <!--                </div>-->
-            <!--              </div>-->
-            <!--            </RouterLink>-->
-
-            <RouterLink id="pageLink" to="/cosmetics"
-                        class="navLink transition-all duration-200 ease-in-out">
-              <div
-                class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(../../public/assets/images/misc/diffusers.jpg)] bg-cover bg-no-repeat">
-                <div
-                  class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">
-                  <b>Cosmetics</b>
-                </div>
-              </div>
-            </RouterLink>
           </div>
         </div>
 
-        <div id="best-sellers-section" class="flex flex-col">
-          <div id="best-seller-women"
-               class="mt-14 mx-auto w-full items-center rounded-2xl h-55 content-center justify-center">
-            <!-- mt-4 -->
-            <div id="product-best-sellers" class="block text-center items-center justify-center">
-              <div class="flex flex-col">
+        <div id="mobile-hero"
+             class="pt-3 float-right flex flex-col mx-auto justify-between md:hidden">
+          <h2 class="text-3xl font-bold tracking-tight pt-6 pl-7 text-left">
+            <span class="font-normal"></span> <span class="font-bold">Fragrance </span>
+            <span class="font-normal text-[38px] font-[arumik-signature] ml-2 mr-1"> meets </span>
+            <span class="font-bold">excellence.</span>
+          </h2>
+          <div class="mb-7 mt-3 w-full pl-7 text-[16px] text-left text-balance tracking-tight">
+            Whether you're searching for your signature scent,
+            a flawless foundation, or the perfect lipstick for any occasion, Tshanic's
+            collection blends iconic brands with niche treasures from around the globe.
+            And, <span class="font-medium"> we deliver!</span>
+          </div>
+          <div class="flex content-center w-full justify-between">
+            <div class="pl-7">
+              <vButton label="VIEW SHOP" @click="goToShop()" style="border-radius: 1px; padding: 10px;
+                  outline-offset: 2px; border-width: 0px; padding-left: 20px; padding-right: 20px;
+                  color: black; background-color: white; outline: 1px solid white;"/>
+            </div>
+            <div
+              class="flex content-center items-center text-[16px] gap-4 text-black pr-10">
+              <a href="https://wa.me/254727866642">
+                <i class="pi pi-whatsapp content-center" style="font-size: 19px;"></i>
+              </a>
+              <a href="https://www.instagram.com/tshanic_skin_scents">
+                <i class="pi pi-instagram content-center" style="font-size: 19px;"></i>
+              </a>
+              <a href="https://vm.tiktok.com/ZMAJDUGkB/">
+                <i class="pi pi-tiktok content-center" style="font-size: 19px;"></i>
+              </a>
+              <span class="font-medium flex text-xl"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div id="body" class="bg-white flex flex-col sm:hidden">
+      <div id="brands" class="mt-12 mx-auto w-full items-center rounded-2xl">
+        <div id="brands-list"
+             class="mx-auto w-[90%] justify-center grid grid-cols-2 sm:flex sm:flex-wrap flex-initial sm:gap-6 gap-4 items-center rounded-2xl">
+
+          <RouterLink id="pageLink" to="/women"
+                      class="navLink transition-all duration-200 ease-in-out">
+            <div
+              class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(../../public/assets/images/misc/women-perfumes.avif)] bg-cover bg-no-repeat">
+              <div
+                class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">
+                <b>Women</b> Perfumes
+              </div>
+            </div>
+          </RouterLink>
+
+          <RouterLink id="pageLink" to="/men"
+                      class="navLink transition-all duration-200 ease-in-out">
+            <div
+              class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(../../public/assets/images/misc/men-perfumes.webp)] bg-cover bg-no-repeat">
+              <div
+                class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">
+                <b>Men</b> Colognes
+              </div>
+            </div>
+          </RouterLink>
+
+          <RouterLink id="pageLink" to="/unisex"
+                      class="navLink transition-all duration-200 ease-in-out">
+            <div
+              class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(../../public/assets/images/misc/unisex-perfumes.png)] bg-cover bg-no-repeat">
+              <div
+                class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">
+                <b>Unisex</b> Perfumes
+              </div>
+            </div>
+          </RouterLink>
+
+          <!--            <RouterLink id="pageLink" to="/kids"-->
+          <!--                        class="navLink transition-all duration-200 ease-in-out">-->
+          <!--              <div-->
+          <!--                class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(../../public/assets/images/misc/kids-perfumes.webp)] bg-cover bg-no-repeat">-->
+          <!--                <div-->
+          <!--                  class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">-->
+          <!--                  <b>Kids</b> Perfumes-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--            </RouterLink>-->
+
+          <!--            <RouterLink id="pageLink" to="/niche"-->
+          <!--                        class="navLink transition-all duration-200 ease-in-out">-->
+          <!--              <div-->
+          <!--                class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(../../public/assets/images/misc/niche-perfumes.jpg)] bg-cover bg-no-repeat">-->
+          <!--                <div-->
+          <!--                  class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">-->
+          <!--                  <b>Niche</b> Perfumes-->
+          <!--                </div>-->
+          <!--              </div>-->
+          <!--            </RouterLink>-->
+
+          <RouterLink id="pageLink" to="/cosmetics"
+                      class="navLink transition-all duration-200 ease-in-out">
+            <div
+              class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(../../public/assets/images/misc/diffusers.jpg)] bg-cover bg-no-repeat">
+              <div
+                class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">
+                <b>Cosmetics</b>
+              </div>
+            </div>
+          </RouterLink>
+        </div>
+      </div>
+
+      <div id="best-sellers-section" class="flex flex-col">
+        <div id="best-seller-women"
+             class="mt-14 mx-auto w-full items-center rounded-2xl h-55 content-center justify-center">
+          <!-- mt-4 -->
+          <div id="product-best-sellers" class="block text-center items-center justify-center">
+            <div class="flex flex-col">
                   <span
                     class="justify-center font-normal text-[#B08B0F] text-[40px] font-[arumik-signature] mr-1">
                     For Men
                   </span>
-                <span class="mb-7 text-center text-3xl md:text-[36px] tracking-tight">
+              <span class="mb-7 text-center text-3xl md:text-[36px] tracking-tight">
                     Best Seller Perfumes
                   </span>
-              </div>
+            </div>
 
-              <div id="men-products-list-desktop" v-if="!$isMobile()"
-                   class="mx-auto w-[95%] sm:w-3/4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-5 justify-center items-center rounded-2xl">
+            <div id="men-products-list-desktop" v-if="!$isMobile()"
+                 class="mx-auto w-[95%] sm:w-3/4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-5 justify-center items-center rounded-2xl">
 
-                <div v-for="(product) in menBestSellers" :key="product.id"
-                     class="product py-2 shadow-lg hover:bg-slate-100 hover:-translate-y-1 hover:scale-110 rounded-4xl cursor-pointer transition-all duration-200 ease-in-out">
-                  <div class="flex justify-center items-center" @click="navigate(product)">
-                    <img :src="getImageLink(`${JSON.parse(product.images)[0]}`)"
-                         class="rounded-4xl w-[95%]" alt="">
-                  </div>
-                  <div class="">
-                    <div class="bg-[green-400] bottom-3 py-3 text-left p-4">
-                      <div class="flex gap-2 mb-2" @click="navigate(product)">
-                        <vTag unstyled="true" :value=product.brand
-                              class="bg-[#EEEFEF] text-sm text-[#302f2e] p-1 px-2 rounded-md"/>
-                        <vTag :value=getProductWeight(product.name) severity="secondary"/>
+              <div v-for="(product) in menBestSellers" :key="product.id"
+                   class="product py-2 shadow-lg hover:bg-slate-100 hover:-translate-y-1 hover:scale-110 rounded-4xl cursor-pointer transition-all duration-200 ease-in-out">
+                <div class="flex justify-center items-center" @click="navigate(product)">
+                  <img :src="getImageLink(`${JSON.parse(product.images)[0]}`)"
+                       class="rounded-4xl w-[95%]" alt="">
+                </div>
+                <div class="">
+                  <div class="bg-[green-400] bottom-3 py-3 text-left p-4">
+                    <div class="flex gap-2 mb-2" @click="navigate(product)">
+                      <vTag unstyled="true" :value=product.brand
+                            class="bg-[#EEEFEF] text-sm text-[#302f2e] p-1 px-2 rounded-md"/>
+                      <vTag :value=getProductWeight(product.name) severity="secondary"/>
+                    </div>
+                    <div class="font-medium pb-1 tracking-normal text-[15.5px]"
+                         @click="navigate(product)">
+                      {{ getProductNameOnly(product.name) }}
+                    </div>
+                    <div class="flex flex-col gap-1 mb-2" @click="navigate(product)">
+                      <span class="text-amber-800">{{ product.category }}</span>
+                      <div class="flex flex-row gap-2">
+                        <vRating v-model=product.rating readonly=true></vRating>
+                        <span class="text-sm text-gray-700">({{ getRandomRatingCount() }})</span>
                       </div>
-                      <div class="font-medium pb-1 tracking-normal text-[15.5px]"
-                           @click="navigate(product)">
-                        {{ getProductNameOnly(product.name) }}
-                      </div>
-                      <div class="flex flex-col gap-1 mb-2" @click="navigate(product)">
-                        <span class="text-amber-800">{{ product.category }}</span>
-                        <div class="flex flex-row gap-2">
-                          <vRating v-model=product.rating readonly=true></vRating>
-                          <span class="text-sm text-gray-700">({{ getRandomRatingCount() }})</span>
-                        </div>
-                      </div>
-                      <div class="text-[17px]" @click="navigate(product)">
-                        Ksh {{ parseFloat(product.sale_price).toLocaleString() }}
-                      </div>
-                      <div class="flex flex-row items-center gap-1" @click="navigate(product)">
-                        <i class="pi pi-truck" style="font-size: 14px;"></i>
-                        <span
-                          class="text-sm tracking-tight font-[arumik-serif] italic text-gray-700">Delivers
+                    </div>
+                    <div class="text-[17px]" @click="navigate(product)">
+                      Ksh {{ parseFloat(product.sale_price).toLocaleString() }}
+                    </div>
+                    <div class="flex flex-row items-center gap-1" @click="navigate(product)">
+                      <i class="pi pi-truck" style="font-size: 14px;"></i>
+                      <span
+                        class="text-sm tracking-tight font-[arumik-serif] italic text-gray-700">Delivers
                             countrywide</span>
-                      </div>
-                      <div class="mt-3 flex flex-row items-center justify-between">
-                        <vButton icon="pi pi-cart-plus" severity="contrast" variant="text"
-                                 size="large" raised rounded
-                                 aria-label="Favorite" @click="showProductCartDrawer(product)"/>
-                        <vButton icon="pi pi-heart" variant="text" size="large" raised rounded
-                                 aria-label="Favorite"/>
-                        <vButton icon="pi pi-whatsapp" severity="success" variant="text"
-                                 size="large" raised rounded
-                                 aria-label="Favorite"/>
-                      </div>
+                    </div>
+                    <div class="mt-3 flex flex-row items-center justify-between">
+                      <vButton icon="pi pi-cart-plus" severity="contrast" variant="text"
+                               size="large" raised rounded
+                               aria-label="Favorite" @click="showProductCartDrawer(product)"/>
+                      <vButton icon="pi pi-heart" variant="text" size="large" raised rounded
+                               aria-label="Favorite"/>
+                      <vButton icon="pi pi-whatsapp" severity="success" variant="text"
+                               size="large" raised rounded
+                               aria-label="Favorite"/>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div v-if="getStoreData().length === 0"
-                   class="mx-auto mb-10 mt-4 gap-3 flex flex-wrap items-center justify-center">
-                <vProgressSpinner style="width: 40px; height: 40px" strokeWidth="3"
-                                  fill="transparent"
-                                  animationDuration=".5s" aria-label="loading"/>
-              </div>
-              <div v-else id="men-products-list-mobile" v-if="$isMobile()"
-                   class="mx-auto w-[95%] grid grid-cols-1 justify-center items-center rounded-2xl">
+            <div v-if="getStoreData().length === 0"
+                 class="mx-auto mb-10 mt-4 gap-3 flex flex-wrap items-center justify-center">
+              <vProgressSpinner style="width: 40px; height: 40px" strokeWidth="3"
+                                fill="transparent"
+                                animationDuration=".5s" aria-label="loading"/>
+            </div>
+            <div v-else id="men-products-list-mobile" v-if="$isMobile()"
+                 class="mx-auto w-[95%] grid grid-cols-1 justify-center items-center rounded-2xl">
 
-                <div id="for-men-mobile" class="border-t-1 border-gray-100"></div>
-                <ProductItem v-for="(product) in menBestSellers" :key="product.id"
-                             :product="product"/>
-              </div>
+              <div id="for-men-mobile" class="border-t-1 border-gray-100"></div>
+              <ProductItem v-for="(product) in menBestSellers" :key="product.id"
+                           :product="product"/>
+            </div>
 
-              <div class="flex flex-col mt-11 mb-3">
+            <div class="flex flex-col mt-11 mb-3">
                   <span
                     class="justify-center font-normal text-[#B08B0F] text-[40px] font-[arumik-signature] mr-1">
                     For Women
                   </span>
-                <span class="mb-4 text-center text-3xl md:text-[36px] tracking-tight">
+              <span class="mb-4 text-center text-3xl md:text-[36px] tracking-tight">
                     Best Seller Perfumes
                   </span>
-              </div>
-
-              <div v-if="getStoreData().length === 0"
-                   class="mx-auto mb-10 mt-4 gap-3 flex flex-wrap items-center justify-center">
-                <vProgressSpinner style="width: 40px; height: 40px" strokeWidth="3"
-                                  fill="transparent"
-                                  animationDuration=".5s" aria-label="loading"/>
-              </div>
-              <div v-else id="women-products-list-mobile" v-if="$isMobile()"
-                   class="mx-auto w-[95%] grid grid-cols-1 justify-center items-center rounded-2xl">
-
-                <div id="for-women" class="border-t-1 border-gray-100"></div>
-                <ProductItem v-for="(product) in womenBestSellers" :key="product.id"
-                             :product="product"/>
-              </div>
             </div>
 
-            <br> <br>
-            <AppFooter/>
+            <div v-if="getStoreData().length === 0"
+                 class="mx-auto mb-10 mt-4 gap-3 flex flex-wrap items-center justify-center">
+              <vProgressSpinner style="width: 40px; height: 40px" strokeWidth="3"
+                                fill="transparent"
+                                animationDuration=".5s" aria-label="loading"/>
+            </div>
+            <div v-else id="women-products-list-mobile" v-if="$isMobile()"
+                 class="mx-auto w-[95%] grid grid-cols-1 justify-center items-center rounded-2xl">
+
+              <div id="for-women" class="border-t-1 border-gray-100"></div>
+              <ProductItem v-for="(product) in womenBestSellers" :key="product.id"
+                           :product="product"/>
+            </div>
+          </div>
+
+          <br> <br>
+          <AppFooter/>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-sm:hidden mt-20 w-full h-[92.9vh] flex flex-row bg-green-400">
+      <div class="flex-2/4 bg-white">
+        <div
+          class="p-10 pt-10 w-full flex flex-col items-center text-center text-6xl">
+          <span
+            class="text-[#B38E16] flex flex-col"><b>Mobile, done!</b> Desktop coming soon.</span>
+          <!--          <img src="/assets/images/identity/bg-nf.png" class="mt-10 w-100" alt="">-->
+          <div class="flex flex-col items-center text-left text-xl pt-10 w-[50%]">
+            <div class="font-bold flex flex-col gap-1">
+              <span class="text-3xl text-center pb-4 font-light">Discover Beauty, Anywhere You Go 💄🌸</span>
+              <span class="pb-2">Perfumes & Cosmetics – Now at Your Fingertips</span>
+            </div>
+            Hi there! We’re thrilled to introduce the mobile launch of Tshanic, your new
+            destination for luxury perfumes and premium cosmetics. Designed with convenience,
+            simplicity, speed, and elegance in mind, our mobile site offers a seamless shopping
+            experience — anytime, anywhere.
+
+            <span class="text-2xl pt-4 pb-2 font-light">✨ What You’ll Love on Mobile:</span>
+            <ul class="pb-4 flex flex-col gap-0.5">
+              <li class="pl-10 ">✅ Curated collections of fragrances and beauty must-haves</li>
+              <li class="pl-10 ">✅ Effortless browsing and secure checkout</li>
+              <li class="pl-10 ">✅ Mobile-optimized design for smooth navigation</li>
+              <li class="pl-10 ">✅ Exclusive mobile deals and early access offers</li>
+            </ul>
+            <span
+              class="text-2xl pt-4 pb-2 font-light">📱 Shop On-The-Go. Glow Wherever You Are.</span>
+            While our mobile experience is ready and waiting, we’re also working hard behind the
+            scenes on a full-featured desktop site—coming soon! Stay tuned for an even more
+            immersive way to explore, compare, and fall in love with your favorite beauty
+            essentials.
+            <span
+              class="text-2xl pt-4 pb-2 font-light">
+              💬 Got feedback or looking for something specific?
+            </span>
+            We're all ears! Feel free to reach out via our shared WhatsApp no. or follow us on our
+            socials for updates, beauty tips, and launch announcements.
+            <div
+              class="w-full mt-7 flex content-center justify-center items-center text-[16px] gap-5 text-black pr-10">
+              <a href="https://wa.me/254727866642">
+                <i class="pi pi-whatsapp content-center" style="font-size: 22px;"></i>
+              </a>
+              <a href="https://www.instagram.com/tshanic_skin_scents">
+                <i class="pi pi-instagram content-center" style="font-size: 22px;"></i>
+              </a>
+              <a href="https://vm.tiktok.com/ZMAJDUGkB/">
+                <i class="pi pi-tiktok content-center" style="font-size: 22px;"></i>
+              </a>
+              <span class="font-medium flex text-xl"></span>
+            </div>
           </div>
         </div>
       </div>
-    </NavBar>
-  </KeepAlive>
+      <div class="flex-1/4 bg-[#FDF8F1]">
+        <div
+          class="p-10 pt-20 w-full items-center text-center text-6xl">
+          QR
+        </div>
+      </div>
+    </div>
+  </NavBar>
 </template>
 
 <script>
