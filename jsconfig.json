@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "allowJs": true,
+    "noImplicitAny": false
+  },
+  "exclude": ["node_modules", "dist"]
+}
