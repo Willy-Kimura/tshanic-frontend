@@ -44,7 +44,7 @@ export default {
       router.push('/shop');
     },
     getImageLink(imageFile) {
-      return '/assets/images/products/' + imageFile;
+      return window.origin + '/assets/images/products/' + imageFile;
     },
     getRandomRating() {
       let min = Math.ceil(4.5);
