@@ -4,7 +4,7 @@
       <div class="no-tailwindcss">
       </div>
       <section id="hero-image"
-               class="mx-auto py-7 px-7 sm:w-[70%] w-full flex justify-between shadow-lg rounded-md h-full">
+        class="mx-auto py-7 px-7 sm:w-[70%] w-full flex justify-between shadow-lg rounded-md h-full">
         <div v-if="loading" class="w-full -mt-6 flex flex-col items-start">
           <vSkeleton width="80%" class="mb-2"></vSkeleton>
           <vSkeleton width="100%" height="370px" class="mb-3"></vSkeleton>
@@ -21,22 +21,19 @@
           </div>
           <div id="product-header-mobile" class="w-full flex flex-col gap-7 mb-4">
             <div class="card flex">
-              <vGalleria :value="JSON.parse(product.images)" :responsiveOptions="responsiveOptions"
-                         :numVisible="3"
-                         containerStyle="max-width: 100%; max-height: 400px;"
-                         :showThumbnails="false" :showIndicators="false">
+              <vGalleria :value="JSON.parse(product.images)" :responsiveOptions="responsiveOptions" :numVisible="3"
+                containerStyle="max-width: 100%; max-height: 400px;" :showThumbnails="false" :showIndicators="false">
                 <template #item="slotProps">
                   <div class="border-b-[0px] border-b-gray-200">
                     <div class="m-4">
-                      <vButton icon="pi pi-heart" variant="text" size="large" raised rounded
-                               aria-label="Favorite"/>
+                      <vButton icon="pi pi-heart" variant="text" size="large" raised rounded aria-label="Favorite" />
                     </div>
-                    <img :src="getHDImageLink(slotProps.item)" style="width: 100%;"/>
+                    <img :src="getHDImageLink(slotProps.item)" style="width: 100%;" />
                   </div>
                 </template>
                 <template #thumbnail="slotProps">
                   <div>
-                    <img :src="getImageLink(slotProps.item)" style="width: 40%;"/>
+                    <img :src="getImageLink(slotProps.item)" style="width: 40%;" />
                   </div>
                 </template>
               </vGalleria>
@@ -44,7 +41,7 @@
             <div class="flex-1/2 flex flex-col gap-1 text-[17px]">
               <div class="flex flex-row gap-2">
                 <vTag unstyled="true" :value=product.brand
-                      class="bg-[#EFDA95] w-fit text-md text-black text-[13px] p-1 px-2 rounded-sm"/>
+                  class="bg-[#EFDA95] w-fit text-md text-black text-[13px] p-1 px-2 rounded-sm" />
               </div>
               <span class="text-[19px] font-medium">
                 {{ getProductNameOnly(product.name) }}
@@ -68,7 +65,7 @@
                 <div class="flex flex-row gap-3 mb-1">
                   <span class="text-gray-700">Availability:</span>
                   <vTag severity="success"
-                        style="margin-left: 5px; margin-top: -2px; border-radius: 3px; font-size: 14px; font-weight: 500;">
+                    style="margin-left: 5px; margin-top: -2px; border-radius: 3px; font-size: 14px; font-weight: 500;">
                     {{
                       product.status
                     }}
@@ -87,7 +84,7 @@
                 <div class="flex flex-row gap-3 mb-1.5">
                   <span class="font-normal w-[90px] text-gray-700">Category:</span>
                   <span class="font-medium text-[#B38E16] cursor-pointer">{{
-                      product.category
+                    product.category
                     }}</span>
                 </div>
                 <div class="flex flex-row gap-3 mb-1.5 items-center">
@@ -98,14 +95,13 @@
                   <span class="font-normal w-[90px] text-gray-700">SKU:</span>
                   <span class="font-normal tracking-tight">{{ product.sku }}</span>
                   <vButton icon="pi pi-copy" size="small" variant="outlined" aria-label="Favorite"
-                           v-tooltip.bottom="'Copy SKU'" rounded/>
+                    v-tooltip.bottom="'Copy SKU'" rounded />
                 </div>
                 <div v-if="product.tags !== ''" class="flex flex-wrap gap-3 mb-1 items-center">
                   <div class="flex flex-col gap-2">
                     <span class="font-normal w-[90px] text-gray-700">Tags:</span>
                     <div class="flex flex-wrap gap-2">
-                      <vChip v-for="tag in product.tags.split(', ')" :key=tag
-                             style="font-size: 13px;">
+                      <vChip v-for="tag in product.tags.split(', ')" :key=tag style="font-size: 13px;">
                         {{ tag }}
                       </vChip>
                     </div>
@@ -114,34 +110,31 @@
                 <vDivider type="dashed"></vDivider>
                 <div class="flex flex-col mb-1 mt-1.5 items-start w-full gap-2">
                   <div class="w-full">
-                    <vInputNumber v-model="quantity" inputClass="text-center w-[80%]"
-                                  inputId="horizontal-buttons" showButtons defaultValue=1
-                                  allowEmpty=false buttonLayout="horizontal"
-                                  min="1" max="100"
-                                  style="--p-inputnumber-button-border-radius: 2px;" fluid>
+                    <vInputNumber v-model="quantity" inputClass="text-center w-[80%]" inputId="horizontal-buttons"
+                      showButtons defaultValue=1 allowEmpty=false buttonLayout="horizontal" min="1" max="100"
+                      style="--p-inputnumber-button-border-radius: 2px;" fluid>
                       <template #incrementbuttonicon>
-                        <span class="pi pi-plus"/>
+                        <span class="pi pi-plus" />
                       </template>
                       <template #decrementbuttonicon>
-                        <span class="pi pi-minus"/>
+                        <span class="pi pi-minus" />
                       </template>
                     </vInputNumber>
                   </div>
                   <vButton id="add-to-cart-btn"
-                           class="w-full p-1.5 py-[8px] rounded-[2px] text-[14px] hover:shadow-lg transition-all duration-300 ease-in-out"
-                           icon="pi pi-cart-plus" label="&nbsp;Add to cart" @click="addToCart"
-                           style="background-color: #0F172A; border-color: #0F172A; color: white; padding: 8px;"/>
+                    class="w-full p-1.5 py-[8px] rounded-[2px] text-[14px] hover:shadow-lg transition-all duration-300 ease-in-out"
+                    icon="pi pi-cart-plus" label="&nbsp;Add to cart" @click="addToCart"
+                    style="background-color: #0F172A; border-color: #0F172A; color: white; padding: 8px;" />
                   <vButton id="buy-on-whatsapp-btn"
-                           class="w-full py-[8px] hover:shadow-lg transition-all duration-300 ease-in-out"
-                           label="Checkout" iconPos="left" icon="pi pi-whatsapp"
-                           style="background-color: #08802C; border-color: #08802C; border-radius: 2px; color: white; padding: 8px;"/>
+                    class="w-full py-[8px] hover:shadow-lg transition-all duration-300 ease-in-out" label="Checkout"
+                    iconPos="left" icon="pi pi-whatsapp"
+                    style="background-color: #08802C; border-color: #08802C; border-radius: 2px; color: white; padding: 8px;" />
                 </div>
                 <div class="flex flex-row mt-3 mb-4 gap-3 justify-center items-center w-full">
-                  <vButton icon="pi pi-share-alt" size="large" severity="secondary"
-                           variant="outlined" rounded aria-label="Share product"
-                           @click="shareThis(product.name)"/>
-                  <vButton icon="pi pi-heart" size="large" severity="warn" variant="outlined"
-                           rounded aria-label="Share product" @click="shareThis(product.name)"/>
+                  <vButton icon="pi pi-share-alt" size="large" severity="secondary" variant="outlined" rounded
+                    aria-label="Share product" @click="shareThis(product.name)" />
+                  <vButton icon="pi pi-heart" size="large" severity="warn" variant="outlined" rounded
+                    aria-label="Share product" @click="shareThis(product.name)" />
                 </div>
               </div>
             </div>
@@ -163,7 +156,7 @@
                   <vTabPanel value="1">
                     <div class="flex flex-col gap-2">
                       <div class="w-full flex flex-col items-center justify-center">
-                        <img :src="getBrandImageLink(brand.logo)" class="w-50 h-50" alt=""/>
+                        <img :src="getBrandImageLink(brand.logo)" class="w-50 h-50" alt="" />
                       </div>
                       <span class="text-2xl font-bold">
                         {{ brand.name }}
@@ -183,7 +176,7 @@
           </div>
         </div>
       </section>
-      <AppFooter v-if="!loading"/>
+      <AppFooter v-if="!loading" />
     </div>
   </NavBar>
 </template>
@@ -194,14 +187,14 @@ import topbar from 'topbar'
 import router from '@/router'
 import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
-import {useShare} from '@vueuse/core'
-import {useCartStore} from "@/stores/cart.js";
-import {vueTopprogress} from 'vue-top-progress'
-import {useProductsStore} from '@/stores/products'
+import { useShare } from '@vueuse/core'
+import { useCartStore } from "@/stores/cart.js";
+import { vueTopprogress } from 'vue-top-progress'
+import { useProductsStore } from '@/stores/products'
 import * as globals from '@/helpers/GlobalFuncs.js'
-import {load} from "@/helpers/GlobalFuncs.js";
+import { load } from "@/helpers/GlobalFuncs.js";
 
-const {share, isSupported} = useShare()
+const { share, isSupported } = useShare()
 
 export default {
   data() {
@@ -266,15 +259,15 @@ export default {
       }
     },
     getImageLink(imageFile) {
-      let img = window.location.origin + '/public/assets/images/products/' + imageFile;
+      let img = window.location.origin + '/assets/images/products/' + imageFile;
       return img;
     },
     getHDImageLink(imageFile) {
-      let img = window.location.origin + '/public/assets/images/products/hd/' + imageFile.replace('-300x300', '');
+      let img = window.location.origin + '/assets/images/products/hd/' + imageFile.replace('-300x300', '');
       return img;
     },
     getBrandImageLink(imageFile) {
-      let img = window.location.origin + '/public/assets/images/brands/' + imageFile;
+      let img = window.location.origin + '/assets/images/brands/' + imageFile;
       return img;
     },
     getProductWeight(name) {
