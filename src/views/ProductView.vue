@@ -85,7 +85,7 @@
                   <span class="font-normal w-[90px] text-gray-700">Category:</span>
                   <span class="font-medium text-[#B38E16] cursor-pointer">{{
                     product.category
-                    }}</span>
+                  }}</span>
                 </div>
                 <div class="flex flex-row gap-3 mb-1.5 items-center">
                   <span class="font-normal w-[90px] text-gray-700">Type:</span>
@@ -127,7 +127,7 @@
                     style="background-color: #0F172A; border-color: #0F172A; color: white; padding: 8px;" />
                   <vButton id="buy-on-whatsapp-btn"
                     class="w-full py-[8px] hover:shadow-lg transition-all duration-300 ease-in-out" label="Checkout"
-                    iconPos="left" icon="pi pi-whatsapp"
+                    iconPos="left" icon="pi pi-whatsapp" @click="checkout"
                     style="background-color: #08802C; border-color: #08802C; border-radius: 2px; color: white; padding: 8px;" />
                 </div>
                 <div class="flex flex-row mt-3 mb-4 gap-3 justify-center items-center w-full">
@@ -222,6 +222,11 @@ export default {
 
       globals.message('✓ Product added to cart.');
     },
+    checkout() {
+      router.push({
+        path: '/cart'
+      });
+    },
     shareThis(product) {
       if (isSupported) {
         share({
@@ -232,72 +237,6 @@ export default {
       } else {
         console.log('The share feature is not supported in your browser.');
       }
-    },
-
-    processOrderAndSend() {
-      topbar.show();
-
-      const url = import.meta.env.VITE_API_URL;
-      let orderCreated = {};
-      let cartItems = this.cart().data;
-      let cartInfo = '';
-      let orderNo = this.generateOrderId(3);
-      let orderInfo = {
-        'order_no': orderNo,
-        'subtotal': this.getSubtotals(),
-        'total': this.getSubtotals()
-      };
-
-      axios
-        .post(`${url}/orders/`, orderInfo, {
-          Accept: `application/json`
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            orderCreated = JSON.parse(JSON.stringify(response.data)).data;
-          } else {
-            console.error(`Order '${orderNo}' not created; see error log.\n${response.data}`)
-          }
-        })
-        .catch(function (error) {
-          console.error(error)
-        })
-
-      for (let i = 0; i < cartItems.length; i++) {
-        let item = cartItems[i];
-        cartInfo += `${i + 1}. *${item.name}* - Qty: ${item.quantity}, SKU: ${item.sku} \n`;
-
-        let product = {
-          'order_id': orderCreated.id,
-          'product_id': item.id,
-          'quantity': item.quantity,
-          'cost': item.quantity * item.sale_price
-        };
-
-        axios
-          .post(`${url}/orders/products/`, product, {
-            Accept: `application/json`
-          })
-          .then((response) => {
-            if (response.status !== 200) {
-              console.error(`Product '${item.name}' not added to order; see error log.\n${response.data}`)
-            }
-          })
-          .catch(function (error) {
-            console.error(error)
-          })
-      }
-
-      this.orderCompleted = true;
-
-      topbar.hide();
-
-      let content = "Hello Tshanic, I'd like to place my order (*" + orderNo + "*) for the following:\n\n" + cartInfo + "\nThank you.";
-      location.href = "https://api.whatsapp.com/send?phone=254727866642&text=" + encodeURIComponent(content);
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      this.cart().$reset();
     },
     parseHtml(html) {
       const parser = new DOMParser();
