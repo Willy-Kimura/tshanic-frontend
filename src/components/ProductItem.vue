@@ -3,6 +3,7 @@
 import axios from 'axios';
 import topbar from 'topbar';
 import router from "@/router";
+import * as globals from '@/helpers/GlobalFuncs.js';
 import { useProductsStore } from "@/stores/products";
 
 export default {
@@ -28,6 +29,9 @@ export default {
     }
   },
   methods: {
+    comingSoon() {
+      globals.message('Feature coming soon!');
+    },
     onShowCartDrawer() {
       this.cartQuantity = 1;
     },
@@ -214,8 +218,9 @@ export default {
         <div class="mt-4 mb-1 flex flex-row items-center justify-between">
           <vButton icon="pi pi-cart-plus" severity="contrast" variant="text" raised rounded aria-label="Favorite"
             @click="showProductCartDrawer(product)" />
-          <vButton icon="pi pi-heart" variant="text" raised rounded aria-label="Favorite" />
-          <vButton icon="pi pi-whatsapp" severity="success" variant="text" raised rounded aria-label="Favorite" />
+          <vButton icon="pi pi-heart" variant="text" raised rounded aria-label="Favorite" @click="comingSoon" />
+          <vButton icon="pi pi-whatsapp" severity="success" variant="text" raised rounded
+            aria-label="Checkout via WhatsApp" @click="instantCheckout" />
         </div>
       </div>
     </div>
