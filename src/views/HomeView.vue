@@ -297,7 +297,6 @@ import { useShare } from '@vueuse/core'
 import { useCartStore } from '@/stores/cart'
 import { useProductsStore } from '@/stores/products'
 import CartComponent from '@/components/CartComponent.vue'
-import { useQRCode } from '@vueuse/integrations/useQRCode'
 import { FilterMatchMode, FilterOperator } from '@primevue/core/api'
 
 const { share, isSupported } = useShare()
@@ -334,9 +333,6 @@ export default {
     }
   },
   methods: {
-    generateQR() {
-      return useQRCode('ddd');
-    },
     onShowCartDrawer() {
       this.cartQuantity = 1;
     },
