@@ -236,7 +236,6 @@
           <!--          <img src="/assets/images/identity/bg-nf.png" class="mt-10 w-100" alt="">-->
           <div class="flex flex-col items-center text-left text-xl pt-10 w-[50%]">
             <div class="font-bold flex flex-col gap-1">
-              <span class="text-3xl text-center pb-4 font-light">Discover Beauty, Anywhere You Go 💄🌸</span>
               <span class="pb-2">Perfumes & Cosmetics – Now at Your Fingertips</span>
             </div>
             Hi there! We’re thrilled to introduce the mobile launch of Tshanic, your new
@@ -244,13 +243,14 @@
             simplicity, speed, and elegance in mind, our mobile site offers a seamless shopping
             experience — anytime, anywhere.
 
-            <span class="text-2xl pt-4 pb-2 font-light">✨ What You’ll Love on Mobile:</span>
+            <!-- <span class="text-2xl pt-4 pb-2 font-light">✨ What You’ll Love on Mobile:</span>
             <ul class="pb-4 flex flex-col gap-0.5">
               <li class="pl-10 ">✅ Curated collections of fragrances and beauty must-haves</li>
               <li class="pl-10 ">✅ Effortless browsing and secure checkout</li>
               <li class="pl-10 ">✅ Mobile-optimized design for smooth navigation</li>
               <li class="pl-10 ">✅ Exclusive mobile deals and early access offers</li>
-            </ul>
+            </ul> -->
+
             <span class="text-2xl pt-4 pb-2 font-light">📱 Shop On-The-Go. Glow Wherever You Are.</span>
             While our mobile experience is ready and waiting, we’re also working hard behind the
             scenes on a full-featured desktop site—coming soon! Stay tuned for an even more
@@ -277,8 +277,9 @@
         </div>
       </div>
       <div class="flex-1/4 bg-[#FDF8F1]">
-        <div class="p-10 pt-20 w-full items-center text-center text-6xl">
-          QR
+        <div class="p-10 pt-20 w-full items-center text-center text-4xl">
+          https://tshanic.co.ke
+          <!-- <img :src="generateQR" alt="https://tshanic.co.ke" /> -->
         </div>
       </div>
     </div>
@@ -291,12 +292,13 @@ import topbar from 'topbar'
 import router from '@/router'
 import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
+import vDrawer from "primevue/drawer"
 import { useShare } from '@vueuse/core'
 import { useCartStore } from '@/stores/cart'
 import { useProductsStore } from '@/stores/products'
-import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
 import CartComponent from '@/components/CartComponent.vue'
-import vDrawer from "primevue/drawer";
+import { useQRCode } from '@vueuse/integrations/useQRCode'
+import { FilterMatchMode, FilterOperator } from '@primevue/core/api'
 
 const { share, isSupported } = useShare()
 
@@ -305,6 +307,7 @@ export default {
   data() {
     return {
       user: {},
+      siteURL: 'https://tshanic.co.ke',
       items: null,
       products: [],
       cartQuantity: 1,
@@ -331,6 +334,9 @@ export default {
     }
   },
   methods: {
+    generateQR() {
+      return useQRCode('ddd');
+    },
     onShowCartDrawer() {
       this.cartQuantity = 1;
     },
