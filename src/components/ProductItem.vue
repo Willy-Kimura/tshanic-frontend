@@ -1,5 +1,7 @@
 <script>
 
+import axios from 'axios';
+import topbar from 'topbar';
 import router from "@/router";
 import { useProductsStore } from "@/stores/products";
 
@@ -41,13 +43,12 @@ export default {
 
       const url = import.meta.env.VITE_API_URL;
       let orderCreated = {};
-      let cartItems = this.cart().data;
       let cartInfo = '';
       let orderNo = this.generateOrderId(3);
       let orderInfo = {
         'order_no': orderNo,
-        'subtotal': this.getSubtotals(),
-        'total': this.getSubtotals()
+        'subtotal': product.sale_price,
+        'total': product.sale_price
       };
 
       axios
@@ -65,41 +66,32 @@ export default {
           console.error(error)
         })
 
-      for (let i = 0; i < cartItems.length; i++) {
-        let item = cartItems[i];
-        cartInfo += `${i + 1}. *${item.name}* - Qty: ${item.quantity}, SKU: ${item.sku} \n`;
+      cartInfo = `*${product.name}* - Qty: ${1}, SKU: ${product.sku} \n`;
 
-        let product = {
-          'order_id': orderCreated.id,
-          'product_id': item.id,
-          'quantity': item.quantity,
-          'cost': item.quantity * item.sale_price
-        };
+      let product = {
+        'order_id': orderCreated.id,
+        'product_id': product.id,
+        'quantity': 1,
+        'cost': 1 * product.sale_price
+      };
 
-        axios
-          .post(`${url}/orders/products/`, product, {
-            Accept: `application/json`
-          })
-          .then((response) => {
-            if (response.status !== 200) {
-              console.error(`Product '${item.name}' not added to order; see error log.\n${response.data}`)
-            }
-          })
-          .catch(function (error) {
-            console.error(error)
-          })
-      }
-
-      this.orderCompleted = true;
+      axios
+        .post(`${url}/orders/products/`, product, {
+          Accept: `application/json`
+        })
+        .then((response) => {
+          if (response.status !== 200) {
+            console.error(`Product '${product.name}' not added to order; see error log.\n${response.data}`)
+          }
+        })
+        .catch(function (error) {
+          console.error(error)
+        })
 
       topbar.hide();
 
       let content = "Hello Tshanic, I'd like to place my order (*" + orderNo + "*) for the following:\n\n" + cartInfo + "\nThank you.";
       location.href = "https://api.whatsapp.com/send?phone=254727866642&text=" + encodeURIComponent(content);
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      this.cart().$reset();
     },
     showProductCartDrawer(product) {
       this.selectedProduct = product;
