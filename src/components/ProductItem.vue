@@ -42,6 +42,16 @@ export default {
         path: '/shop/' + product.name.replace(/\s/g, "-")
       });
     },
+    generateOrderId(length) {
+      let result = '';
+      let dt = new Date();
+      const characters = '0123456789';
+      const charactersLength = characters.length;
+      for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+      return result + dt.getMinutes() + dt.getSeconds();
+    },
     instantCheckout() {
       topbar.show();
 
@@ -51,8 +61,8 @@ export default {
       let orderNo = this.generateOrderId(3);
       let orderInfo = {
         'order_no': orderNo,
-        'subtotal': product.sale_price,
-        'total': product.sale_price
+        'subtotal': this.product.sale_price,
+        'total': this.product.sale_price
       };
 
       axios
@@ -70,22 +80,22 @@ export default {
           console.error(error)
         })
 
-      cartInfo = `*${product.name}* - Qty: ${1}, SKU: ${product.sku} \n`;
+      cartInfo = `*${this.product.name}* - Qty: ${1}, SKU: ${this.product.sku} \n`;
 
-      let product = {
+      let prd = {
         'order_id': orderCreated.id,
-        'product_id': product.id,
+        'product_id': this.product.id,
         'quantity': 1,
-        'cost': 1 * product.sale_price
+        'cost': 1 * this.product.sale_price
       };
 
       axios
-        .post(`${url}/orders/products/`, product, {
+        .post(`${url}/orders/products/`, prd, {
           Accept: `application/json`
         })
         .then((response) => {
           if (response.status !== 200) {
-            console.error(`Product '${product.name}' not added to order; see error log.\n${response.data}`)
+            console.error(`Product '${prd.name}' not added to order; see error log.\n${response.data}`)
           }
         })
         .catch(function (error) {
