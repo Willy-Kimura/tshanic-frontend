@@ -118,7 +118,7 @@ export default {
       if (isSupported) {
         share({
           title: `Checkout ${product}`,
-          text: `Hi, checkout ${product}.\n${location.href}`,
+          text: `Hi, checkout ${product}.\n\n`,
           url: location.href,
         })
       } else {

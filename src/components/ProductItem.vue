@@ -75,7 +75,7 @@ export default {
       if (isSupported) {
         share({
           title: `Checkout ${product}`,
-          text: `Hi, checkout ${product}.\n${location.href}`,
+          text: `Hi, checkout ${product}.\n\n`,
           url: location.href,
         })
       } else {
@@ -141,13 +141,11 @@ export default {
           <span class="text-amber-800">{{ product.category }}</span>
           <div class="flex flex-row gap-2">
             <vRating v-model=productRating readonly=true></vRating>
-            <span class="text-sm text-gray-700">({{
-              getRandomRatingCount()
-              }})</span>
+            <span class="text-sm text-gray-700">(5)</span>
           </div>
-          <span class="text-sm text-gray-400">{{
-            getRandomPurchaseCount()
-            }} purchased recently.</span>
+          <!-- <span class="text-sm text-gray-400">
+            {{ getRandomPurchaseCount() }} purchased recently.
+          </span> -->
         </div>
         <div class="text-[18px] flex flex-col gap-1" @click="navigate(product)">
           Ksh {{ parseFloat(product.sale_price).toLocaleString() }}
