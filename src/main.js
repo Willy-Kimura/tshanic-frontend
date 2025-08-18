@@ -67,9 +67,9 @@ import ConfirmationService from 'primevue/confirmationservice'
 import OrderConfirmation from '@/components/OrderConfirmation.vue'
 import ProgressSpinner from 'primevue/progressspinner'
 import VueVirtualScroller from 'vue-virtual-scroller'
-import VueLazyload from 'vue-lazyload'
 import { defineAsyncComponent } from 'vue'
-import VueMeta from 'vue-meta'
+import VueLazyload from 'vue-lazyload'
+import VueMeta from '../node_modules/vue-meta/dist/vue-meta'
 
 const app = createApp(App)
 
