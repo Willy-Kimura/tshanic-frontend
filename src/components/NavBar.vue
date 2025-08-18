@@ -53,7 +53,7 @@
               <div class="flex w-[88%]">
                 <AutoComplete v-model="searchTerm" :suggestions="filteredData" @complete="search"
                   @option-select="view(searchTerm)" optionLabel="name" scroll-height="220px"
-                  :virtualScrollerOptions="{ itemSize: 32 }" overlayClass="mx-2" fluid
+                  :virtualScrollerOptions="{ itemSize: 32 }" overlayClass="w-[96%] mx-2" fluid
                   inputStyle="width: 100%; background-color: #F8FAFC; border-color: #F8FAFC; font-size: 16.5px; border-left: 1px solid #EDEDED;"
                   style="width: 112%;" placeholder="Search collections...">
                   <template #option="slotProps">
