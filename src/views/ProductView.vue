@@ -85,7 +85,7 @@
                   <span class="font-normal w-[90px] text-gray-700">Category:</span>
                   <span class="font-medium text-[#B38E16] cursor-pointer">{{
                     product.category
-                    }}</span>
+                  }}</span>
                 </div>
                 <div class="flex flex-row gap-3 mb-1.5 items-center">
                   <span class="font-normal w-[90px] text-gray-700">Type:</span>
@@ -197,6 +197,13 @@ import { load } from "@/helpers/GlobalFuncs.js";
 const { share, isSupported } = useShare()
 
 export default {
+  metaInfo: {
+    name: 'ProductView',
+    title: this.product.name,
+    description: this.product.short_desc,
+    image: this.product.images[0],
+    url: 'https://tshanic.co.ke/shop/' + this.product.name.replace(/\s/g, "-")
+  },
   data() {
     return {
       brand: {},

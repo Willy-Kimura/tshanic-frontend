@@ -1,15 +1,14 @@
 import './assets/main.css'
 import App from './App.vue'
 import router from './router'
-import {createApp} from 'vue'
+import { createApp } from 'vue'
 import 'primeicons/primeicons.css'
-import {createPinia} from 'pinia'
+import { createPinia } from 'pinia'
 import PrimeVue from 'primevue/config'
 import Aura from '@primeuix/themes/aura'
 import NavBar from '@/components/NavBar.vue'
 import VueMobileDetection from 'vue-mobile-detection'
 import piniaPersist from 'pinia-plugin-persistedstate'
-
 
 import topbar from 'topbar'
 import Tab from 'primevue/tab'
@@ -47,7 +46,7 @@ import DataTable from 'primevue/datatable'
 import IconField from 'primevue/iconfield'
 import InputIcon from 'primevue/inputicon'
 import ScrollTop from 'primevue/scrolltop'
-import {definePreset} from '@primeuix/themes'
+import { definePreset } from '@primeuix/themes'
 import FloatLabel from 'primevue/floatlabel'
 import InputGroup from 'primevue/inputgroup'
 import InputNumber from 'primevue/inputnumber'
@@ -63,13 +62,14 @@ import AppFooter from './components/AppFooter.vue'
 import CheckboxGroup from 'primevue/checkboxgroup'
 import InputGroupAddon from 'primevue/inputgroupaddon'
 import VirtualScroller from 'primevue/virtualscroller'
-import CartComponent from "@/components/CartComponent.vue"
+import CartComponent from '@/components/CartComponent.vue'
 import ConfirmationService from 'primevue/confirmationservice'
-import OrderConfirmation from "@/components/OrderConfirmation.vue"
+import OrderConfirmation from '@/components/OrderConfirmation.vue'
 import ProgressSpinner from 'primevue/progressspinner'
 import VueVirtualScroller from 'vue-virtual-scroller'
 import VueLazyload from 'vue-lazyload'
-import {defineAsyncComponent} from 'vue'
+import { defineAsyncComponent } from 'vue'
+import VueMeta from 'vue-meta'
 
 const app = createApp(App)
 
@@ -139,9 +139,10 @@ app.component('VirtualScroller', VirtualScroller)
 app.component('vInputGroupAddon', InputGroupAddon)
 app.component('vProgressSpinner', ProgressSpinner)
 app.component('OrderConfirmation', OrderConfirmation)
-app.component('ProductItem', defineAsyncComponent(() =>
-  import('./components/ProductItem.vue')
-))
+app.component(
+  'ProductItem',
+  defineAsyncComponent(() => import('./components/ProductItem.vue')),
+)
 
 const LaraMod = definePreset(Aura, {
   semantic: {
@@ -200,8 +201,9 @@ app.use(createPinia().use(piniaPersist))
 app.use(ConfirmationService)
 app.use(VueVirtualScroller)
 app.use(VueMobileDetection)
+app.use(VueMeta)
 app.use(VueLazyload, {
-  lazyComponent: true
+  lazyComponent: true,
 })
 app.use(router)
 
