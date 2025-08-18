@@ -37,7 +37,7 @@
             <span class="font-normal text-[38px] font-[arumik-signature] ml-2 mr-1"> meets </span>
             <span class="font-bold">excellence.</span>
           </h2>
-          <div class="mb-7 mt-3 w-full pl-7 text-[16px] text-left text-balance tracking-tight">
+          <div class="mb-7 mt-3 w-full pl-7 text-[16.2px] text-left text-balance tracking-tight">
             Whether you're searching for your signature scent,
             a flawless foundation, or the perfect lipstick for any occasion, Tshanic's
             collection blends iconic brands with niche treasures from around the globe.
@@ -123,7 +123,7 @@
             <div
               class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(/assets/images/misc/diffusers.jpg)] bg-cover bg-no-repeat">
               <div class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">
-                <b>Cosmetics</b>
+                ALL <b>Cosmetics</b>
               </div>
             </div>
           </RouterLink>

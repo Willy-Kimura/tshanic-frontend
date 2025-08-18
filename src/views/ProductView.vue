@@ -45,7 +45,7 @@
               </div>
               <span class="text-[19px] font-medium">
                 {{ getProductNameOnly(product.name) }}
-                <span class="text-gray-500">{{ getProductWeight(product.name) }}</span>
+                <span class="text-slate-600">{{ getProductWeight(product.name) }}</span>
                 <!-- <vTag :value=getProductWeight(product.name) style="font-size: 18px;" class="w-fit"
                   severity="secondary" /> -->
               </span>
@@ -57,7 +57,7 @@
                   <span class="text-sm font-medium text-gray-700">({{ 5 }})</span>
                 </div>
               </div>
-              <span class="text-[14px] text-[#29323E] tracking-normal">
+              <span class="text-[15.5px] text-[#29323E] tracking-normal">
                 {{ product.short_desc }}
               </span>
               <vDivider type="dashed"></vDivider>
@@ -85,7 +85,7 @@
                   <span class="font-normal w-[90px] text-gray-700">Category:</span>
                   <span class="font-medium text-[#B38E16] cursor-pointer">{{
                     product.category
-                  }}</span>
+                    }}</span>
                 </div>
                 <div class="flex flex-row gap-3 mb-1.5 items-center">
                   <span class="font-normal w-[90px] text-gray-700">Type:</span>
