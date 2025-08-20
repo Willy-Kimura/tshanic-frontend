@@ -2,141 +2,61 @@
   <NavBar>
     <div id="body" class="mt-37 text-[#0F172A] bg-white transition-all duration-200 ease-in-out">
       <section
-        class="mx-auto pt-1 pb-5 px-4 sm:w-[70%] w-full flex flex-col gap-3 justify-between shadow-xs rounded-md h-full">
+        class="mx-auto pb-5 px-4 sm:w-[70%] w-full flex flex-col gap-3 justify-between rounded-md h-full">
         <div class="flex flex-row justify-between">
-          <section v-if="cart().data.length === 0"
-            class="mx-auto flex flex-col mb-10 mt-2 items-center text-center justify-center w-[90%]">
-            <img src="/assets/images/identity/bg-nf.svg" class="mt-7 w-70" alt="shopping cart">
-            <span class="text-3xl font-bold mb-3 mt-8">
-              Your cart is empty.
+          <section v-if="favs().length === 0"
+                   class="mx-auto flex flex-col mb-10 mt-2 items-center text-center justify-center w-[90%]">
+            <span class="text-3xl font-semibold mb-5">
+              Heart&nbsp;<i class="pi pi-heart" style="font-size: 21px"></i> any products. We'll keep them safe.
             </span>
             <span class="text-[16px]/6">
-              All your orders will directly appear here. We sure look forward to receiving them!
+              Found anything you'd really wish to buy or checkout later? Just tap the heart <i
+              class="pi pi-heart" style="font-size: 14px; color: #CAB15F;"></i> icon found next
+              to the cart icon and it will be added right here. Enjoy!
             </span>
+            <img src="/assets/images/identity/bg-nf.svg" class="mt-7 w-70" alt="shopping cart">
             <div class="mx-auto flex flex-row justify-center mt-6 w-full gap-2">
-              <vButton label="Back To Shop" icon="pi pi-arrow-left" style="font-size: 15px; color: white;"
-                @click="navigate('shop')" />
+              <vButton label="Back To Shop" icon="pi pi-arrow-left"
+                       style="font-size: 15px; color: white;"
+                       @click="goToShop()"/>
             </div>
           </section>
-          <div v-else class="text-[25px] font-bold">
-            Your cart <span class="text-slate-500">({{ cart().data.length }})</span>
-          </div>
-          <vButton v-if="cart().data.length > 0" icon="pi pi-trash" severity="danger" rounded aria-label="Clear Cart"
-            @click="clearCart" />
-        </div>
-        <ConfirmPopup></ConfirmPopup>
-        <div v-if="cart().data.length > 0" class="border-[0px] rounded-lg border-gray-200">
-          <div id="for-men-mobile" class="border-t-1 border-gray-200"></div>
-          <div v-for="(product) in cart().data" :key="product.id"
-            class="w-full product flex flex-row border-gray-200 border-[1px] border-t-0 py-3 -mb-1 rounded-none cursor-pointer transition-all duration-200 ease-in-out">
-            <div class="w-[22%] mx-2" @click="navigate(product)">
-              <img :src="getImageLink(`${JSON.parse(product.images)[0]}`)" class="w-96" alt="">
-            </div>
-            <div class="w-full flex flex-row gap-3">
-              <div class="w-[80%] bg-[green-400] bottom-3 text-left">
-                <div class="w-full font-medium pb-1 tracking-normal leading-6 space-y-1" @click="navigate(product)">
-                  <span class="text-[14px]">{{ getProductNameOnly(product.name) }}</span>&nbsp;
-                  <span>({{ getProductWeight(product.name) }})</span>
-                </div>
-                <div class="text-[16.5px] font-semibold flex flex-col gap-1" @click="navigate(product)">
-                  {{ price(product) }}
-                </div>
-                <div class="mt-2">
-                  <vButton type="button" label="Remove" icon="pi pi-trash"
-                    style="font-size: 13px; color: white; background-color: #282C34; width: 90px; height: 30px; border-color: #282C34;"
-                    @click="deleteCartItem(product, $event)" />
-                </div>
-              </div>
-              <div class="w-[20%] pr-3 justify-end">
-                <vInputNumber v-model="product.quantity" inputClass="text-center w-full" inputId="vertical-buttons"
-                  allowEmpty=false min=1 max=100 buttonLayout="vertical"
-                  style="--p-inputnumber-button-border-radius: 2px; max-width: 38px;" showButtons fluid>
-                  <template #incrementicon>
-                    <span class="pi pi-plus" />
-                  </template>
-                  <template #decrementicon>
-                    <span class="pi pi-minus" />
-                  </template>
-                </vInputNumber>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
-      <section v-if="cart().data.length > 0"
-        class="mx-auto pt-4 pb-7 px-4 sm:w-[70%] w-full flex flex-col gap-3 justify-between rounded-md h-full">
-        <div class="text-[20px] font-bold flex flex-row justify-between">
-          <div class="pl-1 justify-start">Order Summary</div>
-          <div class="flex justify-end">
-            <vButton hidden label="Invoice" icon="pi pi-receipt" severity="secondary" aria-label="Generate Invoice" />
-          </div>
-        </div>
-        <div id="invoice" class="flex flex-col bg-[#F2F2F5] p-5 px-4">
-          <div class="summaries flex flex-row -mb-1 transition-all duration-200 ease-in-out text-[17px] mb-1">
-            <div id="summaries-labels" class="w-1/2 text-[#9E9C9F] flex flex-col gap-2">
-              <span>Subtotal:</span>
-              <span>Discount:</span>
-              <span>Shipping cost:</span>
+      <section v-if="favs().length > 0" id="hb-section" class="flex flex-col">
+        <div id="hb-sub"
+             class="mx-auto w-full items-center rounded-2xl content-center justify-center">
+          <div id="products-section" class="block text-center items-center justify-center">
+            <div id="title"
+                 class="flex flex-col -mt-7 pb-2 transition-all duration-[1s] ease-in-out">
+                <span
+                  class="justify-center font-normal text-[#B08B0F] text-[40px] font-[arumik-signature]">
+                  Heart Bucket
+                </span>
             </div>
-            <div id="summaries-labels" class="w-1/2 text-slate-500 text-right flex flex-col gap-2">
-              <span>{{ getSubtotals() }}</span>
-              <span>{{ getDiscount() }}</span>
-              <span>{{ getShippingCost() }}</span>
-            </div>
-          </div>
-          <vDivider type="dotted" style="--p-divider-border-color: #CDCDCD;" />
-          <div class="summaries flex flex-row -mb-1 transition-all duration-200 ease-in-out text-[17px]">
-            <div id="summaries-labels" class="w-1/2 font-semibold flex flex-col gap-2 mb-2">
-              <span>TOTAL:</span>
-            </div>
-            <div id="summaries-labels" class="w-1/2 text-2xl font-bold text-right flex flex-col gap-2">
-              <span>{{ getSubtotals() }}</span>
-            </div>
-          </div>
-        </div>
 
-        <div v-if="!orderCompleted" class="flex flex-col gap-1 text-center transition-all duration-200 ease-in-out ">
-          <vProgressSpinner style="width: 40px; height: 40px" strokeWidth="3" fill="transparent" animationDuration=".5s"
-            aria-label="loading" />
-          Please wait...
-        </div>
-
-        <InputText hidden id="delivery-address" placeholder="Provide your phone number" class="flex-auto"
-          style="font-size: 16px;" autofocus fluid />
-        <vButton label="Checkout" severity="success" icon="pi pi-whatsapp" aria-label="Checkout"
-          style="font-size: 16px;" @click="processOrderAndSend()" />
-
-        <vDialog :visible="cartDialogVisible" style="width: 94%; border-radius: 3px;" position="center" escape=true
-          @click="cartDialogVisible = false" modal>
-          <div class="flex flex-col gap-2">
-            <div class="w-full flex justify-center text-[16.5px] pb-3">
-              Preparing order message...
-            </div>
-            <div class="flex flex-col gap-2 pb-3 text-[16px]">
-              <vProgressSpinner style="width: 40px; height: 40px" strokeWidth="3" fill="transparent"
-                animationDuration=".5s" aria-label="loading" />
+            <div id="hb-products-list-mobile" v-if="$isMobile()"
+                 class="mx-auto w-[95%] h-[100vh] grid grid-cols-1 justify-center items-center rounded-2xl">
+              <!--                <div id="for-men" class="border-t-1 border-gray-100 mb-4"></div>-->
+              <DynamicScroller id="dsc" :items="favs()" :min-item-size="300" key-field="id"
+                               class="h-[100vh] overflow-y-scroll overflow-x-hidden">
+                <template v-slot="{ item, index, active }">
+                  <DynamicScrollerItem :item="item" :active="active" :data-index="index"
+                                       :size-dependencies="[item.name, item.brand]">
+                    <ProductItem :key="item.id" :product="item"/>
+                  </DynamicScrollerItem>
+                </template>
+              </DynamicScroller>
             </div>
           </div>
-        </vDialog>
 
-        <div
-          class="flex flex-col py-3 px-5 rounded-sm border-[1px] text-[#16A34A] border-[#BBF7D0] bg-[#F1FDF5] items-center text-balance/7">
-          <div>
-            <b>We currently process all our orders via WhatsApp</b>. On clicking checkout,
-            you will be directed to your WhatsApp together with your order details,
-            for confirmation and delivery. Once processed, we will contact you for confirmation
-            and delivery.
-          </div>
-          <div class="w-full flex flex-row justify-end">
-            <div class="mt-3 mr-1 text-[#A36907] text-[27px] font-[arumik-signature]">
-              #TshanicTeam
-            </div>
-          </div>
+          <br> <br>
+          <AppFooter/>
         </div>
       </section>
-      <AppFooter v-if="!loading" />
     </div>
+    <AppFooter/>
   </NavBar>
 </template>
 
@@ -156,186 +76,80 @@ import router from '@/router'
 import '@/helpers/GlobalFuncs.js'
 import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
-import { timestamp, useShare } from '@vueuse/core'
-import { useCartStore } from '@/stores/cart'
-import { vueTopprogress } from 'vue-top-progress'
-import { useProductsStore } from '@/stores/products'
+import {timestamp, useShare} from '@vueuse/core'
+import {vueTopprogress} from 'vue-top-progress'
+import {useProductsStore} from '@/stores/products'
 import vInputNumber from "primevue/inputnumber"
 import vDialog from "primevue/dialog";
 import vButton from "primevue/button";
-import { load } from "@/helpers/GlobalFuncs.js";
+import {load} from "@/helpers/GlobalFuncs.js";
 
-const { share, isSupported } = useShare()
+const {share, isSupported} = useShare()
 
 export default {
-  components: { vButton, vDialog, vInputNumber },
+  components: {vButton, vDialog, vInputNumber},
   data() {
     return {
-      product: {},
-      loading: false,
-      orderCompleted: true,
-      cartDialogVisible: false,
+      products: [],
+      cartQuantity: 1,
+      productCartDrawerVisible: false,
+      selectedProduct: {},
+      loading: true
     };
   },
-  computed: {},
+  computed: {
+    productRating() {
+      let min = Math.ceil(5);
+      let max = Math.floor(5);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+  },
   methods: {
-    test() {
-      alert(this.generateOrderId(3));
+    favs() {
+      return this.getStore().favorites;
     },
-    generateOrderId(length) {
-      let result = '';
-      let dt = new Date();
-      const characters = '0123456789';
-      const charactersLength = characters.length;
-      for (let i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-      }
-      return result + dt.getMinutes() + dt.getSeconds();
-    },
-    processOrderAndSend() {
-      topbar.show();
-
-      this.orderCompleted = false;
-      const url = import.meta.env.VITE_API_URL;
-      let orderCreated = {};
-      let cartItems = this.cart().data;
-      let cartInfo = '';
-      let orderNo = this.generateOrderId(3);
-      let orderInfo = {
-        'order_no': orderNo,
-        'subtotal': this.getSubtotals(),
-        'total': this.getSubtotals()
-      };
-
-      axios
-        .post(`${url}/orders/`, orderInfo, {
-          Accept: `application/json`
-        })
-        .then((response) => {
-          if (response.status === 200) {
-            orderCreated = JSON.parse(JSON.stringify(response.data)).data;
-          } else {
-            console.error(`Order '${orderNo}' not created; see error log.\n${response.data}`)
-          }
-        })
-        .catch(function (error) {
-          console.error(error)
-        })
-
-      for (let i = 0; i < cartItems.length; i++) {
-        let item = cartItems[i];
-        cartInfo += `${i + 1}. *${item.name}* - Qty: ${item.quantity}, SKU: ${item.sku} \n`;
-
-        let product = {
-          'order_id': orderCreated.id,
-          'product_id': item.id,
-          'quantity': item.quantity,
-          'cost': item.quantity * item.sale_price
-        };
-
-        axios
-          .post(`${url}/orders/products/`, product, {
-            Accept: `application/json`
-          })
-          .then((response) => {
-            if (response.status !== 200) {
-              console.error(`Product '${item.name}' not added to order; see error log.\n${response.data}`)
-            }
-          })
-          .catch(function (error) {
-            console.error(error)
-          })
-      }
-
-      this.orderCompleted = true;
-
-      topbar.hide();
-
-      let content = "Hello Tshanic, I'd like to place my order (*" + orderNo + "*) for the following:\n\n" + cartInfo + "\nThank you.";
-      location.href = "https://api.whatsapp.com/send?phone=254727866642&text=" + encodeURIComponent(content);
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      this.cart().$reset();
+    onShowCartDrawer() {
+      this.cartQuantity = 1;
     },
     navigate(product) {
-      if (product === 'home') {
-        location.href = window.location.origin;
-      } else if (product === 'shop') {
-        router.push({
-          path: '/shop/'
-        });
-      } else {
-        router.push({
-          path: '/shop/' + product.name.replace(/\s/g, "-")
-        });
-      }
-    },
-    cart() {
-      return useCartStore();
-    },
-    getSubtotals() {
-      let totals = 0;
-      let products = this.cart().data;
-
-      for (let i = 0; i < products.length; i++) {
-        totals += products[i].sale_price * products[i].quantity;
-      }
-
-      return "Ksh " + (parseFloat(totals).toLocaleString());
-    },
-    getDiscount() {
-      return 'Ksh ' + 0;
-    },
-    getShippingCost() {
-      return 'Ksh ' + 0;
-    },
-    price(product) {
-      return "Ksh " + (parseFloat(product.sale_price) * product.quantity).toLocaleString();
-    },
-    clearCart() {
-      this.$confirm.require({
-        target: event.currentTarget,
-        message: 'Please confirm clearing your cart?',
-        icon: 'pi pi-info-circle',
-        rejectProps: {
-          label: 'No, cancel',
-          severity: 'secondary',
-          outlined: true
-        },
-        acceptProps: {
-          label: 'Yes, clear',
-          severity: 'danger'
-        },
-        accept: () => {
-          this.cart().reset();
-        },
-        reject: () => {
-
-        }
+      router.push({
+        path: '/shop/' + product.name.replace(/\s/g, "-")
       });
     },
-    deleteCartItem(product, event) {
-      this.$confirm.require({
-        target: event.currentTarget,
-        message: 'Confirm removing this item?',
-        icon: 'pi pi-info-circle',
-        rejectProps: {
-          label: 'Cancel',
-          severity: 'secondary',
-          outlined: true
-        },
-        acceptProps: {
-          label: 'Remove',
-          severity: 'danger'
-        },
-        accept: () => {
-          this.cart().remove(product);
-        },
-        reject: () => {
-
-        }
-      });
+    showProductCartDrawer(product) {
+      this.selectedProduct = product;
+      this.productCartDrawerVisible = true;
+    },
+    goToShop() {
+      router.push('/shop');
+    },
+    getImageLink(imageFile) {
+      return window.location.href.replace('men', '') + '/assets/images/products/' + imageFile;
+    },
+    getRandomRating() {
+      let min = Math.ceil(4.5);
+      let max = Math.floor(5);
+      this.productRating = Math.floor(Math.random() * (max - min + 1)) + min;
+      return this.productRating;
+    },
+    getRandomRatingCount() {
+      let min = Math.ceil(4);
+      let max = Math.floor(247);
+      return Math.floor(Math.random() * (max - min + 1)) + min
+    },
+    getRandomPurchaseCount() {
+      let min = Math.ceil(3);
+      let max = Math.floor(31);
+      return Math.floor(Math.random() * (max - min + 1)) + min
+    },
+    getProductWeight(name) {
+      let splits = name.split(" ");
+      return splits[splits.length - 1];
+    },
+    getProductNameOnly(name) {
+      let splits = name.split(" ");
+      splits.pop();
+      return splits.join(" ");
     },
     shareThis(product) {
       if (isSupported) {
@@ -347,6 +161,12 @@ export default {
       } else {
         console.log('The share feature is not supported in your browser.');
       }
+    },
+    parseHtml(html) {
+      const parser = new DOMParser();
+      const el = parser.parseFromString(html, 'text/html');
+
+      return el.body.innerText;
     },
     getPerfumeType(name) {
       if (name.includes('EDP')) {
@@ -367,59 +187,56 @@ export default {
         }
       }
     },
-    getImageLink(imageFile) {
-      let img = window.location.origin + '/assets/images/products/' + imageFile;
-      return img;
-    },
     getHDImageLink(imageFile) {
-      let img = window.location.origin + '/assets/images/products/hd/' + imageFile.replace('-300x300', '');
-      return img;
+      return window.location.origin + '/assets/images/products/hd/' + imageFile.replace('-300x300', '');
     },
     getBrandImageLink(imageFile) {
-      let img = window.location.origin + '/assets/images/brands/' + imageFile;
-      return img;
+      return window.location.origin + '/assets/images/brands/' + imageFile;
     },
-    getProductWeight(name) {
-      let splits = name.split(" ");
-      return splits[splits.length - 1];
+    getStore() {
+      return useProductsStore();
     },
-    getProductNameOnly(name) {
-      let splits = name.split(" ");
-      splits.pop();
-      return splits.join(" ");
+    handleScroll() {
+      var el = document.getElementById('men-products-list-mobile');
+      this.getStore().posy = el.scrollTop;
     },
-    async getBrand(name) {
-      this.loading = true;
-
-      const url = import.meta.env.VITE_API_URL
-
-      await axios
-        .get(`${url}/brand/${name}`, {
-          Accept: `application/json`
-        })
-        .then((response) => {
-          if (response.status == 200) {
-            this.brand = JSON.parse(JSON.stringify(response.data)).data;
-            // [Test] console.log(this.product);
-          } else {
-            console.error(`Brand '${name}' not found; see error log.\n${response.data}`)
-          }
-        })
-        .catch(function (error) {
-          console.log(error)
-          this.loading = false;
-        })
-
-      this.loading = false;
-
-      return this.brand;
+    checkScrollDirectionIsUp(event) {
+      if (event.wheelDelta) {
+        return event.wheelDelta > 0;
+      }
+      return event.deltaY < 0;
     },
   },
-  async mounted() {
+  mounted() {
+    topbar.show();
     window.scrollTo(0, 0);
-    load();
+
+    let st = this.getStore();
+
+    const el = document.getElementById('dsc');
+    const title = document.getElementById('title');
+    const section = document.getElementById('hb-products-list-mobile');
+
+    // if (el != undefined || el != null) {
+    //   el.addEventListener('scroll', (event) => {
+    //     if (el.scrollTop >= 100) {
+    //       title.style.display = 'flex';
+    //       title.style.paddingTop = '0px';
+    //       title.style.paddingBottom = '0px';
+    //       section.style.marginTop = '20px';
+    //     } else if (el.scrollTop < 100 && el.scrollTop <= 0) {
+    //       title.style.display = 'flex';
+    //       title.style.paddingTop = '74px';
+    //       title.style.paddingBottom = '4px';
+    //       section.style.marginTop = '6px';
+    //     }
+    //   });
+    // }
+
+    topbar.hide();
   },
-  async created() {
+  created() {
+
   }
 }
 </script>

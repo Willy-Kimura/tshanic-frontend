@@ -4,12 +4,14 @@ import axios from 'axios';
 import topbar from 'topbar';
 import router from "@/router";
 import * as globals from '@/helpers/GlobalFuncs.js';
-import { useProductsStore } from "@/stores/products";
+import {useProductsStore} from "@/stores/products";
+import {useRoute} from "vue-router";
 
 export default {
   data() {
     return {
       user: {},
+      favorite: false,
       cartQuantity: 1,
       productCartDrawerVisible: false,
       selectedProduct: {},
@@ -26,11 +28,54 @@ export default {
       let min = Math.ceil(5);
       let max = Math.floor(5);
       return Math.floor(Math.random() * (max - min + 1)) + min;
+    },
+    isFavorite() {
+      let item = this.getStore().data.find(prd => prd.id == this.product.id);
+      return item.favorite ? 'pi pi-heart-fill' : 'pi pi-heart';
     }
   },
   methods: {
     comingSoon() {
       globals.message('Feature coming soon!');
+    },
+    markAsFavorite(event) {
+      let item = this.getStore().data.find(prd => prd.id == this.product.id);
+      let index = this.getStore().favorites.indexOf(item);
+
+      if (this.$route.name === 'heart-bucket') {
+        this.$confirm.require({
+          target: event.currentTarget,
+          message: 'Confirm unhearting this item?',
+          icon: 'pi pi-info-circle',
+          rejectProps: {
+            label: 'No cancel',
+            severity: 'secondary',
+            outlined: true
+          },
+          acceptProps: {
+            label: 'Unheart it',
+            severity: 'danger'
+          },
+          accept: () => {
+            item.favorite = false;
+            this.getStore().favorites.splice(index, 1);
+            globals.message('Product unhearted.');
+          },
+          reject: () => {
+
+          }
+        });
+      } else {
+        item.favorite = !item.favorite;
+
+        if (item.favorite) {
+          this.getStore().favorites.push(item);
+          globals.message('Product hearted!');
+        } else {
+          this.getStore().favorites.splice(index, 1);
+          globals.message('Product unhearted.');
+        }
+      }
     },
     onShowCartDrawer() {
       this.cartQuantity = 1;
@@ -195,18 +240,20 @@ export default {
 <template>
   <div
     class="justify-center product flex flex-row border-gray-100 border-[1px] border-t-0 -mb-1 rounded-none cursor-pointer transition-all duration-200 ease-in-out">
-    <div class="w-[50%] -ml-1" @click="navigate(product)">
+    <div class="w-[45%] -ml-1" @click="navigate(product)">
       <img :src="getImageLink(`${JSON.parse(product.images)[0]}`)" class="pl-2 w-50 pt-2" alt="">
     </div>
-    <div class="w-[50%]">
+    <div class="w-[55%]">
       <div class="bg-[green-400] mt-4 pb-4 text-left px-4">
-        <vTag unstyled="true" :value=product.brand class="bg-[#EFDA95] text-sm text-black p-1 px-2 rounded-[3px]" />
-        <div class="font-medium text-md pb-1 tracking-normal mt-2 leading-6 flex flex-wrap space-y-1"
+        <vTag unstyled="true" :value=product.brand
+              class="bg-[#EFDA95] text-sm text-black p-1 px-2 rounded-[3px]"/>
+        <div
+          class="font-medium text-md pb-1 tracking-normal mt-2 leading-6 flex flex-wrap space-y-1"
           @click="navigate(product)">
           <span class="text-[15.5px]">
             {{ getProductNameOnly(product.name) }}
           </span>
-          <vTag :value=getProductWeight(product.name) severity="secondary" class="" />
+          <vTag :value=getProductWeight(product.name) severity="secondary" class=""/>
         </div>
         <div class="flex flex-col gap-1 mb-2" @click="navigate(product)">
           <span class="text-amber-800">{{ product.category }}</span>
@@ -214,9 +261,6 @@ export default {
             <vRating v-model=productRating readonly=true></vRating>
             <span class="text-sm text-gray-700">(5)</span>
           </div>
-          <!-- <span class="text-sm text-gray-400">
-            {{ getRandomPurchaseCount() }} purchased recently.
-          </span> -->
         </div>
         <div class="text-[18px] flex flex-col gap-1" @click="navigate(product)">
           Ksh {{ parseFloat(product.sale_price).toLocaleString() }}
@@ -226,18 +270,23 @@ export default {
           </div>
         </div>
         <div class="mt-4 mb-1 flex flex-row items-center justify-between">
-          <vButton icon="pi pi-cart-plus" severity="contrast" variant="text" raised rounded aria-label="Favorite"
-            @click="showProductCartDrawer(product)" />
-          <vButton icon="pi pi-heart" variant="text" raised rounded aria-label="Favorite" @click="comingSoon" />
+          <vButton icon="pi pi-cart-plus" severity="contrast" variant="text" raised rounded
+                   aria-label="Favorite"
+                   @click="showProductCartDrawer(product)"/>
+          <vButton :icon="isFavorite" variant="text" raised rounded aria-label="Favorite"
+                   @click="markAsFavorite"/>
           <vButton icon="pi pi-whatsapp" severity="success" variant="text" raised rounded
-            aria-label="Checkout via WhatsApp" @click="instantCheckout" />
+                   aria-label="Checkout via WhatsApp" @click="instantCheckout"/>
         </div>
+
+        <ConfirmPopup></ConfirmPopup>
       </div>
     </div>
   </div>
 
-  <vDrawer v-model:visible="productCartDrawerVisible" style="height: 55%;" position="bottom" @show="onShowCartDrawer"
-    showCloseIcon dismissable blockScroll>
+  <vDrawer v-model:visible="productCartDrawerVisible" style="height: 55%;" position="bottom"
+           @show="onShowCartDrawer"
+           showCloseIcon dismissable blockScroll>
     <template #header>
       <div class="justify-start flex flex-col">
         <span class="text-[17px] font-bold">
@@ -245,7 +294,7 @@ export default {
         </span>
       </div>
     </template>
-    <CartComponent :product="selectedProduct" :quantity="cartQuantity" />
+    <CartComponent :product="selectedProduct" :quantity="cartQuantity"/>
   </vDrawer>
 </template>
 

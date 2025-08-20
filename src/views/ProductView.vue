@@ -1,4 +1,7 @@
 <template>
+  <metainfo>
+    <template v-slot:title="Welcome">Greetings!</template>
+  </metainfo>
   <NavBar>
     <div id="hero-section" class="mt-37 text-[#0F172A] bg-white">
       <div class="no-tailwindcss">
@@ -199,10 +202,9 @@ const { share, isSupported } = useShare()
 export default {
   metaInfo: {
     name: 'ProductView',
-    title: this.product.name,
-    description: this.product.short_desc,
-    image: this.product.images[0],
-    url: 'https://tshanic.co.ke/shop/' + this.product.name.replace(/\s/g, "-")
+    title: 'dsds',
+    description: 'sdss',
+    url: 'https://tshanic.co.ke/shop/dsds'
   },
   data() {
     return {

@@ -9,6 +9,7 @@ export const useProductsStore = defineStore('products', {
       allMen: [],
       allWomen: [],
       allUnisex: [],
+      favorites: [],
       allCosmetics: [],
       menBestSellers: [],
       womenBestSellers: [],
@@ -61,7 +62,7 @@ export const useProductsStore = defineStore('products', {
                 this.allWomen.push(prd)
               } else if (prd.category === "Men's Colognes") {
                 this.allMen.push(prd)
-              } else if (prd.category === "Unisex Perfumes") {
+              } else if (prd.category === 'Unisex Perfumes') {
                 this.allUnisex.push(prd)
               }
             }
@@ -74,16 +75,16 @@ export const useProductsStore = defineStore('products', {
       return this.data
     },
     async getBrands() {
-      this.loading = true;
+      this.loading = true
       const url = import.meta.env.VITE_API_URL
 
       await axios
         .get(`${url}/brands`, {
-          Accept: `application/json`
+          Accept: `application/json`,
         })
         .then((response) => {
           if (response.status === 200) {
-            this.brands = JSON.parse(JSON.stringify(response.data)).data;
+            this.brands = JSON.parse(JSON.stringify(response.data)).data
           } else {
             console.error(`Brands not found; see error log.\n${response.data}`)
           }
@@ -92,7 +93,7 @@ export const useProductsStore = defineStore('products', {
           console.log(error)
         })
 
-      return this.brands;
+      return this.brands
     },
     reset() {
       this.data = []

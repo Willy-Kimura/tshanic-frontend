@@ -144,6 +144,18 @@
               </span>
             </div>
 
+            <div v-if="getStoreData().length === 0"
+              class="mx-auto mb-10 mt-4 gap-3 flex flex-wrap items-center justify-center">
+              <vProgressSpinner style="width: 40px; height: 40px" strokeWidth="3" fill="transparent"
+                animationDuration=".5s" aria-label="loading" />
+            </div>
+
+            <div v-else id="men-products-list-mobile" v-if="$isMobile()"
+              class="mx-auto w-[95%] grid grid-cols-1 justify-center items-center rounded-2xl">
+              <div id="for-men-mobile" class="border-t-1 border-gray-100"></div>
+              <ProductItem v-for="(product) in menBestSellers" :key="product.id" :product="product" />
+            </div>
+
             <div id="men-products-list-desktop" v-if="!$isMobile()"
               class="mx-auto w-[95%] sm:w-3/4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-5 justify-center items-center rounded-2xl">
 
@@ -189,18 +201,6 @@
               </div>
             </div>
 
-            <div v-if="getStoreData().length === 0"
-              class="mx-auto mb-10 mt-4 gap-3 flex flex-wrap items-center justify-center">
-              <vProgressSpinner style="width: 40px; height: 40px" strokeWidth="3" fill="transparent"
-                animationDuration=".5s" aria-label="loading" />
-            </div>
-            <div v-else id="men-products-list-mobile" v-if="$isMobile()"
-              class="mx-auto w-[95%] grid grid-cols-1 justify-center items-center rounded-2xl">
-
-              <div id="for-men-mobile" class="border-t-1 border-gray-100"></div>
-              <ProductItem v-for="(product) in menBestSellers" :key="product.id" :product="product" />
-            </div>
-
             <div class="flex flex-col mt-11 mb-3">
               <span class="justify-center font-normal text-[#B08B0F] text-[40px] font-[arumik-signature] mr-1">
                 For Women
@@ -217,7 +217,6 @@
             </div>
             <div v-else id="women-products-list-mobile" v-if="$isMobile()"
               class="mx-auto w-[95%] grid grid-cols-1 justify-center items-center rounded-2xl">
-
               <div id="for-women" class="border-t-1 border-gray-100"></div>
               <ProductItem v-for="(product) in womenBestSellers" :key="product.id" :product="product" />
             </div>

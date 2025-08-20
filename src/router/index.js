@@ -10,13 +10,15 @@ import BrandsView from "@/views/BrandsView.vue";
 import BrandPageView from "@/views/BrandPageView.vue";
 import DiffusersView from "@/views/DiffusersView.vue";
 import NotFound from "@/views/NotFound.vue";
-import {createRouter, createWebHistory} from 'vue-router'
 import WPFinder from "@/views/WPFinder.vue";
+import HeartBucketView from "@/views/HeartBucketView.vue";
+import {createRouter, createWebHistory} from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      name: 'home',
       path: '/',
       component: HomeView,
       meta: {
@@ -24,6 +26,7 @@ const router = createRouter({
       },
     },
     {
+      name: 'shop',
       path: '/shop',
       component: ShopView,
       meta: {
@@ -31,6 +34,7 @@ const router = createRouter({
       },
     },
     {
+      name: 'cart',
       path: '/cart',
       component: CartView,
       meta: {
@@ -58,6 +62,7 @@ const router = createRouter({
       props: true,
     },
     {
+      name: 'men',
       path: '/men',
       component: MenView,
       meta: {
@@ -65,6 +70,7 @@ const router = createRouter({
       },
     },
     {
+      name: 'women',
       path: '/women',
       component: WomenView,
       meta: {
@@ -72,6 +78,7 @@ const router = createRouter({
       },
     },
     {
+      name: 'unisex',
       path: '/unisex',
       component: UnisexView,
       meta: {
@@ -79,6 +86,7 @@ const router = createRouter({
       },
     },
     {
+      name: 'cosmetics',
       path: '/cosmetics',
       component: CosmeticsView,
       meta: {
@@ -86,10 +94,19 @@ const router = createRouter({
       },
     },
     {
+      name: 'diffusers',
       path: '/diffusers',
       component: DiffusersView,
       meta: {
         title: 'Diffusers - Tshanic Best perfumes and cosmetics online store',
+      },
+    },
+    {
+      name: 'heart-bucket',
+      path: '/heart-bucket',
+      component: HeartBucketView,
+      meta: {
+        title: 'Heart Bucket - Tshanic Best perfumes and cosmetics online store',
       },
     },
     {
@@ -98,6 +115,7 @@ const router = createRouter({
       component: NotFound,
     },
     {
+      name: 'wp',
       path: '/wp-admin',
       alias: ['/wp-login'],
       component: WPFinder,

@@ -6,7 +6,7 @@
         <div class="flex flex-row justify-between">
           <section v-if="cart().data.length === 0"
             class="mx-auto flex flex-col mb-10 mt-2 items-center text-center justify-center w-[90%]">
-            <img src="/assets/images/identity/bg-nf.png" class="mt-7 w-70" alt="">
+            <img src="/assets/images/identity/bg-nf.svg" class="mt-7 w-70" alt="shopping cart">
             <span class="text-3xl font-bold mb-3 mt-8">
               Your cart is empty.
             </span>
