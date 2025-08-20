@@ -40,7 +40,6 @@ export default {
     },
     markAsFavorite(event) {
       let item = this.getStore().data.find(prd => prd.id == this.product.id);
-      let index = this.getStore().favorites.indexOf(item);
 
       if (this.$route.name === 'heart-bucket') {
         this.$confirm.require({
@@ -57,9 +56,12 @@ export default {
             severity: 'danger'
           },
           accept: () => {
+            let index = this.getStore().favorites.indexOf(item);
             item.favorite = false;
+
             this.getStore().favorites.splice(index, 1);
             globals.message('Product unhearted.');
+            this.$emit('item-updated');
           },
           reject: () => {
 
@@ -75,6 +77,8 @@ export default {
           this.getStore().favorites.splice(index, 1);
           globals.message('Product unhearted.');
         }
+
+        this.$emit('item-updated');
       }
     },
     onShowCartDrawer() {

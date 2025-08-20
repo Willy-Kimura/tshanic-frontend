@@ -7,15 +7,15 @@
           <section v-if="favs().length === 0"
                    class="mx-auto flex flex-col mb-10 mt-2 items-center text-center justify-center w-[90%]">
             <span class="text-3xl font-semibold mb-5">
-              Heart&nbsp;<i class="pi pi-heart" style="font-size: 21px"></i> any products. We'll keep them safe.
+              Heart&nbsp;<i class="pi pi-heart-fill" style="font-size: 21px"></i> any products. We'll keep them here.
             </span>
             <span class="text-[16px]/6">
-              Found anything you'd really wish to buy or checkout later? Just tap the heart <i
+              Found anything you'd wish to buy or checkout later? Just tap the heart <i
               class="pi pi-heart" style="font-size: 14px; color: #CAB15F;"></i> icon found next
               to the cart icon and it will be added right here. Enjoy!
             </span>
             <img src="/assets/images/identity/bg-nf.svg" class="mt-7 w-70" alt="shopping cart">
-            <div class="mx-auto flex flex-row justify-center mt-6 w-full gap-2">
+            <div class="mx-auto flex flex-row justify-center mt-8 w-full gap-2">
               <vButton label="Back To Shop" icon="pi pi-arrow-left"
                        style="font-size: 15px; color: white;"
                        @click="goToShop()"/>
@@ -37,14 +37,14 @@
             </div>
 
             <div id="hb-products-list-mobile" v-if="$isMobile()"
-                 class="mx-auto w-[95%] h-[100vh] grid grid-cols-1 justify-center items-center rounded-2xl">
-              <!--                <div id="for-men" class="border-t-1 border-gray-100 mb-4"></div>-->
+                 class="mx-auto w-[95%] h-[250px] grid grid-cols-1 justify-center items-center rounded-2xl">
+              <div id="for-men" class="border-t-1 border-gray-100 mb-6"></div>
               <DynamicScroller id="dsc" :items="favs()" :min-item-size="300" key-field="id"
-                               class="h-[100vh] overflow-y-scroll overflow-x-hidden">
+                               class="overflow-y-scroll overflow-x-hidden">
                 <template v-slot="{ item, index, active }">
                   <DynamicScrollerItem :item="item" :active="active" :data-index="index"
                                        :size-dependencies="[item.name, item.brand]">
-                    <ProductItem :key="item.id" :product="item"/>
+                    <ProductItem :key="item.id" :product="item" @item-updated="foo()"/>
                   </DynamicScrollerItem>
                 </template>
               </DynamicScroller>
@@ -107,6 +107,13 @@ export default {
   methods: {
     favs() {
       return this.getStore().favorites;
+    },
+    foo() {
+      this.resizeHeight();
+    },
+    resizeHeight() {
+      const elx = document.getElementById('hb-products-list-mobile');
+      elx.style.height = this.favs().length * 285 + 'px';
     },
     onShowCartDrawer() {
       this.cartQuantity = 1;
@@ -197,7 +204,7 @@ export default {
       return useProductsStore();
     },
     handleScroll() {
-      var el = document.getElementById('men-products-list-mobile');
+      let el = document.getElementById('men-products-list-mobile');
       this.getStore().posy = el.scrollTop;
     },
     checkScrollDirectionIsUp(event) {
@@ -216,6 +223,8 @@ export default {
     const el = document.getElementById('dsc');
     const title = document.getElementById('title');
     const section = document.getElementById('hb-products-list-mobile');
+
+    this.resizeHeight();
 
     // if (el != undefined || el != null) {
     //   el.addEventListener('scroll', (event) => {
