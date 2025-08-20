@@ -42,7 +42,7 @@ const router = createRouter({
       },
     },
     {
-      name: 'shop',
+      name: 'shop-product',
       path: '/shop/:name',
       component: ProductView,
       props: true,
