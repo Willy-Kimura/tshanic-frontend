@@ -67,7 +67,6 @@ import ConfirmationService from 'primevue/confirmationservice'
 import OrderConfirmation from '@/components/OrderConfirmation.vue'
 import ProgressSpinner from 'primevue/progressspinner'
 import VueVirtualScroller from 'vue-virtual-scroller'
-import { createMetaManager, defaultConfig, resolveOption, useMeta } from 'vue-meta'
 import { defineAsyncComponent } from 'vue'
 import VueLazyload from 'vue-lazyload'
 
@@ -199,7 +198,6 @@ app.use(PrimeVue, {
 
 app.use(createPinia().use(piniaPersist))
 app.use(ConfirmationService)
-app.use(createMetaManager())
 app.use(VueVirtualScroller)
 app.use(VueMobileDetection)
 app.use(VueLazyload, {
