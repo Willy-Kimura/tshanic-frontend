@@ -265,7 +265,7 @@ export default {
                 'order_id': orderCreated.id,
                 'product_id': item.id,
                 'quantity': item.quantity,
-                'cost': item.quantity * item.sale_price
+                'cost': item.sale_price
               };
 
               axios
@@ -307,11 +307,11 @@ export default {
       });
 
       setTimeout(() => {
-        // let content = "Hello Tshanic, I'd like to place my order (*" + orderNo + "*) for the following:\n\n" + cartInfo + "\nThank you.";
-        // location.href = "https://api.whatsapp.com/send?phone=254727866642&text=" + encodeURIComponent(content);
-        //
-        // this.cart().$reset();
-        // window.scrollTo({top: 0, behavior: 'smooth'});
+        let content = "Hello Tshanic, I'd like to place my order (*" + orderNo + "*) for the following:\n\n" + cartInfo + "\nThank you.";
+        location.href = "https://api.whatsapp.com/send?phone=254727866642&text=" + encodeURIComponent(content);
+
+        this.cart().$reset();
+        window.scrollTo({top: 0, behavior: 'smooth'});
       }, 1300);
     },
     resetCart() {
