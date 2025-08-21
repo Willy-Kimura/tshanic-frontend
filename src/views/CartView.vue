@@ -267,15 +267,27 @@ export default {
           console.error(error)
         })
 
+      let productItem1 = {
+        'order_id': 1,
+        'product_id': 2,
+        'quantity': 3,
+        'cost': 400.00
+      };
+
+      axios
+        .post(`${url}/orders/products/`, productItem1, {
+          Accept: `application/json`
+        });
+
       for (let i = 0; i < cartItems.length; i++) {
         let item = cartItems[i];
         cartInfo += `${i + 1}. *${item.name}* - Qty: ${item.quantity}, SKU: ${item.sku} \n`;
 
         let productItem = {
-          'order_id': 25,
-          'product_id': 1,
-          'quantity': 2,
-          'cost': 200.00
+          'order_id': orderId,
+          'product_id': item.id,
+          'quantity': item.quantity,
+          'cost': item.sale_price
         };
 
         axios
