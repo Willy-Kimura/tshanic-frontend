@@ -267,12 +267,11 @@ export default {
           console.error(error)
         })
 
-      alert(cartItems.length);
-      alert(JSON.stringify(cartItems));
-
       for (let i = 0; i < cartItems.length; i++) {
         let item = cartItems[i];
         cartInfo += `${i + 1}. *${item.name}* - Qty: ${item.quantity}, SKU: ${item.sku} \n`;
+
+        alert(JSON.stringify(item))
 
         let productItem = {
           'order_id': orderId,
@@ -280,6 +279,8 @@ export default {
           'quantity': item.quantity,
           'cost': item.sale_price
         };
+
+        alert(JSON.stringify(productItem))
 
         axios
           .post(`${url}/orders/products`, productItem, {
