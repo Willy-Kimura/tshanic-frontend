@@ -261,7 +261,7 @@ export default {
         cartInfo += `${i + 1}. *${item.name}* - Qty: ${item.quantity}, SKU: ${item.sku} \n`;
 
         let productItem = {
-          'order_id': this.orderCreated.id,
+          'order_id': orderNo,
           'product_id': item.id,
           'quantity': item.quantity,
           'cost': parseFloat(item.sale_price)
