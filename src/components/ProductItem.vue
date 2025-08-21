@@ -80,6 +80,7 @@ export default {
           this.getStore().favorites.push(item);
           globals.message('Product hearted!');
         } else {
+          let index = this.getStore().favorites.indexOf(item);
           this.getStore().favorites.splice(index, 1);
           globals.message('Product unhearted.');
         }
