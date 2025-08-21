@@ -213,6 +213,7 @@ export default {
   data() {
     return {
       product: {},
+      orderCreated: null,
       loading: false,
       orderCompleted: true,
       orderSubmitted: true,
@@ -239,11 +240,9 @@ export default {
       this.orderCompleted = false;
 
       const url = import.meta.env.VITE_API_URL;
-      let orderCreated = {};
       let cartItems = this.cart().data;
       let cartInfo = '';
       const orderNo = this.generateOrderId(3);
-      let orderId = null;
 
       let orderInfo = {
         'order_no': orderNo,
@@ -258,7 +257,6 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             this.orderCreated = JSON.parse(JSON.stringify(response.data)).data;
-            orderId = orderCreated.id;
           } else {
             console.error(`Order '${orderNo}' not created; see error log.\n${response.data}`)
           }
@@ -277,8 +275,6 @@ export default {
           'quantity': item.quantity,
           'cost': parseFloat(item.sale_price)
         };
-
-        alert(JSON.stringify(productItem))
 
         axios
           .post(`${url}/orders/products`, productItem, {
