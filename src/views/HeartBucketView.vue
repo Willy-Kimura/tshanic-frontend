@@ -6,7 +6,7 @@
         <div class="flex flex-row justify-between">
           <section v-if="favs().length === 0"
                    class="mx-auto flex flex-col mb-10 mt-2 items-center text-center justify-center w-[90%]">
-            <span class="text-3xl font-semibold mb-5">
+            <span class="text-3xl font-normal mb-5">
               Heart&nbsp;<i class="pi pi-heart-fill" style="font-size: 21px"></i> any products. We'll keep them here.
             </span>
             <span class="text-[16px]/6">
@@ -14,11 +14,11 @@
               class="pi pi-heart" style="font-size: 14px; color: #CAB15F;"></i> icon found next
               to the cart icon and it will be added right here. Enjoy!
             </span>
-            <img src="/assets/images/identity/bg-nf.svg" class="mt-7 w-70" alt="shopping cart">
+            <!--            <img src="/assets/images/identity/bg-nf.svg" class="mt-7 w-70" alt="shopping cart">-->
             <div class="mx-auto flex flex-row justify-center mt-8 w-full gap-2">
-              <vButton label="Back To Shop" icon="pi pi-arrow-left"
+              <vButton label="Go Back" icon="pi pi-arrow-left"
                        style="font-size: 15px; color: white;"
-                       @click="goToShop()"/>
+                       @click="goBack()"/>
             </div>
           </section>
         </div>
@@ -37,17 +37,10 @@
             </div>
 
             <div id="hb-products-list-mobile" v-if="$isMobile()"
-                 class="mx-auto w-[95%] h-[250px] grid grid-cols-1 justify-center items-center rounded-2xl">
-              <div id="for-men" class="border-t-1 border-gray-100 mb-6"></div>
-              <DynamicScroller id="dsc" :items="favs()" :min-item-size="300" key-field="id"
-                               class="overflow-y-scroll overflow-x-hidden">
-                <template v-slot="{ item, index, active }">
-                  <DynamicScrollerItem :item="item" :active="active" :data-index="index"
-                                       :size-dependencies="[item.name, item.brand]">
-                    <ProductItem :key="item.id" :product="item" @item-updated="foo()"/>
-                  </DynamicScrollerItem>
-                </template>
-              </DynamicScroller>
+                 class="mx-auto w-[95%] grid grid-cols-1 justify-center items-center rounded-2xl">
+              <div id="favlist" class="border-t-1 border-gray-100"></div>
+              <ProductItem v-for="(product) in favs()" :key="product.id" :product="product"
+                           @item-updated="foo()"/>
             </div>
           </div>
 
@@ -109,11 +102,13 @@ export default {
       return this.getStore().favorites;
     },
     foo() {
-      this.resizeHeight();
+      window.scrollTo(0, 0);
     },
     resizeHeight() {
-      const elx = document.getElementById('hb-products-list-mobile');
-      elx.style.height = this.favs().length * 285 + 'px';
+      // let count = this.favs().length;
+      //
+      // const elx = document.getElementById('hb-products-list-mobile');
+      // elx.style.height = this.favs().length * 285 + 'px';
     },
     onShowCartDrawer() {
       this.cartQuantity = 1;
@@ -127,8 +122,8 @@ export default {
       this.selectedProduct = product;
       this.productCartDrawerVisible = true;
     },
-    goToShop() {
-      router.push('/shop');
+    goBack() {
+      router.back();
     },
     getImageLink(imageFile) {
       return window.location.href.replace('men', '') + '/assets/images/products/' + imageFile;
@@ -216,7 +211,6 @@ export default {
   },
   mounted() {
     topbar.show();
-    window.scrollTo(0, 0);
 
     let st = this.getStore();
 
@@ -225,6 +219,7 @@ export default {
     const section = document.getElementById('hb-products-list-mobile');
 
     this.resizeHeight();
+    window.scrollTo(0, 0);
 
     // if (el != undefined || el != null) {
     //   el.addEventListener('scroll', (event) => {

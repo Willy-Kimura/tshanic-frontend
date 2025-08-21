@@ -39,8 +39,6 @@ export default {
       globals.message('Feature coming soon!');
     },
     markAsFavorite(event) {
-      let item = this.getStore().data.find(prd => prd.id == this.product.id);
-
       if (this.$route.name === 'heart-bucket') {
         this.$confirm.require({
           target: event.currentTarget,
@@ -56,10 +54,17 @@ export default {
             severity: 'danger'
           },
           accept: () => {
-            let index = this.getStore().favorites.indexOf(item);
-            item.favorite = false;
+            let f_item = this.getStore().favorites.find(prd => prd.id == this.product.id);
+            let m_item = this.getStore().data.find(prd => prd.id == this.product.id);
 
-            this.getStore().favorites.splice(index, 1);
+            let index_1 = this.getStore().favorites.indexOf(f_item);
+            this.getStore().favorites.splice(index_1, 1);
+            f_item.favorite = false;
+
+            let index_2 = this.getStore().favorites.indexOf(m_item);
+            this.getStore().data.splice(index_2, 1);
+            m_item.favorite = false;
+
             globals.message('Product unhearted.');
             this.$emit('item-updated');
           },
@@ -68,6 +73,7 @@ export default {
           }
         });
       } else {
+        let item = this.getStore().data.find(prd => prd.id == this.product.id);
         item.favorite = !item.favorite;
 
         if (item.favorite) {
