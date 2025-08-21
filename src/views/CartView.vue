@@ -247,7 +247,7 @@ export default {
         })
         .then((response) => {
           if (response.status === 200) {
-            this.orderCreated = JSON.parse(JSON.stringify(response.data)).data;
+            this.orderCreated = JSON.parse(response.data).data;
           } else {
             console.error(`Order '${orderNo}' not created; see error log.\n${response.data}`)
           }
@@ -261,7 +261,7 @@ export default {
         cartInfo += `${i + 1}. *${item.name}* - Qty: ${item.quantity}, SKU: ${item.sku} \n`;
 
         let productItem = {
-          'order_id': orderNo,
+          'order_id': this.orderCreated.id,
           'product_id': item.id,
           'quantity': item.quantity,
           'cost': parseFloat(item.sale_price)
