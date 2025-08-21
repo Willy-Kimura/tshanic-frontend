@@ -256,6 +256,31 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             orderCreated = JSON.parse(JSON.stringify(response.data)).data;
+
+            for (let i = 0; i < cartItems.length; i++) {
+              let item = cartItems[i];
+              cartInfo += `${i + 1}. *${item.name}* - Qty: ${item.quantity}, SKU: ${item.sku} \n`;
+
+              let productItem = {
+                'order_id': orderCreated.id,
+                'product_id': item.id,
+                'quantity': item.quantity,
+                'cost': item.quantity * item.sale_price
+              };
+
+              axios
+                .post(`${url}/orders/products/`, productItem, {
+                  Accept: `application/json`
+                })
+                .then((response) => {
+                  if (response.status !== 200) {
+                    console.error(`Product '${item.name}' not added to order; see error log.\n${response.data}`)
+                  }
+                })
+                .catch(function (error) {
+                  console.error(error)
+                })
+            }
           } else {
             console.error(`Order '${orderNo}' not created; see error log.\n${response.data}`)
           }
@@ -263,31 +288,6 @@ export default {
         .catch(function (error) {
           console.error(error)
         })
-
-      for (let i = 0; i < cartItems.length; i++) {
-        let item = cartItems[i];
-        cartInfo += `${i + 1}. *${item.name}* - Qty: ${item.quantity}, SKU: ${item.sku} \n`;
-
-        let productItem = {
-          'order_id': orderCreated.id,
-          'product_id': item.id,
-          'quantity': item.quantity,
-          'cost': item.quantity * item.sale_price
-        };
-
-        axios
-          .post(`${url}/orders/products/`, productItem, {
-            Accept: `application/json`
-          })
-          .then((response) => {
-            if (response.status !== 200) {
-              console.error(`Product '${item.name}' not added to order; see error log.\n${response.data}`)
-            }
-          })
-          .catch(function (error) {
-            console.error(error)
-          })
-      }
 
       this.orderCompleted = true;
       this.orderSubmitted = true;
@@ -312,7 +312,7 @@ export default {
 
         this.cart().$reset();
         window.scrollTo({top: 0, behavior: 'smooth'});
-      }, 1000);
+      }, 2000);
     },
     resetCart() {
       this.cart().$reset();
