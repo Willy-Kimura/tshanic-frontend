@@ -204,6 +204,7 @@ import vInputNumber from "primevue/inputnumber"
 import vDialog from "primevue/dialog";
 import vButton from "primevue/button";
 import {load} from "@/helpers/GlobalFuncs.js";
+import Alert from "daisyui/components/alert/index.js";
 
 const {share, isSupported} = useShare()
 
@@ -242,6 +243,7 @@ export default {
       let cartItems = this.cart().data;
       let cartInfo = '';
       let orderNo = this.generateOrderId(3);
+      let orderId = null;
 
       let orderInfo = {
         'order_no': orderNo,
@@ -256,31 +258,7 @@ export default {
         .then((response) => {
           if (response.status === 200) {
             orderCreated = JSON.parse(JSON.stringify(response.data)).data;
-
-            for (let i = 0; i < cartItems.length; i++) {
-              let item = cartItems[i];
-              cartInfo += `${i + 1}. *${item.name}* - Qty: ${item.quantity}, SKU: ${item.sku} \n`;
-
-              let productItem = {
-                'order_id': orderCreated.id,
-                'product_id': item.id,
-                'quantity': item.quantity,
-                'cost': item.sale_price
-              };
-
-              axios
-                .post(`${url}/orders/products/`, productItem, {
-                  Accept: `application/json`
-                })
-                .then((response) => {
-                  if (response.status !== 200) {
-                    console.error(`Product '${item.name}' not added to order; see error log.\n${response.data}`)
-                  }
-                })
-                .catch(function (error) {
-                  console.error(error)
-                })
-            }
+            orderId = orderCreated.id;
           } else {
             console.error(`Order '${orderNo}' not created; see error log.\n${response.data}`)
           }
@@ -288,6 +266,31 @@ export default {
         .catch(function (error) {
           console.error(error)
         })
+
+      for (let i = 0; i < cartItems.length; i++) {
+        let item = cartItems[i];
+        cartInfo += `${i + 1}. *${item.name}* - Qty: ${item.quantity}, SKU: ${item.sku} \n`;
+
+        let productItem = {
+          'order_id': orderId,
+          'product_id': item.id,
+          'quantity': item.quantity,
+          'cost': item.sale_price
+        };
+
+        axios
+          .post(`${url}/orders/products/`, productItem, {
+            Accept: `application/json`
+          })
+          .then((response) => {
+            if (response.status !== 200) {
+              console.error(`Product '${item.name}' not added to order; see error log.\n${response.data}`)
+            }
+          })
+          .catch(function (error) {
+            console.error(error)
+          })
+      }
 
       this.orderCompleted = true;
       this.orderSubmitted = true;
