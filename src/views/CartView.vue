@@ -272,10 +272,10 @@ export default {
         cartInfo += `${i + 1}. *${item.name}* - Qty: ${item.quantity}, SKU: ${item.sku} \n`;
 
         let productItem = {
-          'order_id': orderId,
-          'product_id': item.id,
-          'quantity': item.quantity,
-          'cost': item.sale_price
+          'order_id': 25,
+          'product_id': 1,
+          'quantity': 2,
+          'cost': 200.00
         };
 
         axios
