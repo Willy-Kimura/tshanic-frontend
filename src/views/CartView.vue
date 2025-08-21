@@ -129,14 +129,6 @@
           </div>
         </div>
 
-        <div v-if="!orderCompleted"
-             class="flex flex-col gap-1 text-center transition-all duration-200 ease-in-out ">
-          <vProgressSpinner style="width: 40px; height: 40px" strokeWidth="3" fill="transparent"
-                            animationDuration=".5s"
-                            aria-label="loading"/>
-          Please wait...
-        </div>
-
         <div v-if="!orderSubmitted" class="mx-auto sm:w-[70%] w-full flex flex-col gap-3 justify-between rounded-md h-full" id="footer">
           <InputText hidden id="delivery-address" placeholder="Provide your phone number"
                      class="flex-auto"
