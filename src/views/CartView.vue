@@ -307,12 +307,12 @@ export default {
       });
 
       setTimeout(() => {
-        let content = "Hello Tshanic, I'd like to place my order (*" + orderNo + "*) for the following:\n\n" + cartInfo + "\nThank you.";
-        location.href = "https://api.whatsapp.com/send?phone=254727866642&text=" + encodeURIComponent(content);
-
-        this.cart().$reset();
-        window.scrollTo({top: 0, behavior: 'smooth'});
-      }, 2000);
+        // let content = "Hello Tshanic, I'd like to place my order (*" + orderNo + "*) for the following:\n\n" + cartInfo + "\nThank you.";
+        // location.href = "https://api.whatsapp.com/send?phone=254727866642&text=" + encodeURIComponent(content);
+        //
+        // this.cart().$reset();
+        // window.scrollTo({top: 0, behavior: 'smooth'});
+      }, 1300);
     },
     resetCart() {
       this.cart().$reset();
