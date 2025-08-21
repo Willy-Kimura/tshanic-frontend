@@ -196,7 +196,6 @@ import vInputNumber from "primevue/inputnumber"
 import vDialog from "primevue/dialog";
 import vButton from "primevue/button";
 import {load} from "@/helpers/GlobalFuncs.js";
-import Alert from "daisyui/components/alert/index.js";
 
 const {share, isSupported} = useShare()
 
@@ -205,7 +204,7 @@ export default {
   data() {
     return {
       product: {},
-      orderCreated: null,
+      orderCreated: {},
       loading: false,
       orderCompleted: true,
       orderSubmitted: true,
@@ -276,9 +275,6 @@ export default {
             if (response.status !== 200) {
               console.error(`Product '${item.name}' not added to order; see error log.\n${response.data}`)
             }
-            else {
-              alert(JSON.stringify(productItem));
-            }
           })
           .catch(function (error) {
             console.error(error)
@@ -303,11 +299,11 @@ export default {
       });
 
       setTimeout(() => {
-        // let content = "Hello Tshanic, I'd like to place my order (*" + orderNo + "*) for the following:\n\n" + cartInfo + "\nThank you.";
-        // location.href = "https://api.whatsapp.com/send?phone=254727866642&text=" + encodeURIComponent(content);
-        //
-        // this.cart().$reset();
-        // window.scrollTo({top: 0, behavior: 'smooth'});
+        let content = "Hello Tshanic, I'd like to place my order (*" + orderNo + "*) for the following:\n\n" + cartInfo + "\nThank you.";
+        location.href = "https://api.whatsapp.com/send?phone=254727866642&text=" + encodeURIComponent(content);
+
+        this.cart().$reset();
+        window.scrollTo({top: 0, behavior: 'smooth'});
       }, 1300);
     },
     resetCart() {
