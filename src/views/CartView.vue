@@ -137,7 +137,7 @@
           Please wait...
         </div>
 
-        <div v-if="!orderSubmitted" class="mx-auto pt-2 sm:w-[70%] w-full flex flex-col gap-3 justify-between rounded-md h-full" id="footer">
+        <div v-if="!orderSubmitted" class="mx-auto sm:w-[70%] w-full flex flex-col gap-3 justify-between rounded-md h-full" id="footer">
           <InputText hidden id="delivery-address" placeholder="Provide your phone number"
                      class="flex-auto"
                      style="font-size: 16px;" autofocus fluid/>
@@ -160,18 +160,18 @@
           </vDialog>
 
           <div
-            class="flex flex-col py-3 px-5 rounded-sm border-[1px] text-[#16A34A] border-[#BBF7D0] bg-[#F1FDF5] items-center text-balance/7">
+            class="flex flex-col py-3 px-5 rounded-sm border-[1px] text-[#16A34A] border-[#BBF7D0] bg-[#F1FDF5] items-center text-balance/3">
             <div>
               <b>We currently process all our orders via WhatsApp</b>. On clicking checkout,
-              you will be directed to your WhatsApp together with your order details,
-              for confirmation and delivery. Once processed, we will contact you for confirmation
-              and delivery.
+              you will be directed to WhatsApp together with your order details for
+              order submission. Once processed, we will contact you for confirmation
+              and delivery. Happy shopping!
             </div>
-            <div class="w-full flex flex-row justify-end">
-              <div class="mt-3 mr-1 text-[#A36907] text-[27px] font-[arumik-signature]">
-                #TshanicTeam
-              </div>
-            </div>
+<!--            <div class="w-full flex flex-row justify-end">-->
+<!--              <div class="mt-2 mr-1 text-[#A36907] text-[27px] font-[arumik-signature]">-->
+<!--                #TshanicTeam-->
+<!--              </div>-->
+<!--            </div>-->
           </div>
         </div>
       </section>
@@ -291,6 +291,7 @@ export default {
 
       this.orderCompleted = true;
       this.orderSubmitted = true;
+
       window.scrollTo({top: 0, behavior: 'smooth'});
       topbar.hide();
 
