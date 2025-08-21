@@ -268,7 +268,7 @@ export default {
         let item = cartItems[i];
         cartInfo += `${i + 1}. *${item.name}* - Qty: ${item.quantity}, SKU: ${item.sku} \n`;
 
-        let product = {
+        let productItem = {
           'order_id': orderCreated.id,
           'product_id': item.id,
           'quantity': item.quantity,
@@ -276,7 +276,7 @@ export default {
         };
 
         axios
-          .post(`${url}/orders/products/`, product, {
+          .post(`${url}/orders/products/`, productItem, {
             Accept: `application/json`
           })
           .then((response) => {
