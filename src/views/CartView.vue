@@ -242,7 +242,7 @@ export default {
       let orderCreated = {};
       let cartItems = this.cart().data;
       let cartInfo = '';
-      let orderNo = this.generateOrderId(3);
+      const orderNo = this.generateOrderId(3);
       let orderId = null;
 
       let orderInfo = {
@@ -257,7 +257,7 @@ export default {
         })
         .then((response) => {
           if (response.status === 200) {
-            orderCreated = JSON.parse(JSON.stringify(response.data)).data;
+            this.orderCreated = JSON.parse(JSON.stringify(response.data)).data;
             orderId = orderCreated.id;
           } else {
             console.error(`Order '${orderNo}' not created; see error log.\n${response.data}`)
@@ -271,13 +271,11 @@ export default {
         let item = cartItems[i];
         cartInfo += `${i + 1}. *${item.name}* - Qty: ${item.quantity}, SKU: ${item.sku} \n`;
 
-        alert(JSON.stringify(item))
-
         let productItem = {
-          'order_id': orderId,
+          'order_id': this.orderCreated.id,
           'product_id': item.id,
           'quantity': item.quantity,
-          'cost': item.sale_price
+          'cost': parseFloat(item.sale_price)
         };
 
         alert(JSON.stringify(productItem))
