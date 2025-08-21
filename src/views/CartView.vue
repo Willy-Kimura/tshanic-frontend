@@ -267,6 +267,9 @@ export default {
           console.error(error)
         })
 
+      alert(cartItems.length);
+      alert(JSON.stringify(cartItems));
+
       for (let i = 0; i < cartItems.length; i++) {
         let item = cartItems[i];
         cartInfo += `${i + 1}. *${item.name}* - Qty: ${item.quantity}, SKU: ${item.sku} \n`;
