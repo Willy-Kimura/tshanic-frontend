@@ -241,13 +241,13 @@ export default {
         'total': this.getSubtotals(false)
       };
 
-      axios
+      const res = axios
         .post(`${url}/orders`, orderInfo, {
           Accept: `application/json`
         })
         .then((response) => {
           if (response.status === 200) {
-            this.orderCreated = JSON.parse(response.data).data;
+            this.orderCreated = response.data.data;
           } else {
             console.error(`Order '${orderNo}' not created; see error log.\n${response.data}`)
           }
@@ -261,7 +261,7 @@ export default {
         cartInfo += `${i + 1}. *${item.name}* - Qty: ${item.quantity}, SKU: ${item.sku} \n`;
 
         let productItem = {
-          'order_id': this.orderCreated.id,
+          'order_id': orderNo,
           'product_id': item.id,
           'quantity': item.quantity,
           'cost': parseFloat(item.sale_price)
@@ -305,9 +305,6 @@ export default {
         this.cart().$reset();
         window.scrollTo({top: 0, behavior: 'smooth'});
       }, 1300);
-    },
-    resetCart() {
-      this.cart().$reset();
     },
     navigate(product) {
       if (product === 'home') {
