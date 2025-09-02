@@ -1,0 +1,312 @@
+<script>
+
+import axios from 'axios';
+import topbar from 'topbar';
+import router from "@/router";
+import * as globals from '@/helpers/GlobalFuncs.js';
+import {useProductsStore} from "@/stores/products";
+import {useRoute} from "vue-router";
+
+export default {
+  data() {
+    return {
+      user: {},
+      favorite: false,
+      cartQuantity: 1,
+      productCartDrawerVisible: false,
+      selectedProduct: {},
+      loading: true
+    };
+  },
+  props: {
+    id: String,
+    name: String,
+    product: {},
+  },
+  computed: {
+    productRating() {
+      let min = Math.ceil(5);
+      let max = Math.floor(5);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    },
+    isFavorite() {
+      let item = this.getStore().data.find(prd => prd.id == this.product.id);
+      return item.favorite ? 'pi pi-heart-fill' : 'pi pi-heart';
+    }
+  },
+  methods: {
+    comingSoon() {
+      globals.message('Feature coming soon!');
+    },
+    markAsFavorite(event) {
+      if (this.$route.name === 'heart-bucket') {
+        this.$confirm.require({
+          target: event.currentTarget,
+          message: 'Confirm unhearting this item?',
+          icon: 'pi pi-info-circle',
+          rejectProps: {
+            label: 'No cancel',
+            severity: 'secondary',
+            outlined: true
+          },
+          acceptProps: {
+            label: 'Unheart it',
+            severity: 'danger'
+          },
+          accept: () => {
+            let f_item = this.getStore().favorites.find(prd => prd.id == this.product.id);
+            let m_item = this.getStore().data.find(prd => prd.id == this.product.id);
+
+            let index_1 = this.getStore().favorites.indexOf(f_item);
+            this.getStore().favorites.splice(index_1, 1);
+            f_item.favorite = false;
+
+            let index_2 = this.getStore().favorites.indexOf(m_item);
+            this.getStore().data.splice(index_2, 1);
+            m_item.favorite = false;
+
+            globals.message('Product unhearted.');
+            this.$emit('item-updated');
+          },
+          reject: () => {
+
+          }
+        });
+      } else {
+        let item = this.getStore().data.find(prd => prd.id == this.product.id);
+        item.favorite = !item.favorite;
+
+        if (item.favorite) {
+          this.getStore().favorites.push(item);
+          globals.message('Product hearted!');
+        } else {
+          let index = this.getStore().favorites.indexOf(item);
+          this.getStore().favorites.splice(index, 1);
+          globals.message('Product unhearted.');
+        }
+
+        this.$emit('item-updated');
+      }
+    },
+    onShowCartDrawer() {
+      this.cartQuantity = 1;
+    },
+    navigate(product) {
+      this.selectedProduct = product;
+
+      router.push({
+        path: '/shop/' + product.name.replace(/\s/g, "-")
+      });
+    },
+    generateOrderId(length) {
+      let result = '';
+      let dt = new Date();
+      const characters = '0123456789';
+      const charactersLength = characters.length;
+      for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+      return result + dt.getMinutes() + dt.getSeconds();
+    },
+    instantCheckout() {
+      topbar.show();
+
+      const url = import.meta.env.VITE_API_URL;
+      let orderCreated = {};
+      let cartInfo = '';
+      let orderNo = this.generateOrderId(3);
+      let orderInfo = {
+        'order_no': orderNo,
+        'subtotal': this.product.sale_price,
+        'total': this.product.sale_price
+      };
+
+      axios
+        .post(`${url}/orders/`, orderInfo, {
+          Accept: `application/json`
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            orderCreated = JSON.parse(JSON.stringify(response.data)).data;
+          } else {
+            console.error(`Order '${orderNo}' not created; see error log.\n${response.data}`)
+          }
+        })
+        .catch(function (error) {
+          console.error(error)
+        })
+
+      cartInfo = `*${this.product.name}* - Qty: ${1}, SKU: ${this.product.sku} \n`;
+
+      let prd = {
+        'order_id': orderCreated.id,
+        'product_id': this.product.id,
+        'quantity': 1,
+        'cost': 1 * this.product.sale_price
+      };
+
+      axios
+        .post(`${url}/orders/products/`, prd, {
+          Accept: `application/json`
+        })
+        .then((response) => {
+          if (response.status !== 200) {
+            console.error(`Product '${prd.name}' not added to order; see error log.\n${response.data}`)
+          }
+        })
+        .catch(function (error) {
+          console.error(error)
+        })
+
+      topbar.hide();
+
+      let content = "Hello Tshanic, I'd like to place my order (*" + orderNo + "*) for the following:\n\n" + cartInfo + "\nThank you.";
+      location.href = "https://api.whatsapp.com/send?phone=254727866642&text=" + encodeURIComponent(content);
+    },
+    showProductCartDrawer(product) {
+      this.selectedProduct = product;
+      this.productCartDrawerVisible = true;
+    },
+    goToShop() {
+      router.push('/shop');
+    },
+    getImageLink(imageFile) {
+      return window.origin + '/assets/images/products/' + imageFile;
+    },
+    getRandomRating() {
+      let min = Math.ceil(4.5);
+      let max = Math.floor(5);
+      this.productRating = Math.floor(Math.random() * (max - min + 1)) + min;
+      return this.productRating;
+    },
+    getRandomRatingCount() {
+      let min = Math.ceil(4);
+      let max = Math.floor(247);
+      return Math.floor(Math.random() * (max - min + 1)) + min
+    },
+    getRandomPurchaseCount() {
+      let min = Math.ceil(3);
+      let max = Math.floor(31);
+      return Math.floor(Math.random() * (max - min + 1)) + min
+    },
+    getProductWeight(name) {
+      let splits = name.split(" ");
+      return splits[splits.length - 1];
+    },
+    getProductNameOnly(name) {
+      let splits = name.split(" ");
+      splits.pop();
+      return splits.join(" ");
+    },
+    shareThis(product) {
+      if (isSupported) {
+        share({
+          title: `Checkout ${product}`,
+          text: `Hi, checkout ${product}.\n\n`,
+          url: location.href,
+        })
+      } else {
+        console.log('The share feature is not supported in your browser.');
+      }
+    },
+    parseHtml(html) {
+      const parser = new DOMParser();
+      const el = parser.parseFromString(html, 'text/html');
+
+      return el.body.innerText;
+    },
+    getPerfumeType(name) {
+      if (name.includes('EDP')) {
+        return 'Eau De Perfum';
+      } else if (name.includes('EDT')) {
+        return 'Eau De Toilette';
+      } else if (name.includes('EDC')) {
+        return 'Eau De Cologne';
+      } else {
+        if (name.includes('Parfum') || name.includes('Perfume')) {
+          return 'Luxury Perfume';
+        } else if (name.includes('Cologne')) {
+          return 'Luxury Cologne';
+        } else if (name.includes('Spray')) {
+          return 'Luxury Perfume';
+        } else {
+          return 'Cosmetic';
+        }
+      }
+    },
+    getHDImageLink(imageFile) {
+      return window.origin + '/assets/images/products/hd/' + imageFile.replace('-300x300', '');
+    },
+    getBrandImageLink(imageFile) {
+      return window.origin + '/assets/images/brands/' + imageFile;
+    },
+    getStore() {
+      return useProductsStore();
+    },
+  },
+}
+
+</script>
+
+<template>
+  <div
+    class="justify-center product flex flex-row border-gray-100 border-[1px] border-t-0 -mb-1 rounded-none cursor-pointer transition-all duration-200 ease-in-out">
+    <div class="w-[45%] -ml-1" @click="navigate(product)">
+      <img :src="getImageLink(`${JSON.parse(product.images)[0]}`)" class="pl-2 w-50 pt-2" alt="">
+    </div>
+    <div class="w-[55%]">
+      <div class="bg-[green-400] mt-4 pb-4 text-left px-4">
+        <vTag unstyled="true" :value=product.brand
+              class="bg-[#EFDA95] text-sm text-black p-1 px-2 rounded-[3px]"/>
+        <div
+          class="font-medium text-md pb-1 tracking-normal mt-2 leading-6 flex flex-wrap space-y-1"
+          @click="navigate(product)">
+          <span class="text-[15.5px]">
+            {{ getProductNameOnly(product.name) }}
+          </span>
+          <vTag :value=getProductWeight(product.name) severity="secondary" class=""/>
+        </div>
+        <div class="flex flex-col gap-1 mb-2" @click="navigate(product)">
+          <span class="text-amber-800">{{ product.category }}</span>
+          <div class="flex flex-row gap-2">
+            <vRating v-model=productRating readonly=true></vRating>
+            <span class="text-sm text-gray-700">(5)</span>
+          </div>
+        </div>
+        <div class="text-[18px] flex flex-col gap-1" @click="navigate(product)">
+          Ksh {{ parseFloat(product.sale_price).toLocaleString() }}
+          <div class="flex flex-row items-center gap-1">
+            <i class="pi pi-truck" style="font-size: 14px;"></i>
+            <span class="text-sm italic text-gray-700">Delivery countrywide</span>
+          </div>
+        </div>
+        <div class="mt-4 mb-1 flex flex-row items-center justify-between">
+          <vButton icon="pi pi-cart-plus" severity="contrast" variant="text" raised rounded
+                   aria-label="Favorite"
+                   @click="showProductCartDrawer(product)"/>
+          <vButton :icon="isFavorite" variant="text" raised rounded aria-label="Favorite"
+                   @click="markAsFavorite"/>
+          <vButton icon="pi pi-whatsapp" severity="success" variant="text" raised rounded
+                   aria-label="Checkout via WhatsApp" @click="instantCheckout"/>
+        </div>
+
+        <ConfirmPopup></ConfirmPopup>
+      </div>
+    </div>
+  </div>
+
+  <vDrawer v-model:visible="productCartDrawerVisible" style="height: 55%;" position="bottom"
+           @show="onShowCartDrawer"
+           showCloseIcon dismissable blockScroll>
+    <template #header>
+      <div class="justify-start flex flex-col">
+        <span class="text-[17px] font-bold">
+          Add To Cart
+        </span>
+      </div>
+    </template>
+    <CartComponent :product="selectedProduct" :quantity="cartQuantity"/>
+  </vDrawer>
+</template>
+
+<style scoped></style>

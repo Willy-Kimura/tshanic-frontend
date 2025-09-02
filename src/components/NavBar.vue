@@ -1,7 +1,7 @@
 <template>
   <vScrollTop/>
   <header class="Header" ref="headerRef">
-    <div id="content" class="z-1000 w-full text-[#202020]">
+    <div id="content" class="sm:hidden z-1000 w-full text-[#202020]">
       <div id="notification-bar"
            class="w-full hidden bg-gradient-to-t from-yellow-400 to-amber-500 h-10 text-[#202020] text-[15px] content-center text-center">
         <b>100% Free deliveries</b> within CBD!

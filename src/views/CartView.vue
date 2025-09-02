@@ -77,7 +77,7 @@
           <section
             class="mx-auto flex flex-col mb-10 mt-8 items-center text-center justify-center w-[90%]">
             <i class="pi pi-check-circle"
-               style="font-size: 55px; text-[#0F172A];"></i>
+               style="font-size: 55px; color: #0F172A;"></i>
             <span class="text-3xl font-bold mb-3 mt-5">
               Checkout Successful!
             </span>
@@ -129,7 +129,9 @@
           </div>
         </div>
 
-        <div v-if="!orderSubmitted" class="mx-auto sm:w-[70%] w-full flex flex-col gap-3 justify-between rounded-md h-full" id="footer">
+        <div v-if="!orderSubmitted"
+             class="mx-auto sm:w-[70%] w-full flex flex-col gap-3 justify-between rounded-md h-full"
+             id="footer">
           <InputText hidden id="delivery-address" placeholder="Provide your phone number"
                      class="flex-auto"
                      style="font-size: 16px;" autofocus fluid/>
@@ -145,7 +147,8 @@
                 Preparing order message...
               </div>
               <div class="flex flex-col gap-2 pb-3 text-[16px]">
-                <vProgressSpinner style="width: 40px; height: 40px" strokeWidth="3" fill="transparent"
+                <vProgressSpinner style="width: 40px; height: 40px" strokeWidth="3"
+                                  fill="transparent"
                                   animationDuration=".5s" aria-label="loading"/>
               </div>
             </div>
@@ -159,11 +162,11 @@
               order submission. Once processed, we will contact you for confirmation
               and delivery. Happy shopping!
             </div>
-<!--            <div class="w-full flex flex-row justify-end">-->
-<!--              <div class="mt-2 mr-1 text-[#A36907] text-[27px] font-[arumik-signature]">-->
-<!--                #TshanicTeam-->
-<!--              </div>-->
-<!--            </div>-->
+            <!--            <div class="w-full flex flex-row justify-end">-->
+            <!--              <div class="mt-2 mr-1 text-[#A36907] text-[27px] font-[arumik-signature]">-->
+            <!--                #TshanicTeam-->
+            <!--              </div>-->
+            <!--            </div>-->
           </div>
         </div>
       </section>
