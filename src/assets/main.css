@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import "tailwindcss-animated";
 @import './base.css';
 
 @custom-variant hover (&:hover);

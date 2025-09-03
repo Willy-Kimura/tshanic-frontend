@@ -247,7 +247,7 @@
     </div>
 
     <div
-      class="animate-rotate-y flex flex-row bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-700 mx-auto my-[5%] pt-20 pb-15 pl-20 pr-9 rounded-2xl shadow-2xl w-[55%] h-1/2">
+      class="flex flex-row bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-700 mx-auto my-[5%] pt-20 pb-15 pl-20 pr-9 rounded-2xl shadow-2xl w-[55%] h-1/2">
       <div class="flex flex-col gap-8 w-[60%]">
         <div
           class="text-white text-[14px] font-normal rounded-full bg-slate-600 w-fit px-3.5 py-1 -mb-2">
