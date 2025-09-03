@@ -247,37 +247,32 @@
     </div>
 
     <div
-      class="flex flex-row bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-700 mx-auto my-[5%] pt-20 pb-15 pl-20 pr-9 rounded-2xl shadow-2xl w-[55%] h-1/2">
-      <div class="flex flex-col gap-8 w-[60%]">
+      class="hidden sm:flex sm:flex-row bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-700 mx-auto my-[2%] pb-15 pl-20 pr-9 rounded-2xl shadow-2xl lg:w-[65%] lg:py-20">
+      <div class="flex flex-col gap-8 w-[60%] items-start justify-center">
         <div
-          class="text-white text-[14px] font-normal rounded-full bg-slate-600 w-fit px-3.5 py-1 -mb-2">
+          class="max-lg:hidden text-white text-[14px] font-normal rounded-full bg-slate-600 w-fit px-3.5 py-1 -mb-2">
           Tshanic Perfumes & Cosmetics Shop
         </div>
         <div
-          class="text-white text-[45px]/14 font-semibold">
-          World-class perfumes, <br>
-          cosmetics & skin-care. <br>
-          <div
-            class="text-normal text-white text-[45px]/14">
-            Now at your fingertips!
-          </div>
+          class="text-white text-[45px]/14 font-semibold text-balance">
+          World-class perfumes, cosmetics & skin-care. Now at your fingertips!
         </div>
-        <div class="text-white text-[17px] w-[93%] text-balance mt-1">
+        <div class="text-white text-[18px] w-[93%] text-balance mt-1">
           Hi! We’re thrilled to introduce the mobile launch of <b>Tshanic</b>, your new
           destination for <b>luxury perfumes and premium cosmetics</b>. Designed with convenience,
           simplicity, speed, and elegance in mind, our mobile site offers a seamless shopping
-          experience — anytime, anywhere. While our mobile experience is ready and waiting, we’re
+          experience — anytime, anywhere. While our mobile experience is ready and active, we’re
           also working hard to complete our <b>soon-to-come desktop site!</b>
         </div>
       </div>
-      <div class="mt-3 flex flex-col gap-4 w-[45%] text-white flex justify-center items-center">
+      <div class="mt-11 flex flex-col gap-4 w-[45%] text-white flex justify-center items-center">
         <span class="relative flex size-4 items-center justify-center">
           <span
             class="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
           <span
             class="relative inline-flex size-2.5 rounded-full bg-sky-500"></span>
         </span>
-        <div id="qr" class="w-[80%] text-white" @load="generateQR($event)">
+        <div id="qr" class="w-[70%] text-white" @load="generateQR($event)">
           <img class="rounded-2xl" src="/assets/images/identity/qrcode.svg" alt="">
         </div>
         <div class="text-white font-[arumik-signature] text-[30px] font-normal">
@@ -393,16 +388,6 @@ export default {
     }
   },
   methods: {
-    generateQR(event) {
-      var qrcode = new QRCode(event.target.el, {
-        text: "https://tshanic.co.ke",
-        width: 128,
-        height: 128,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H
-      });
-    },
     onShowCartDrawer() {
       this.cartQuantity = 1;
     },
@@ -503,7 +488,6 @@ export default {
   },
   mounted() {
     topbar.show();
-    this.generateQR();
     const productStore = useProductsStore();
 
     if (productStore.data.length <= 0) {
