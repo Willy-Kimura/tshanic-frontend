@@ -6,13 +6,14 @@ import HomeView from '@/views/HomeView.vue'
 import ShopView from '@/views/ShopView.vue'
 import ProductView from '@/views/ProductView.vue'
 import CosmeticsView from '@/views/CosmeticsView.vue'
-import BrandsView from "@/views/BrandsView.vue";
-import BrandPageView from "@/views/BrandPageView.vue";
-import DiffusersView from "@/views/DiffusersView.vue";
-import NotFound from "@/views/NotFound.vue";
-import WPFinder from "@/views/WPFinder.vue";
-import HeartBucketView from "@/views/HeartBucketView.vue";
-import {createRouter, createWebHistory} from 'vue-router'
+import BrandsView from '@/views/BrandsView.vue'
+import BrandPageView from '@/views/BrandPageView.vue'
+import DiffusersView from '@/views/DiffusersView.vue'
+import NotFound from '@/views/NotFound.vue'
+import WPFinder from '@/views/WPFinder.vue'
+import HeartBucketView from '@/views/HeartBucketView.vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import KidsView from '@/views/KidsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -83,6 +84,14 @@ const router = createRouter({
       component: UnisexView,
       meta: {
         title: 'For All - Tshanic Best perfumes and cosmetics online store',
+      },
+    },
+    {
+      name: 'kids',
+      path: '/kids',
+      component: KidsView,
+      meta: {
+        title: 'For Kids - Tshanic Best perfumes and cosmetics online store',
       },
     },
     {

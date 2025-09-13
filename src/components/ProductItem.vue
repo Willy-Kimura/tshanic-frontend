@@ -4,8 +4,7 @@ import axios from 'axios';
 import topbar from 'topbar';
 import router from "@/router";
 import * as globals from '@/helpers/GlobalFuncs.js';
-import {useProductsStore} from "@/stores/products";
-import {useRoute} from "vue-router";
+import { useProductsStore } from "@/stores/products";
 
 export default {
   data() {
@@ -250,21 +249,19 @@ export default {
 
 <template>
   <div
-    class="justify-center product flex flex-row border-gray-100 border-[1px] border-t-0 -mb-1 rounded-none cursor-pointer transition-all duration-200 ease-in-out">
+    class="md:hidden justify-center product flex flex-row border-gray-100 border-[1px] border-t-0 -mb-1 rounded-none cursor-pointer transition-all duration-200 ease-in-out">
     <div class="w-[45%] -ml-1" @click="navigate(product)">
       <img :src="getImageLink(`${JSON.parse(product.images)[0]}`)" class="pl-2 w-50 pt-2" alt="">
     </div>
     <div class="w-[55%]">
       <div class="bg-[green-400] mt-4 pb-4 text-left px-4">
-        <vTag unstyled="true" :value=product.brand
-              class="bg-[#EFDA95] text-sm text-black p-1 px-2 rounded-[3px]"/>
-        <div
-          class="font-medium text-md pb-1 tracking-normal mt-2 leading-6 flex flex-wrap space-y-1"
+        <vTag unstyled="true" :value=product.brand class="bg-[#EFDA95] text-sm text-black p-1 px-2 rounded-[3px]" />
+        <div class="font-medium text-md pb-1 tracking-normal mt-2 leading-6 flex flex-wrap space-y-1"
           @click="navigate(product)">
           <span class="text-[15.5px]">
             {{ getProductNameOnly(product.name) }}
           </span>
-          <vTag :value=getProductWeight(product.name) severity="secondary" class=""/>
+          <vTag :value=getProductWeight(product.name) severity="secondary" class="" />
         </div>
         <div class="flex flex-col gap-1 mb-2" @click="navigate(product)">
           <span class="text-amber-800">{{ product.category }}</span>
@@ -281,13 +278,11 @@ export default {
           </div>
         </div>
         <div class="mt-4 mb-1 flex flex-row items-center justify-between">
-          <vButton icon="pi pi-cart-plus" severity="contrast" variant="text" raised rounded
-                   aria-label="Favorite"
-                   @click="showProductCartDrawer(product)"/>
-          <vButton :icon="isFavorite" variant="text" raised rounded aria-label="Favorite"
-                   @click="markAsFavorite"/>
+          <vButton icon="pi pi-cart-plus" severity="contrast" variant="text" raised rounded aria-label="Favorite"
+            @click="showProductCartDrawer(product)" />
+          <vButton :icon="isFavorite" variant="text" raised rounded aria-label="Favorite" @click="markAsFavorite" />
           <vButton icon="pi pi-whatsapp" severity="success" variant="text" raised rounded
-                   aria-label="Checkout via WhatsApp" @click="instantCheckout"/>
+            aria-label="Checkout via WhatsApp" @click="instantCheckout" />
         </div>
 
         <ConfirmPopup></ConfirmPopup>
@@ -295,9 +290,58 @@ export default {
     </div>
   </div>
 
-  <vDrawer v-model:visible="productCartDrawerVisible" style="height: 55%;" position="bottom"
-           @show="onShowCartDrawer"
-           showCloseIcon dismissable blockScroll>
+  <div class="max-md:hidden justify-center items-center rounded-md">
+    <div
+      class="product py-2 shadow-lg hover:bg-slate-100 hover:-translate-y-1 hover:scale-110 rounded-md cursor-pointer transition-all duration-200 ease-in-out">
+      <div class="absolute ml-3 float-left max-sm:hidden">
+        <vButton :icon="isFavorite" variant="text" size="medium" raised rounded aria-label="Favorite"
+          @click="markAsFavorite" />
+      </div>
+      <div class="flex justify-center items-center" @click="navigate(product)">
+        <img :src="getImageLink(`${JSON.parse(product.images)[0]}`)" class="rounded-4xl w-[95%]" alt="">
+      </div>
+      <div class="">
+        <div class="bg-[green-400] bottom-3 py-3 text-left p-4">
+          <div class="flex gap-2 mb-2" @click="navigate(product)">
+            <vTag unstyled="true" :value=product.brand
+              class="bg-[#EEEFEF] text-sm text-[#302f2e] p-1 px-2 rounded-md" />
+            <vTag :value=getProductWeight(product.name) severity="secondary" />
+          </div>
+          <div class="font-medium pb-1 tracking-normal text-[15.5px]" @click="navigate(product)">
+            {{ getProductNameOnly(product.name) }}
+          </div>
+          <div class="flex flex-col gap-1 mb-2" @click="navigate(product)">
+            <span class="text-amber-800">{{ product.category }}</span>
+            <div class="flex flex-row gap-2">
+              <vRating v-model=product.rating readonly=true></vRating>
+              <span class="text-sm text-gray-700">({{ getRandomRatingCount() }})</span>
+            </div>
+          </div>
+          <div class="text-[17px]" @click="navigate(product)">
+            Ksh {{ parseFloat(product.sale_price).toLocaleString() }}
+          </div>
+          <div class="flex flex-row items-center gap-1" @click="navigate(product)">
+            <i class="pi pi-truck" style="font-size: 14px;"></i>
+            <span class="text-sm tracking-tight font-[arumik-serif] italic text-gray-700">Delivers
+              countrywide</span>
+          </div>
+          <div class="mt-3 flex flex-row items-center justify-between w-full">
+            <vButton icon="pi pi-cart-plus" severity="secondary" variant="text" size="large" fluid label="Add to cart"
+              aria-label="Favorite" @click="showProductCartDrawer(product)"
+              style="font-size: 14px; font-style: bold; color: black; background-color: #EBEBEB; border-color: #EBEBEB;" />
+            <div class="flex flex-row gap-1 mx-1">
+              <vButton icon="pi pi-whatsapp" severity="success"
+                style="background-color: #F1FBF5; border-color: #F1FBF5; border-radius: 5px;" variant="text"
+                size="large" aria-label="Favorite" rounded @click="instantCheckout" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <vDrawer v-model:visible="productCartDrawerVisible" style="height: 55%;" position="bottom" @show="onShowCartDrawer"
+    showCloseIcon dismissable blockScroll>
     <template #header>
       <div class="justify-start flex flex-col">
         <span class="text-[17px] font-bold">
@@ -305,7 +349,7 @@ export default {
         </span>
       </div>
     </template>
-    <CartComponent :product="selectedProduct" :quantity="cartQuantity"/>
+    <CartComponent :product="selectedProduct" :quantity="cartQuantity" />
   </vDrawer>
 </template>
 

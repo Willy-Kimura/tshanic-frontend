@@ -1,4 +1,4 @@
-import {defineStore} from 'pinia'
+import { defineStore } from 'pinia'
 import axios from 'axios'
 
 export const useProductsStore = defineStore('products', {
@@ -8,6 +8,7 @@ export const useProductsStore = defineStore('products', {
       brands: [],
       allMen: [],
       allWomen: [],
+      allKids: [],
       allUnisex: [],
       favorites: [],
       allCosmetics: [],
@@ -64,6 +65,10 @@ export const useProductsStore = defineStore('products', {
                 this.allMen.push(prd)
               } else if (prd.category === 'Unisex Perfumes') {
                 this.allUnisex.push(prd)
+              }
+
+              if (prd.name.includes('Kids')) {
+                this.allKids.push(prd)
               }
             }
           }

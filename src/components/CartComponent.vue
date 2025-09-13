@@ -105,7 +105,6 @@ import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
 import { useShare } from '@vueuse/core'
 import { useCartStore } from '@/stores/cart'
-import { useProductsStore } from '@/stores/products'
 
 const { share, isSupported } = useShare()
 
