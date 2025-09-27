@@ -1,5 +1,5 @@
 <template>
-  <footer id="footer" class="md:hidden bg-[#1E293B]">
+  <footer id="mobile-footer" class="lg:hidden bg-[#1E293B]">
     <div class="mx-auto max-w-screen-xl space-y-8 sm:px-6 lg:space-y-16 lg:px-8">
       <div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
         <div>
@@ -50,9 +50,9 @@
           </a>
         </div>
 
-        <div class="flex flex-col gap-5">
+        <div class="flex flex-col justify-start text-left gap-5">
           <div class="text-[#CCB363] flex flex-col w-full px-6 py-1 gap-1">
-            <p class="font-medium text-lg text-white justify-center">
+            <p class="font-medium text-lg text-white">
               SITEMAP
             </p>
             <ul class="mt-2 space-y-1 text-lg text-left grid grid-cols-2 gap-x-8">
@@ -78,7 +78,7 @@
           </div>
 
           <div class="text-[#CCB363] flex flex-col w-full px-6 py-1 gap-1">
-            <p class="font-medium text-lg text-white  justify-center">
+            <p class="font-medium text-lg text-white justify-left">
               PAYMENTS
             </p>
             <span class="italic text-[#DADADA] text-[16px]">We accept payments via:</span>
@@ -109,7 +109,8 @@
       </p>
     </div>
   </footer>
-  <footer id="footer" class="sm:flex bg-[#1E293B] pb-10">
+
+  <footer id="desktop-footer" class="max-lg:hidden flex bg-[#1E293B] pb-10">
     <div class="mx-auto w-[80%] space-y-8 lg:space-y-16">
       <div class="grid grid-cols-1 lg:grid-cols-2">
         <div>
