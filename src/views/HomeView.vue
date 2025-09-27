@@ -1,6 +1,6 @@
 <template>
   <NavBar>
-    <div id="hero-section" class="w-full mt-30 sm:mt-26 bg-green-300">
+    <div id="hero-section" class="w-full mt-30 sm:mt-26 bg-[#E0CD7E]">
       <section id="hero-image" class="shadow-2xl xl:h-110 max-md:h-80 max-lg:h-110 max-xl:h-110 max-sm:h-90 bg-top
                         xl:bg-[url(/assets/images/identity/hero-banner-08.png)] bg-cover bg-no-repeat w-full
                         bg-gradient-to-tr from-amber-300 to-yellow-50">
