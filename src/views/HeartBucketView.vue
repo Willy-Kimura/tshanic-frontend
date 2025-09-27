@@ -1,55 +1,55 @@
 <template>
   <NavBar>
     <div id="body" class="mt-37 text-[#0F172A] bg-white transition-all duration-200 ease-in-out">
-      <section
-        class="mx-auto pb-5 px-4 sm:w-[70%] w-full flex flex-col gap-3 justify-between rounded-md h-full">
+      <section class="mx-auto pb-5 px-4 sm:w-[70%] w-full flex flex-col gap-3 justify-between rounded-md h-full">
         <div class="flex flex-row justify-between">
           <section v-if="favs().length === 0"
-                   class="mx-auto flex flex-col mb-10 mt-2 items-center text-center justify-center w-[90%]">
+            class="mx-auto flex flex-col mb-10 mt-2 items-center text-center justify-center w-[90%]">
             <span class="text-3xl font-normal mb-5">
               Heart&nbsp;<i class="pi pi-heart-fill" style="font-size: 21px"></i> any products. We'll keep them here.
             </span>
             <span class="text-[16px]/6">
-              Found anything you'd wish to buy or checkout later? Just tap the heart <i
-              class="pi pi-heart" style="font-size: 14px; color: #CAB15F;"></i> icon found next
+              Found anything you'd wish to buy or checkout later? Just tap the heart <i class="pi pi-heart"
+                style="font-size: 14px; color: #CAB15F;"></i> icon found next
               to the cart icon and it will be added right here. Enjoy!
             </span>
             <!--            <img src="/assets/images/identity/bg-nf.svg" class="mt-7 w-70" alt="shopping cart">-->
             <div class="mx-auto flex flex-row justify-center mt-8 w-full gap-2">
-              <vButton label="Go Back" icon="pi pi-arrow-left"
-                       style="font-size: 15px; color: white;"
-                       @click="goBack()"/>
+              <vButton label="Go Back" icon="pi pi-arrow-left" style="font-size: 15px; color: white;"
+                @click="goBack()" />
             </div>
           </section>
         </div>
       </section>
 
       <section v-if="favs().length > 0" id="hb-section" class="flex flex-col">
-        <div id="hb-sub"
-             class="mx-auto w-full items-center rounded-2xl content-center justify-center">
+        <div id="hb-sub" class="mx-auto w-full items-center rounded-2xl content-center justify-center">
           <div id="products-section" class="block text-center items-center justify-center">
-            <div id="title"
-                 class="flex flex-col -mt-7 pb-2 transition-all duration-[1s] ease-in-out">
-                <span
-                  class="justify-center font-normal text-[#B08B0F] text-[40px] font-[arumik-signature]">
-                  Heart Bucket
-                </span>
+            <div id="title" class="flex flex-col -mt-7 pb-2 transition-all duration-[1s] ease-in-out">
+              <span class="justify-center font-normal text-[#B08B0F] text-[40px] font-[arumik-signature]">
+                Heart Bucket
+              </span>
             </div>
 
             <div id="hb-products-list-mobile" v-if="$isMobile()"
-                 class="mx-auto w-[95%] grid grid-cols-1 justify-center items-center rounded-2xl">
+              class="mx-auto w-[95%] grid grid-cols-1 justify-center items-center rounded-2xl">
               <div id="favlist" class="border-t-1 border-gray-100"></div>
-              <ProductItem v-for="(product) in favs()" :key="product.id" :product="product"
-                           @item-updated="foo()"/>
+              <ProductItem v-for="(product) in favs()" :key="product.id" :product="product" @item-updated="foo()" />
             </div>
           </div>
 
+          <div ref="prods" v-if="!$isMobile()" class="mx-auto w-[95%] md:w-[88%] xl:w-[87%] 2xl:w-3/4 grid
+                sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-5 justify-center
+                items-center rounded-md">
+            <ProductItem v-for="(product) in loadingProducts" :key="product.id" :product="product" />
+          </div>
+
           <br> <br>
-          <AppFooter/>
+          <AppFooter />
         </div>
       </section>
     </div>
-    <AppFooter/>
+    <AppFooter />
   </NavBar>
 </template>
 
@@ -69,21 +69,21 @@ import router from '@/router'
 import '@/helpers/GlobalFuncs.js'
 import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
-import {timestamp, useShare} from '@vueuse/core'
-import {vueTopprogress} from 'vue-top-progress'
-import {useProductsStore} from '@/stores/products'
+import { timestamp, useShare } from '@vueuse/core'
+import { vueTopprogress } from 'vue-top-progress'
+import { useProductsStore } from '@/stores/products'
 import vInputNumber from "primevue/inputnumber"
 import vDialog from "primevue/dialog";
 import vButton from "primevue/button";
-import {load} from "@/helpers/GlobalFuncs.js";
+import { load } from "@/helpers/GlobalFuncs.js";
 
-const {share, isSupported} = useShare()
+const { share, isSupported } = useShare()
 
 export default {
-  components: {vButton, vDialog, vInputNumber},
+  components: { vButton },
   data() {
     return {
-      products: [],
+      loadingProducts: [],
       cartQuantity: 1,
       productCartDrawerVisible: false,
       selectedProduct: {},
@@ -100,15 +100,6 @@ export default {
   methods: {
     favs() {
       return this.getStore().favorites;
-    },
-    foo() {
-      window.scrollTo(0, 0);
-    },
-    resizeHeight() {
-      // let count = this.favs().length;
-      //
-      // const elx = document.getElementById('hb-products-list-mobile');
-      // elx.style.height = this.favs().length * 285 + 'px';
     },
     onShowCartDrawer() {
       this.cartQuantity = 1;
@@ -212,35 +203,16 @@ export default {
   mounted() {
     topbar.show();
 
-    let st = this.getStore();
+    window.addEventListener("scroll", this.handleScroll)
+    this.loadingProducts = this.favs().slice(0, 15);
 
-    const el = document.getElementById('dsc');
-    const title = document.getElementById('title');
-    const section = document.getElementById('hb-products-list-mobile');
+    this.loading = false;
 
-    this.resizeHeight();
     window.scrollTo(0, 0);
-
-    // if (el != undefined || el != null) {
-    //   el.addEventListener('scroll', (event) => {
-    //     if (el.scrollTop >= 100) {
-    //       title.style.display = 'flex';
-    //       title.style.paddingTop = '0px';
-    //       title.style.paddingBottom = '0px';
-    //       section.style.marginTop = '20px';
-    //     } else if (el.scrollTop < 100 && el.scrollTop <= 0) {
-    //       title.style.display = 'flex';
-    //       title.style.paddingTop = '74px';
-    //       title.style.paddingBottom = '4px';
-    //       section.style.marginTop = '6px';
-    //     }
-    //   });
-    // }
-
     topbar.hide();
   },
-  created() {
-
+  unmounted() {
+    window.removeEventListener("scroll", this.handleScroll)
   }
 }
 </script>

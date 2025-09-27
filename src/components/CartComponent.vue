@@ -1,98 +1,209 @@
 <template>
 
-  <div id="product-header-mobile" class="w-full flex flex-row gap-4">
-    <div class="w-1/4 card">
-      <vGalleria :value="parseImages()" :numVisible="3" containerStyle="max-width: 100px; max-height: 400px;"
-        :showThumbnails="false" :showIndicators="false">
-        <template #item="slotProps">
-          <div class="border-b-[0px] border-b-gray-200">
-            <div class="m-4">
+  <div v-if="$isMobile()">
+    <div id="product-header-mobile" class="w-full flex flex-row gap-4">
+      <div class="w-1/4 card">
+        <vGalleria :value="parseImages()" :numVisible="3" containerStyle="max-width: 100px; max-height: 400px;"
+          :showThumbnails="false" :showIndicators="false">
+          <template #item="slotProps">
+            <div class="border-b-[0px] border-b-gray-200">
+              <div class="m-4">
+              </div>
+              <img :src="getHDImageLink(slotProps.item)" style="width: 100%;" alt="product-image" />
             </div>
-            <img :src="getHDImageLink(slotProps.item)" style="width: 100%;" alt="product-image" />
-          </div>
-        </template>
-        <template #thumbnail="slotProps">
-          <div>
-            <img :src="getImageLink(slotProps.item)" style="width: 40%;" alt="sub-image" />
-          </div>
-        </template>
-      </vGalleria>
-    </div>
-    <div class="w-3/4 text-[17px]">
-      <div hidden class="flex flex-row gap-2 mb-1.5">
-        <vTag unstyled :value=product.brand
-          class="bg-[#EFDA95] w-fit text-md text-black text-[12px] p-1 px-2 rounded-sm" />
+          </template>
+          <template #thumbnail="slotProps">
+            <div>
+              <img :src="getImageLink(slotProps.item)" style="width: 40%;" alt="sub-image" />
+            </div>
+          </template>
+        </vGalleria>
       </div>
-      <span class="text-[17px] font-medium">
-        {{ getProductNameOnly(product.name) }}
-        <span class="text-gray-500">
-          {{ getProductWeight(product.name) }}
+      <div class="w-3/4 text-[17px]">
+        <div hidden class="flex flex-row gap-2 mb-1.5">
+          <vTag unstyled :value=product.brand
+            class="bg-[#EFDA95] w-fit text-md text-black text-[12px] p-1 px-2 rounded-sm" />
+        </div>
+        <span class="text-[17px] font-medium">
+          {{ getProductNameOnly(product.name) }}
+          <span class="text-gray-500">
+            {{ getProductWeight(product.name) }}
+          </span>
         </span>
-      </span>
-      <div class="text-[21px] text-[#0F172A] font-semibold tracking-tight">
-        <label class="pr-4" :title="ds">
-          {{ price }}
-        </label>
-        <div class="flex flex-row gap-2">
-          <vRating v-model=product.rating readonly />
-          <span class="text-sm font-medium text-gray-700">({{ 5 }})</span>
+        <div class="text-[21px] text-[#0F172A] font-semibold tracking-tight">
+          <label class="pr-4" :title="ds">
+            {{ price }}
+          </label>
+          <div class="flex flex-row gap-2">
+            <vRating v-model=product.rating readonly />
+            <span class="text-sm font-medium text-gray-700">({{ 5 }})</span>
+          </div>
         </div>
       </div>
     </div>
+
+    <vDivider type="dashed"></vDivider>
+    <div class="flex flex-row mb-1 mt-1.5 items-start w-full gap-2">
+      <div class="w-full">
+        <vInputNumber v-model="qty" inputClass="text-center w-[80%]" inputId="horizontal-buttons" defaultValue=1
+          allowEmpty=false buttonLayout="horizontal" min=1 max=100 style="--p-inputnumber-button-border-radius: 2px;"
+          showButtons fluid>
+          <template #incrementicon>
+            <span class="pi pi-plus" />
+          </template>
+          <template #decrementicon>
+            <span class="pi pi-minus" />
+          </template>
+        </vInputNumber>
+      </div>
+      <vButton id="add-to-cart-btn"
+        class="w-full p-1.5 py-[8px] rounded-[2px] text-[14px] hover:shadow-lg transition-all duration-300 ease-in-out"
+        icon="pi pi-cart-plus" label="&nbsp;Add to cart" @click="addToCart"
+        style="background-color: #0F172A; border-color: #0F172A; color: white; padding: 7px;" />
+    </div>
+
+    <vDivider type="dashed"></vDivider>
+    <div class="flex flex-col w-full items-start text-[16px]">
+      <div class="flex flex-row gap-3 mb-1">
+        <span class="text-gray-700">Availability:</span>
+        <vTag severity="success"
+          style="margin-left: 5px; margin-top: -2px; border-radius: 3px; font-size: 14px; font-weight: 500;">
+          {{ product.status }}
+        </vTag>
+      </div>
+      <div class="flex flex-row gap-3 mb-1.5">
+        <span class="font-normal w-[90px] text-gray-700">Weight:</span>
+        <span class="font-semibold tracking-tight">
+          {{ getProductWeight(product.name) }}
+        </span>
+      </div>
+      <div class="flex flex-row gap-3 mb-1.5">
+        <span class="font-normal w-[90px] text-gray-700">Brand:</span>
+        <span class="font-normal cursor-pointer">{{ product.brand }}</span>
+      </div>
+      <div class="flex flex-row gap-3 mb-1.5">
+        <span class="font-normal w-[90px] text-gray-700">Category:</span>
+        <span class="font-medium text-[#B38E16] cursor-pointer">{{ product.category }}</span>
+      </div>
+      <div class="flex flex-row gap-3 mb-1.5 items-center">
+        <span class="font-normal w-[90px] text-gray-700">Type:</span>
+        <span class="font-normal tracking-tight">{{ getPerfumeType(product.name) }}</span>
+      </div>
+      <div class="flex flex-row gap-3 mb-1.5 items-center">
+        <span class="font-normal w-[90px] text-gray-700">SKU:</span>
+        <span class="font-normal tracking-tight">{{ product.sku }}</span>
+        <vButton icon="pi pi-copy" size="small" variant="outlined" aria-label="Favorite" v-tooltip.bottom="'Copy SKU'"
+          rounded />
+      </div>
+    </div>
   </div>
 
-  <vDivider type="dashed"></vDivider>
-  <div class="flex flex-row mb-1 mt-1.5 items-start w-full gap-2">
-    <div class="w-full">
-      <vInputNumber v-model="qty" inputClass="text-center w-[80%]" inputId="horizontal-buttons" defaultValue=1
-        allowEmpty=false buttonLayout="horizontal" min=1 max=100 style="--p-inputnumber-button-border-radius: 2px;"
-        showButtons fluid>
-        <template #incrementicon>
-          <span class="pi pi-plus" />
-        </template>
-        <template #decrementicon>
-          <span class="pi pi-minus" />
-        </template>
-      </vInputNumber>
-    </div>
-    <vButton id="add-to-cart-btn"
-      class="w-full p-1.5 py-[8px] rounded-[2px] text-[14px] hover:shadow-lg transition-all duration-300 ease-in-out"
-      icon="pi pi-cart-plus" label="&nbsp;Add to cart" @click="addToCart"
-      style="background-color: #0F172A; border-color: #0F172A; color: white; padding: 7px;" />
-  </div>
+  <div v-if="!$isMobile()">
+    <div id="product-header-mobile" class="w-full flex flex-row gap-4">
+      <div class="w-1/4 card">
+        <vGalleria :value="parseImages()" :numVisible="3" containerStyle="width: 100%;" :showThumbnails="false"
+          :showIndicators="false">
+          <template #item="slotProps">
+            <div class="border-b-[0px] border-b-gray-200">
+              <div class="m-4">
+              </div>
+              <img :src="getHDImageLink(slotProps.item)" style="width: 100%;" alt="product-image" />
+            </div>
+          </template>
+          <template #thumbnail="slotProps">
+            <div>
+              <img :src="getImageLink(slotProps.item)" style="width: 40%;" alt="sub-image" />
+            </div>
+          </template>
+        </vGalleria>
+      </div>
 
-  <vDivider type="dashed"></vDivider>
-  <div class="flex flex-col w-full items-start text-[16px]">
-    <div class="flex flex-row gap-3 mb-1">
-      <span class="text-gray-700">Availability:</span>
-      <vTag severity="success"
-        style="margin-left: 5px; margin-top: -2px; border-radius: 3px; font-size: 14px; font-weight: 500;">
-        {{ product.status }}
-      </vTag>
+      <div class="w-3/4 text-[17px]">
+        <span class="text-2xl font-medium gap-2">
+          {{ getProductNameOnly(product.name) }}
+          <vTag :value=getProductWeight(product.name) style="font-size: 18px;" class="w-fit" severity="secondary" />
+        </span>
+        <div class="text-[22px] text-[#08802C] font-semibold tracking-tight">
+          <span class="pr-4">Ksh {{ parseFloat(product.sale_price).toLocaleString() }}</span>
+
+          <div class="flex flex-row gap-2 mb-3">
+            <vRating v-model=product.rating readonly=true></vRating>
+            <span class="text-sm font-medium text-gray-700">({{ 5 }})</span>
+          </div>
+        </div>
+        <span class="text-xl text-[#29323E] tracking-normal">
+          {{ product.short_desc }}
+        </span>
+        <vDivider type="dashed"></vDivider>
+        <div class="flex flex-col w-full items-start text-[16px]">
+          <div class="w-full grid grid-cols-2 grid-rows-2 xl:grid-cols-3 gap-3"
+            :class="product.tags != '' ? 'xl:grid-rows-3' : 'xl:grid-rows-2'">
+            <div class="flex flex-col p-4 rounded-lg border-[1px] border-gray-200 gap-1">
+              <span class="text-gray-500 text-sm tracking-wide">BRAND</span>
+              {{ product.brand }}
+            </div>
+            <div class="flex flex-col p-4 rounded-lg border-[1px] border-gray-200 gap-1">
+              <span class="text-gray-500 text-sm tracking-wide">CATEGORY</span>
+              {{ product.category }}
+            </div>
+            <div class="flex flex-col p-4 rounded-lg border-[1px] border-[#91C6A1] bg-[#DCFCE7] gap-1">
+              <span class="text-[#08802C] text-sm tracking-wide">AVAILABILITY</span>
+              {{ product.status }}
+            </div>
+            <div class="flex flex-col p-4 rounded-lg border-[1px] border-gray-200 gap-1">
+              <span class="text-gray-500 text-sm tracking-wide">WEIGHT</span>
+              {{ getProductWeight(product.name) }}
+            </div>
+            <div class="flex flex-col p-4 rounded-lg border-[1px] border-gray-200 gap-1">
+              <span class="text-gray-500 text-sm tracking-wide">TYPE</span>
+              {{ product.status }}
+            </div>
+            <div class="flex flex-col p-4 rounded-lg border-[1px] border-gray-200 gap-1">
+              <span class="text-gray-500 text-sm tracking-wide">SKU</span>
+              <div class="flex flex-row gap-2 my-auto">
+                {{ product.sku }}
+                <vButton icon="pi pi-copy" size="small" variant="outlined" aria-label="Favorite"
+                  v-tooltip.bottom="'Copy SKU'" rounded />
+              </div>
+            </div>
+            <div v-if="product.tags != ''"
+              class="flex flex-col col-span-3 p-4 rounded-lg border-[1px] border-gray-200 gap-2">
+              <span class="text-gray-500 text-sm tracking-wide">TAGS</span>
+              <div v-if="product.tags != ''" class="flex flex-wrap gap-2">
+                <vChip v-for="tag in product.tags.split(', ')" :key=tag style="font-size: 14px;">
+                  {{ tag }}
+                </vChip>
+              </div>
+              <div v-else class="flex flex-wrap gap-2">
+                <vChip style="font-size: 14px;">
+                  No tags available
+                </vChip>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div class="flex flex-row gap-3 mb-1.5">
-      <span class="font-normal w-[90px] text-gray-700">Weight:</span>
-      <span class="font-semibold tracking-tight">
-        {{ getProductWeight(product.name) }}
-      </span>
-    </div>
-    <div class="flex flex-row gap-3 mb-1.5">
-      <span class="font-normal w-[90px] text-gray-700">Brand:</span>
-      <span class="font-normal cursor-pointer">{{ product.brand }}</span>
-    </div>
-    <div class="flex flex-row gap-3 mb-1.5">
-      <span class="font-normal w-[90px] text-gray-700">Category:</span>
-      <span class="font-medium text-[#B38E16] cursor-pointer">{{ product.category }}</span>
-    </div>
-    <div class="flex flex-row gap-3 mb-1.5 items-center">
-      <span class="font-normal w-[90px] text-gray-700">Type:</span>
-      <span class="font-normal tracking-tight">{{ getPerfumeType(product.name) }}</span>
-    </div>
-    <div class="flex flex-row gap-3 mb-1.5 items-center">
-      <span class="font-normal w-[90px] text-gray-700">SKU:</span>
-      <span class="font-normal tracking-tight">{{ product.sku }}</span>
-      <vButton icon="pi pi-copy" size="small" variant="outlined" aria-label="Favorite" v-tooltip.bottom="'Copy SKU'"
-        rounded />
+
+    <vDivider type="dashed"></vDivider>
+    <div class="flex flex-row mb-1 mt-1.5 items-start w-full gap-2">
+      <div class="w-full">
+        <vInputNumber v-model="qty" inputClass="text-center w-[80%]" inputId="horizontal-buttons" defaultValue=1
+          allowEmpty=false buttonLayout="horizontal" min=1 max=100 style="--p-inputnumber-button-border-radius: 2px;"
+          showButtons fluid>
+          <template #incrementicon>
+            <span class="pi pi-plus" />
+          </template>
+          <template #decrementicon>
+            <span class="pi pi-minus" />
+          </template>
+        </vInputNumber>
+      </div>
+      <vButton id="add-to-cart-btn"
+        class="w-full p-1.5 py-[8px] rounded-[2px] text-[14px] hover:shadow-lg transition-all duration-300 ease-in-out"
+        icon="pi pi-cart-plus" label="&nbsp;Add to cart" @click="addToCart"
+        style="background-color: #0F172A; border-color: #0F172A; color: white; padding: 7px;" />
     </div>
   </div>
 

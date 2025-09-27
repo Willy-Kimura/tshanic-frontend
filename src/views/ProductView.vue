@@ -4,10 +4,8 @@
   </metainfo>
   <NavBar>
     <div id="hero-section" class="mt-37 text-[#0F172A] bg-white">
-      <div class="no-tailwindcss">
-      </div>
-      <section id="hero-image"
-        class="mx-auto py-7 px-7 sm:w-[70%] w-full flex justify-between shadow-lg rounded-md h-full">
+      <section id="mobile"
+        class="flex lg:hidden mx-auto py-7 px-7 sm:w-[70%] w-full justify-between shadow-lg rounded-md h-full">
         <div v-if="loading" class="w-full -mt-6 flex flex-col items-start">
           <vSkeleton width="80%" class="mb-2"></vSkeleton>
           <vSkeleton width="100%" height="370px" class="mb-3"></vSkeleton>
@@ -25,7 +23,7 @@
           <div id="product-header-mobile" class="w-full flex flex-col gap-7 mb-4">
             <div class="card flex">
               <vGalleria :value="JSON.parse(product.images)" :responsiveOptions="responsiveOptions" :numVisible="3"
-                containerStyle="max-width: 100%; max-height: 400px;" :showThumbnails="false" :showIndicators="false">
+                containerStyle="max-width: 100%; max-height: 80%;" :showThumbnails="false" :showIndicators="false">
                 <template #item="slotProps">
                   <div class="border-b-[0px] border-b-gray-200">
                     <div class="m-4">
@@ -131,6 +129,171 @@
                   <vButton id="buy-on-whatsapp-btn"
                     class="w-full py-[8px] hover:shadow-lg transition-all duration-300 ease-in-out" label="Checkout"
                     iconPos="left" icon="pi pi-whatsapp" @click="checkout"
+                    style="background-color: #08802C; border-color: #08802C; border-radius: 2px; color: white; padding: 8px;" />
+                </div>
+                <div class="flex flex-row mt-3 mb-4 gap-3 justify-center items-center w-full">
+                  <vButton icon="pi pi-share-alt" size="large" severity="secondary" variant="outlined" rounded
+                    aria-label="Share product" @click="shareThis(product.name)" />
+                  <vButton icon="pi pi-heart" size="large" severity="warn" variant="outlined" rounded
+                    aria-label="Share product" @click="shareThis(product.name)" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="product-content" class="">
+            <div class="card">
+              <vTabs value="0">
+                <vTabList>
+                  <vTab value="0">DESCRIPTION</vTab>
+                  <vTab value="1">BRAND</vTab>
+                </vTabList>
+                <vTabPanels>
+                  <vTabPanel value="0">
+                    <div id="product-desc" class="text-lg">
+                      {{ parseHtml(product.long_desc) }}
+                    </div>
+                  </vTabPanel>
+                  <vTabPanel value="1">
+                    <div class="flex flex-col gap-2">
+                      <div class="w-full flex flex-col items-center justify-center">
+                        <img :src="getBrandImageLink(brand.logo)" class="w-50 h-50" alt="" />
+                      </div>
+                      <span class="text-2xl font-bold">
+                        {{ brand.name }}
+                      </span>
+                      <div class="flex flex-row gap-3 mb-1.5 text-[16px]">
+                        <span class="font-normal text-gray-700">Country: </span>
+                        <span class="font-bold cursor-pointer">{{ brand.country }}</span>
+                      </div>
+                      <span class="font-normal w-full text-gray-700">
+                        {{ brand.description }}
+                      </span>
+                    </div>
+                  </vTabPanel>
+                </vTabPanels>
+              </vTabs>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="desktop"
+        class="max-lg:hidden flex mx-auto py-7 px-7 sm:w-[70%] w-full justify-between shadow-lg rounded-md h-full">
+        <div v-if="loading" class="w-full -mt-6 flex flex-col items-start">
+          <vSkeleton width="40%" height="370px" class="mb-3"></vSkeleton>
+          <vSkeleton width="40%" class="mb-2"></vSkeleton>
+          <vSkeleton width="90%" class="mb-4"></vSkeleton>
+          <vSkeleton width="50%" class="mb-2"></vSkeleton>
+          <vSkeleton width="20%" class="mb-2"></vSkeleton>
+          <vSkeleton width="99%" height="50px" class="mb-3"></vSkeleton>
+        </div>
+
+        <div v-else class="w-full">
+          <div id="product-header-mobile" class="w-full flex flex-row gap-7 mb-4">
+            <div class="card flex w-[35%]">
+              <div class="h-fit rounded-lg border-solid border-[1px] border-gray-200">
+                <div class="m-4">
+                  <vButton icon="pi pi-heart" variant="text" size="large" raised rounded aria-label="Favorite" />
+                </div>
+                <img :src="getHDImageLink(JSON.parse(product.images)[0])" class="-mt-10 py-10" />
+              </div>
+            </div>
+
+            <div class="flex flex-col w-[65%] gap-1 text-[17px]">
+              <div class="flex flex-row gap-2">
+                <vTag unstyled="true" :value=product.brand
+                  class="bg-[#EFDA95] w-fit text-md text-black text-[13px] p-1 px-2 rounded-sm" />
+              </div>
+              <span class="text-3xl font-medium gap-2">
+                {{ getProductNameOnly(product.name) }}
+                <vTag :value=getProductWeight(product.name) style="font-size: 18px;" class="w-fit"
+                  severity="secondary" />
+              </span>
+              <div class="text-[23px] text-[#08802C] font-semibold tracking-tight">
+                <span class="pr-4">Ksh {{ parseFloat(product.sale_price).toLocaleString() }}</span>
+
+                <div class="flex flex-row gap-2 mb-3">
+                  <vRating v-model=product.rating readonly=true></vRating>
+                  <span class="text-sm font-medium text-gray-700">({{ 5 }})</span>
+                </div>
+              </div>
+              <span class="text-[16px] text-[#29323E] tracking-normal">
+                {{ product.short_desc }}
+              </span>
+              <vDivider type="dashed"></vDivider>
+              <div class="flex flex-col w-full items-start text-[17px]">
+                <div class="w-full grid grid-cols-2 grid-rows-2 xl:grid-cols-3 gap-3"
+                  :class="product.tags != '' ? 'xl:grid-rows-3' : 'xl:grid-rows-2'">
+                  <div class="flex flex-col p-4 rounded-lg border-[1px] border-gray-200 gap-1">
+                    <span class="text-gray-500 text-sm tracking-wide">BRAND</span>
+                    {{ product.brand }}
+                  </div>
+                  <div class="flex flex-col p-4 rounded-lg border-[1px] border-gray-200 gap-1">
+                    <span class="text-gray-500 text-sm tracking-wide">CATEGORY</span>
+                    {{ product.category }}
+                  </div>
+                  <div class="flex flex-col p-4 rounded-lg border-[1px] border-[#91C6A1] bg-[#DCFCE7] gap-1">
+                    <span class="text-[#08802C] text-sm tracking-wide">AVAILABILITY</span>
+                    {{ product.status }}
+                  </div>
+                  <div class="flex flex-col p-4 rounded-lg border-[1px] border-gray-200 gap-1">
+                    <span class="text-gray-500 text-sm tracking-wide">WEIGHT</span>
+                    {{ getProductWeight(product.name) }}
+                  </div>
+                  <div class="flex flex-col p-4 rounded-lg border-[1px] border-gray-200 gap-1">
+                    <span class="text-gray-500 text-sm tracking-wide">TYPE</span>
+                    {{ product.status }}
+                  </div>
+                  <div class="flex flex-col p-4 rounded-lg border-[1px] border-gray-200 gap-1">
+                    <span class="text-gray-500 text-sm tracking-wide">SKU</span>
+                    <div class="flex flex-row gap-2 my-auto">
+                      {{ product.sku }}
+                      <vButton icon="pi pi-copy" size="small" variant="outlined" aria-label="Favorite"
+                        v-tooltip.bottom="'Copy SKU'" rounded />
+                    </div>
+                  </div>
+                  <div v-if="product.tags != ''"
+                    class="flex flex-col col-span-3 p-4 rounded-lg border-[1px] border-gray-200 gap-2">
+                    <span class="text-gray-500 text-sm tracking-wide">TAGS</span>
+                    <div v-if="product.tags != ''" class="flex flex-wrap gap-2">
+                      <vChip v-for="tag in product.tags.split(', ')" :key=tag style="font-size: 14px;">
+                        {{ tag }}
+                      </vChip>
+                    </div>
+                    <div v-else class="flex flex-wrap gap-2">
+                      <vChip style="font-size: 14px;">
+                        No tags available
+                      </vChip>
+                    </div>
+                  </div>
+                </div>
+
+                <vDivider type="dashed"></vDivider>
+
+                <div class="flex flex-row mb-1 mt-1.5 items-start w-full gap-2">
+                  <div class="w-full">
+                    <vInputNumber v-model="quantity" inputClass="text-center w-[80%]" inputId="horizontal-buttons"
+                      showButtons defaultValue=1 allowEmpty=false buttonLayout="horizontal" min="1" max="100"
+                      style="--p-inputnumber-button-border-radius: 2px;" fluid>
+                      <template #incrementbuttonicon>
+                        <span class="pi pi-plus" />
+                      </template>
+                      <template #decrementbuttonicon>
+                        <span class="pi pi-minus" />
+                      </template>
+                    </vInputNumber>
+                  </div>
+                  <vButton id="add-to-cart-btn"
+                    class="w-full p-1.5 py-[8px] rounded-[2px] text-[14px] hover:shadow-lg transition-all duration-300 ease-in-out"
+                    icon="pi pi-cart-plus" label="&nbsp;Add to cart" @click="addToCart"
+                    style="background-color: #0F172A; border-color: #0F172A; color: white; padding: 8px;" />
+                  <div class="flex flex-row my-auto text-xs rounded-full bg-gray-100 text-gray-500 px-3 py-2">
+                    OR
+                  </div>
+                  <vButton id="buy-on-whatsapp-btn"
+                    class="w-full py-[8px] hover:shadow-lg transition-all duration-300 ease-in-out"
+                    label="Instant Checkout" iconPos="left" icon="pi pi-whatsapp" @click="checkout"
                     style="background-color: #08802C; border-color: #08802C; border-radius: 2px; color: white; padding: 8px;" />
                 </div>
                 <div class="flex flex-row mt-3 mb-4 gap-3 justify-center items-center w-full">

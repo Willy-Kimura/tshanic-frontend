@@ -8,8 +8,12 @@
       <div id="brands-section" class="flex flex-col">
         <div id="brands-sub" class="mt-14 mx-auto w-full items-center rounded-2xl h-55 content-center justify-center">
           <div id="products-section" class="flex flex-col text-center items-center justify-center">
-            <div id="title" class="flex flex-col pt-20 transition-all duration-[1s] ease-in-out">
-              <img :src="getBrandImageLink(brand.logo)" width="100" :alt="brand.name">
+            <div id="title"
+              class="w-3/4 mx-auto justify-between items-center flex flex-row pt-20 transition-all duration-[1s] ease-in-out">
+              <vButton label="Back" class="max-md:hidden fit w-fit h-fit justify-left ml-10" icon="pi pi-arrow-left"
+                severity="secondary" variant="outlined" rounded @click="this.$router.back()" />
+              <img :src="getBrandImageLink(brand.logo)" width="100" :alt="brand.name" class="justify-center">
+              <span></span>
             </div>
 
             <div id="brands-list-mobile" v-if="$isMobile()"
@@ -25,6 +29,12 @@
                 </template>
               </DynamicScroller>
             </div>
+          </div>
+
+          <div ref="prods" v-if="!$isMobile()" class="mx-auto w-[95%] md:w-[88%] xl:w-[87%] 2xl:w-3/4 grid
+                sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-5 justify-center
+                items-center rounded-md">
+            <ProductItem v-for="(product) in loadingProducts" :key="product.id" :product="product" />
           </div>
 
           <br> <br>
@@ -55,6 +65,7 @@ export default {
       user: {},
       brand: {},
       products: [],
+      loadingProducts: [],
       cartQuantity: 1,
       productCartDrawerVisible: false,
       selectedProduct: {},
@@ -159,9 +170,16 @@ export default {
     getStore() {
       return useProductsStore();
     },
-    handleScroll() {
-      var el = document.getElementById('men-products-list-mobile');
-      this.getStore().posy = el.scrollTop;
+    loadMore() {
+      let currLen = this.loadingProducts.length;
+      let newItems = this.products.slice(currLen, currLen + 15)
+      this.loadingProducts.push(...newItems)
+    },
+    handleScroll(event) {
+      const element = this.$refs.prods
+      if (element.getBoundingClientRect().bottom - 400 < window.innerHeight) {
+        this.loadMore()
+      }
     },
     checkScrollDirectionIsUp(event) {
       if (event.wheelDelta) {
@@ -218,9 +236,7 @@ export default {
   },
   mounted() {
     topbar.show();
-
     load();
-
     window.scrollTo(0, 0);
 
     let st = this.getStore();
@@ -233,6 +249,10 @@ export default {
       }
     }
 
+    window.addEventListener("scroll", this.handleScroll)
+    this.loadingProducts = this.products.slice(0, 15);
+
+    this.loading = false;
     this.loaded = true;
 
     topbar.hide();

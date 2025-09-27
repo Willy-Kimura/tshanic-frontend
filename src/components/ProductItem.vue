@@ -12,6 +12,7 @@ export default {
       user: {},
       favorite: false,
       cartQuantity: 1,
+      productDialogVisible: false,
       productCartDrawerVisible: false,
       selectedProduct: {},
       loading: true
@@ -166,6 +167,10 @@ export default {
       this.selectedProduct = product;
       this.productCartDrawerVisible = true;
     },
+    showProductDialogDrawer(product) {
+      this.selectedProduct = product;
+      this.productDialogVisible = true;
+    },
     goToShop() {
       router.push('/shop');
     },
@@ -292,13 +297,13 @@ export default {
 
   <div class="max-md:hidden justify-center items-center rounded-md">
     <div
-      class="product py-2 shadow-lg hover:bg-slate-100 hover:-translate-y-1 hover:scale-110 rounded-md cursor-pointer transition-all duration-200 ease-in-out">
+      class="product py-2 shadow-lg hover:bg-slate-100 hover:-translate-y-1 hover:scale-100 rounded-md cursor-pointer transition-all duration-200 ease-in-out">
       <div class="absolute ml-3 float-left max-sm:hidden">
         <vButton :icon="isFavorite" variant="text" size="medium" raised rounded aria-label="Favorite"
           @click="markAsFavorite" />
       </div>
       <div class="flex justify-center items-center" @click="navigate(product)">
-        <img :src="getImageLink(`${JSON.parse(product.images)[0]}`)" class="rounded-4xl w-[95%]" alt="">
+        <img :src="getHDImageLink(`${JSON.parse(product.images)[0]}`)" class="rounded-lg w-[99%]" alt="">
       </div>
       <div class="">
         <div class="bg-[green-400] bottom-3 py-3 text-left p-4">
@@ -322,12 +327,13 @@ export default {
           </div>
           <div class="flex flex-row items-center gap-1" @click="navigate(product)">
             <i class="pi pi-truck" style="font-size: 14px;"></i>
-            <span class="text-sm tracking-tight font-[arumik-serif] italic text-gray-700">Delivers
-              countrywide</span>
+            <span class="text-sm tracking-tight font-[arumik-serif] italic text-gray-700">
+              Delivers countrywide
+            </span>
           </div>
           <div class="mt-3 flex flex-row items-center justify-between w-full">
             <vButton icon="pi pi-cart-plus" severity="secondary" variant="text" size="large" fluid label="Add to cart"
-              aria-label="Favorite" @click="showProductCartDrawer(product)"
+              aria-label="Favorite" @click="showProductDialogDrawer(product)"
               style="font-size: 14px; font-style: bold; color: black; background-color: #EBEBEB; border-color: #EBEBEB;" />
             <div class="flex flex-row gap-1 mx-1">
               <vButton icon="pi pi-whatsapp" severity="success"
@@ -340,8 +346,8 @@ export default {
     </div>
   </div>
 
-  <vDrawer v-model:visible="productCartDrawerVisible" style="height: 55%;" position="bottom" @show="onShowCartDrawer"
-    showCloseIcon dismissable blockScroll>
+  <vDrawer v-if="$isMobile()" v-model:visible="productCartDrawerVisible" style="height: 55%;" position="bottom"
+    @show="onShowCartDrawer" showCloseIcon dismissable blockScroll>
     <template #header>
       <div class="justify-start flex flex-col">
         <span class="text-[17px] font-bold">
@@ -351,6 +357,22 @@ export default {
     </template>
     <CartComponent :product="selectedProduct" :quantity="cartQuantity" />
   </vDrawer>
+
+  <vDialog v-if="!$isMobile()" :visible="productDialogVisible" style="width: 60%; border-radius: 3px;" position="center"
+    escape=true modal dismissableMask>
+    <template #header>
+      <div class="justify-start flex flex-col">
+        <span class="text-2xl font-bold">
+          Add To Cart
+        </span>
+      </div>
+    </template>
+    <template #closebutton>
+      <vButton icon="pi pi-times" severity="danger" rounded variant="outlined" @click="productDialogVisible = false"
+        aria-label="Cancel" />
+    </template>
+    <CartComponent :product="selectedProduct" :quantity="cartQuantity" />
+  </vDialog>
 </template>
 
 <style scoped></style>

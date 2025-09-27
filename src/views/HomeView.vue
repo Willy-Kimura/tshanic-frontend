@@ -1,6 +1,6 @@
 <template>
   <NavBar>
-    <div id="hero-section" class="w-full mt-30 sm:mt-18">
+    <div id="hero-section" class="w-full mt-30 sm:mt-26 bg-green-300">
       <section id="hero-image" class="shadow-2xl xl:h-110 max-md:h-80 max-lg:h-110 max-xl:h-110 max-sm:h-90 bg-top
                         xl:bg-[url(/assets/images/identity/hero-banner-08.png)] bg-cover bg-no-repeat w-full
                         bg-gradient-to-tr from-amber-300 to-yellow-50">
@@ -24,7 +24,7 @@
             <div class="flex content-center items-center text-[16px] gap-2 text-[#D10274]">
             </div>
             <vButton label="VIEW SHOP" @click="goToShop()" style="border-radius: 1px; padding: 10px;
-                  outline-offset: 2px; border-width: 0px; padding-left: 20px; padding-right: 20px;
+                  outline-offset: 2px; border-width: 0px; padding-left: 30px; padding-right: 30px;
                   color: black; background-color: white; outline: 1px solid white;" />
           </div>
         </div>
@@ -63,14 +63,15 @@
         </div>
       </section>
     </div>
+
     <div id="body" class="bg-white flex flex-col">
       <div id="brands" class="mt-12 mx-auto w-full items-center rounded-2xl">
         <div id="brands-list"
           class="mx-auto w-[90%] justify-center grid grid-cols-2 sm:flex sm:flex-wrap flex-initial sm:gap-6 gap-4 items-center rounded-2xl">
 
           <RouterLink id="pageLink" to="/women" class="navLink transition-all duration-200 ease-in-out">
-            <div
-              class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(/assets/images/misc/women-perfumes.avif)] bg-cover bg-no-repeat">
+            <div class="transition-all duration-200 hover:-translate-y-1 hover:scale-100 cursor-pointer rounded-xl
+              shadow-2xl w-45 sm:w-50 h-50 bg-[url(/assets/images/misc/women-perfumes.avif)] bg-cover bg-no-repeat">
               <div class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">
                 <b>Women</b> Perfumes
               </div>
@@ -78,8 +79,8 @@
           </RouterLink>
 
           <RouterLink id="pageLink" to="/men" class="navLink transition-all duration-200 ease-in-out">
-            <div
-              class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(/assets/images/misc/men-perfumes.webp)] bg-cover bg-no-repeat">
+            <div class="transition-all duration-200 hover:-translate-y-1 hover:scale-100 cursor-pointer rounded-xl
+              shadow-2xl w-45 sm:w-50 h-50 bg-[url(/assets/images/misc/men-perfumes.webp)] bg-cover bg-no-repeat">
               <div class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">
                 <b>Men</b> Colognes
               </div>
@@ -87,8 +88,8 @@
           </RouterLink>
 
           <RouterLink id="pageLink" to="/unisex" class="navLink transition-all duration-200 ease-in-out">
-            <div
-              class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(/assets/images/misc/unisex-perfumes.png)] bg-cover bg-no-repeat">
+            <div class="transition-all duration-200 hover:-translate-y-1 hover:scale-100 cursor-pointer rounded-xl
+              shadow-2xl w-45 sm:w-50 h-50 bg-[url(/assets/images/misc/unisex-perfumes.png)] bg-cover bg-no-repeat">
               <div class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">
                 <b>Unisex</b> Perfumes
               </div>
@@ -97,7 +98,8 @@
 
           <RouterLink id="pageLink" to="/kids" class="navLink transition-all duration-200 ease-in-out">
             <div
-              class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(../../public/assets/images/misc/kids-perfumes.webp)] bg-cover bg-no-repeat">
+              class="transition-all duration-200 hover:-translate-y-1 hover:scale-100 cursor-pointer rounded-xl
+              shadow-2xl w-45 sm:w-50 h-50 bg-[url(../../public/assets/images/misc/kids-perfumes.webp)] bg-cover bg-no-repeat">
               <div class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">
                 <b>Kids</b> Perfumes
               </div>
@@ -106,16 +108,17 @@
 
           <RouterLink id="pageLink" to="/brands" class="navLink transition-all duration-200 ease-in-out">
             <div
-              class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(../../public/assets/images/misc/niche-perfumes.jpg)] bg-cover bg-no-repeat">
+              class="transition-all duration-200 hover:-translate-y-1 hover:scale-100 cursor-pointer rounded-xl
+              shadow-2xl w-45 sm:w-50 h-50 bg-[url(../../public/assets/images/misc/niche-perfumes.jpg)] bg-cover bg-no-repeat">
               <div class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">
-                <b>Niche</b> Perfumes
+                OUR <b>BRANDS</b>
               </div>
             </div>
           </RouterLink>
 
           <RouterLink id="pageLink" to="/cosmetics" class="navLink transition-all duration-200 ease-in-out">
-            <div
-              class="cursor-pointer rounded-xl shadow-2xl w-45 sm:w-50 h-50 bg-[url(/assets/images/misc/diffusers.jpg)] bg-cover bg-no-repeat">
+            <div class="transition-all duration-200 hover:-translate-y-1 hover:scale-100 cursor-pointer rounded-xl
+              shadow-2xl w-45 sm:w-50 h-50 bg-[url(/assets/images/misc/diffusers.jpg)] bg-cover bg-no-repeat">
               <div class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">
                 All <b>Cosmetics</b>
               </div>
@@ -126,11 +129,27 @@
 
       <div id="best-sellers-section" class="flex flex-col">
         <div id="best-seller-women"
-          class="mt-14 mx-auto w-full items-center rounded-2xl h-55 content-center justify-center">
+          class="block text-center mt-14 mx-auto w-full items-center rounded-2xl h-55 content-center justify-center">
 
-          <div id="product-best-sellers" class="block text-center items-center justify-center">
+          <div class="flex flex-col mt-7 mb-10">
+            <span
+              class="justify-center font-normal text-[#B08B0F] text-[40px] sm:text-[42px] font-[arumik-signature] mr-1">
+              For Women
+            </span>
+            <span class="mb-4 text-center text-3xl md:text-[36px] tracking-tight">
+              Best Seller Perfumes
+            </span>
+          </div>
+
+          <div id="women-products-list-desktop" v-if="!$isMobile()"
+            class="mx-auto w-[95%] md:w-[88%] xl:w-[87%] 2xl:w-3/4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-5 justify-center items-center rounded-md">
+            <ProductItem v-for="(product) in womenBestSellers" :key="product.id" :product="product" />
+          </div>
+
+          <div id="product-best-sellers" class="mt-10 block text-center items-center justify-center">
             <div class="flex flex-col">
-              <span class="justify-center font-normal text-[#B08B0F] text-[40px] font-[arumik-signature] mr-1">
+              <span
+                class="justify-center font-normal text-[#B08B0F] text-[40px] sm:text-[42px] font-[arumik-signature] mr-1">
                 For Men
               </span>
               <span class="mb-7 text-center text-3xl md:text-[36px] tracking-tight">
@@ -155,20 +174,6 @@
               <ProductItem v-for="(product) in menBestSellers" :key="product.id" :product="product" />
             </div>
 
-            <div class="flex flex-col mt-11 mb-10">
-              <span class="justify-center font-normal text-[#B08B0F] text-[40px] font-[arumik-signature] mr-1">
-                For Women
-              </span>
-              <span class="mb-4 text-center text-3xl md:text-[36px] tracking-tight">
-                Best Seller Perfumes
-              </span>
-            </div>
-
-            <div id="women-products-list-desktop" v-if="!$isMobile()"
-              class="mx-auto w-[95%] md:w-[88%] xl:w-[87%] 2xl:w-3/4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-5 justify-center items-center rounded-md">
-              <ProductItem v-for="(product) in womenBestSellers" :key="product.id" :product="product" />
-            </div>
-
             <div v-if="getStoreData().length === 0"
               class="mx-auto mb-10 mt-4 gap-3 flex flex-wrap items-center justify-center">
               <vProgressSpinner style="width: 40px; height: 40px" strokeWidth="3" fill="transparent"
@@ -190,22 +195,15 @@
 </template>
 
 <script>
-import axios from 'axios'
 import topbar from 'topbar'
 import router from '@/router'
-import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
-import vDrawer from "primevue/drawer"
 import { useShare } from '@vueuse/core'
-import { useCartStore } from '@/stores/cart'
 import { useProductsStore } from '@/stores/products'
-import CartComponent from '@/components/CartComponent.vue'
-import { FilterMatchMode, FilterOperator } from '@primevue/core/api'
 
 const { share, isSupported } = useShare()
 
 export default {
-  components: { vDrawer, CartComponent },
   data() {
     return {
       user: {},

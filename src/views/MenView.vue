@@ -6,14 +6,14 @@
           <div id="men-sub" class="mt-14 mx-auto w-full items-center rounded-2xl h-55 content-center justify-center">
             <div id="products-section" class="block text-center items-center justify-center">
               <div id="title" class="flex flex-col pt-22 pb-4 transition-all duration-[1s] ease-in-out">
-                <span class="justify-center font-normal text-[#B08B0F] text-[40px] font-[arumik-signature] mr-1">
+                <span
+                  class="justify-center font-normal text-[#B08B0F] text-[40px] sm:text-[42px] font-[arumik-signature] mr-1">
                   Men's Colognes
                 </span>
               </div>
 
               <div id="men-products-list-mobile" v-if="$isMobile()"
                 class="mx-auto w-[95%] h-[100vh] grid grid-cols-1 justify-center items-center rounded-2xl">
-                <!--                <div id="for-men" class="border-t-1 border-gray-100 mb-4"></div>-->
                 <DynamicScroller id="dsc" :items="products" :min-item-size="300" key-field="id"
                   class="h-[100vh] overflow-y-scroll overflow-x-hidden">
                   <template v-slot="{ item, index, active }">
@@ -24,6 +24,12 @@
                   </template>
                 </DynamicScroller>
               </div>
+            </div>
+
+            <div ref="prods" v-if="!$isMobile()" class="mx-auto w-[95%] md:w-[88%] xl:w-[87%] 2xl:w-3/4 grid
+                sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-5 justify-center
+                items-center rounded-md">
+              <ProductItem v-for="(product) in loadingProducts" :key="product.id" :product="product" />
             </div>
 
             <br> <br>
@@ -54,6 +60,7 @@ export default {
     return {
       user: {},
       products: [],
+      loadingProducts: [],
       cartQuantity: 1,
       productCartDrawerVisible: false,
       selectedProduct: {},
@@ -163,9 +170,16 @@ export default {
     getStore() {
       return useProductsStore();
     },
-    handleScroll() {
-      var el = document.getElementById('men-products-list-mobile');
-      this.getStore().posy = el.scrollTop;
+    loadMore() {
+      let currLen = this.loadingProducts.length;
+      let newItems = this.products.slice(currLen, currLen + 15)
+      this.loadingProducts.push(...newItems)
+    },
+    handleScroll(event) {
+      const element = this.$refs.prods
+      if (element.getBoundingClientRect().bottom - 400 < window.innerHeight) {
+        this.loadMore()
+      }
     },
     checkScrollDirectionIsUp(event) {
       if (event.wheelDelta) {
@@ -173,9 +187,6 @@ export default {
       }
       return event.deltaY < 0;
     },
-  },
-  created() {
-
   },
   mounted() {
     topbar.show();
@@ -189,25 +200,36 @@ export default {
       }
     }
 
-    const el = document.getElementById('dsc');
-    const title = document.getElementById('title');
-    const section = document.getElementById('men-products-list-mobile');
+    window.addEventListener("scroll", this.handleScroll)
+    this.loadingProducts = this.products.slice(0, 15);
 
-    el.addEventListener('scroll', (event) => {
-      if (el.scrollTop >= 100) {
-        title.style.display = 'flex';
-        title.style.paddingTop = '0px';
-        title.style.paddingBottom = '0px';
-        section.style.marginTop = '20px';
-      } else if (el.scrollTop < 100 && el.scrollTop <= 0) {
-        title.style.display = 'flex';
-        title.style.paddingTop = '74px';
-        title.style.paddingBottom = '4px';
-        section.style.marginTop = '6px';
-      }
-    });
+    this.loading = false;
+
+    const el = document.getElementById('dsc');
+
+    if (el != null) {
+      const title = document.getElementById('title');
+      const section = document.getElementById('men-products-list-mobile');
+
+      el.addEventListener('scroll', (event) => {
+        if (el.scrollTop >= 100) {
+          title.style.display = 'flex';
+          title.style.paddingTop = '0px';
+          title.style.paddingBottom = '0px';
+          section.style.marginTop = '20px';
+        } else if (el.scrollTop < 100 && el.scrollTop <= 0) {
+          title.style.display = 'flex';
+          title.style.paddingTop = '74px';
+          title.style.paddingBottom = '4px';
+          section.style.marginTop = '6px';
+        }
+      });
+    }
 
     topbar.hide();
+  },
+  unmounted() {
+    window.removeEventListener("scroll", this.handleScroll)
   }
 };
 </script>

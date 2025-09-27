@@ -1,11 +1,11 @@
 import router from '@/router'
 import Toastify from 'toastify-js'
 import 'toastify-js/src/toastify.css'
-import {useShare} from '@vueuse/core'
-import {useCartStore} from '@/stores/cart'
-import {useProductsStore} from '@/stores/products'
+import { useShare } from '@vueuse/core'
+import { useCartStore } from '@/stores/cart'
+import { useProductsStore } from '@/stores/products'
 
-const {share, isSupported} = useShare()
+const { share, isSupported } = useShare()
 
 export function load() {
   const productStore = useProductsStore()
@@ -116,7 +116,7 @@ export function message(content) {
       background: '#EFDA95',
       borderRadius: '25px',
       borderWidth: '1px',
-      borderColor: '#EFDA95'
+      borderColor: '#EFDA95',
     },
   }).showToast()
 }

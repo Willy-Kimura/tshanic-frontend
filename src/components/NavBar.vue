@@ -27,17 +27,18 @@
           </div>
           <div class="flex flex-row float-right items-center justify-end mx-1">
             <span class="text-[14px] mr-2 sm:flex hidden"></span>
-            <vOverlayBadge :value="cart().data.length" size="small" severity="danger" class="mr-6"
+            <vOverlayBadge :value="cart().data.length" size="small" severity="danger" class="mr-6 cursor-pointer"
               @click="navigate('/cart')">
               <i class="pi pi-shopping-cart" style="font-size: 20px"></i>
             </vOverlayBadge>
             <div v-if="favs().length > 0">
-              <vOverlayBadge :value="favs().length" size="small" @click="navigate('/heart-bucket')">
+              <vOverlayBadge :value="favs().length" size="small" class="cursor-pointer"
+                @click="navigate('/heart-bucket')">
                 <i class="pi pi-heart" style="font-size: 18px"></i>
               </vOverlayBadge>
             </div>
             <div v-else>
-              <vOverlayBadge @click="navigate('/heart-bucket')">
+              <vOverlayBadge class="cursor-pointer" @click="navigate('/heart-bucket')">
                 <i class="pi pi-heart" style="font-size: 18px"></i>
               </vOverlayBadge>
             </div>
@@ -46,7 +47,7 @@
       </div>
 
       <div id="menubar"
-        class="sm:hidden flex w-full py-4 pl-4 sm:justify-end h-12 bg-[#F8FAFC] text-lg border-solid border-b-[1px] border-b-[#EBEBEB]">
+        class="flex w-full py-4 pl-4 sm:justify-end h-12 bg-[#F8FAFC] text-lg border-solid border-b-[1px] border-b-[#EBEBEB]">
         <div class="mx-auto lg:w-[70%] w-full flex justify-between items-center">
           <div
             class="gap-4 mx-2 flex w-full max-md:hidden max-sm:flex max-lg:hidden max-xl:hidden max-2xl:hidden min-xl:hidden">
@@ -90,7 +91,7 @@
           </div>
 
           <nav id="menu"
-            class="hidden flex-row lg:gap-8 gap-6 w-full text-[15px] items-center float-right lg:justify-end justify-center">
+            class="hidden sm:flex flex-row lg:gap-8 gap-6 w-full text-[15px] items-center float-right lg:justify-end justify-center">
             <RouterLink id="navLink" v-for="(item) in menuItems" :to="item.route" :key="item.label"
               class="navLink transition-all duration-200 ease-in-out">
               {{ item.label }}
