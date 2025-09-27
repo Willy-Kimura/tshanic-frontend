@@ -86,7 +86,7 @@
                   <span class="font-normal w-[90px] text-gray-700">Category:</span>
                   <span class="font-medium text-[#B38E16] cursor-pointer">{{
                     product.category
-                  }}</span>
+                    }}</span>
                 </div>
                 <div class="flex flex-row gap-3 mb-1.5 items-center">
                   <span class="font-normal w-[90px] text-gray-700">Type:</span>
@@ -179,7 +179,7 @@
       </section>
 
       <section id="desktop"
-        class="max-lg:hidden flex mx-auto py-7 px-7 sm:w-[70%] w-full justify-between shadow-lg rounded-md h-full">
+        class="max-lg:hidden flex mx-auto py-7 px-7 sm:w-[70%] lg:w-[90%] xl:w-[70%] w-full justify-between shadow-lg rounded-md h-full">
         <div v-if="loading" class="w-full -mt-6 flex flex-col items-start">
           <vSkeleton width="40%" height="370px" class="mb-3"></vSkeleton>
           <vSkeleton width="40%" class="mb-2"></vSkeleton>
@@ -288,12 +288,9 @@
                     class="w-full p-1.5 py-[8px] rounded-[2px] text-[14px] hover:shadow-lg transition-all duration-300 ease-in-out"
                     icon="pi pi-cart-plus" label="&nbsp;Add to cart" @click="addToCart"
                     style="background-color: #0F172A; border-color: #0F172A; color: white; padding: 8px;" />
-                  <div class="flex flex-row my-auto text-xs rounded-full bg-gray-100 text-gray-500 px-3 py-2">
-                    OR
-                  </div>
                   <vButton id="buy-on-whatsapp-btn"
-                    class="w-full py-[8px] hover:shadow-lg transition-all duration-300 ease-in-out"
-                    label="Instant Checkout" iconPos="left" icon="pi pi-whatsapp" @click="checkout"
+                    class="w-full py-[8px] hover:shadow-lg transition-all duration-300 ease-in-out" label="Checkout"
+                    iconPos="left" icon="pi pi-whatsapp" @click="checkout"
                     style="background-color: #08802C; border-color: #08802C; border-radius: 2px; color: white; padding: 8px;" />
                 </div>
                 <div class="flex flex-row mt-3 mb-4 gap-3 justify-center items-center w-full">

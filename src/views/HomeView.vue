@@ -2,7 +2,7 @@
   <NavBar>
     <div id="hero-section" class="w-full mt-30 sm:mt-26 bg-[#E0CD7E]">
       <section id="hero-image" class="shadow-2xl xl:h-110 max-md:h-80 max-lg:h-110 max-xl:h-110 max-sm:h-90 bg-top
-                        xl:bg-[url(/assets/images/identity/hero-banner-08.png)] bg-cover bg-no-repeat w-full
+                        xl:bg-[url(/assets/images/identity/hero-banner-08.png)] lg:bg-[url(/assets/images/identity/hero-banner-08.png)] xl:bg-cover bg-no-repeat w-full
                         bg-gradient-to-tr from-amber-300 to-yellow-50">
 
         <div id="desktop-hero"
@@ -116,7 +116,8 @@
             </div>
           </RouterLink>
 
-          <RouterLink id="pageLink" to="/cosmetics" class="navLink transition-all duration-200 ease-in-out">
+          <RouterLink id="pageLink" to="/cosmetics"
+            class="navLink xl:visible max-sm:visible lg:hidden transition-all duration-200 ease-in-out">
             <div class="transition-all duration-200 hover:-translate-y-1 hover:scale-100 cursor-pointer rounded-xl
               shadow-2xl w-45 sm:w-50 h-50 bg-[url(/assets/images/misc/diffusers.jpg)] bg-cover bg-no-repeat">
               <div class="bg-[white] shadow-xl rounded-tl-xl rounded-tr-xl p-1 py-3 text-center uppercase">
