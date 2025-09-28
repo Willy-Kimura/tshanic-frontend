@@ -21,14 +21,7 @@
               <i class="pi pi-whatsapp content-center" style="font-size: 12px"></i>&nbsp; Call Us:
               <b>0727-866-642</b></a>
           </div>
-          <div class="content-center text-[14.5px] lg:flex hidden">
-            <i class="pi pi-map-marker content-center" style="font-size: 13px"></i>&nbsp;
-            Jamia Mall, 1st Floor F60, Nairobi &nbsp;&nbsp; | &nbsp; &nbsp; <a href="tel:0727866642"
-              class="text-[#D10274]">
-              <i class="pi pi-whatsapp content-center" style="font-size: 12px"></i>&nbsp; Call Us:
-              <b>0727-866-642</b></a>
-          </div>
-          <div class="content-center text-[16px] text-[#B08B0F] hidden -ml-14 items-center">
+          <div class="content-center text-[16px] text-[#B08B0F] max-xl:flex max-sm:hidden hidden -ml-14 items-center">
             <i class="pi pi-whatsapp content-center" style="font-size: 12px"></i>&nbsp; &nbsp;
             <a href="tel:0727866642">0727-866-642</a>
           </div>
