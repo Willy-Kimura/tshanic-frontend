@@ -42,16 +42,13 @@
 </template>
 
 <script>
-import axios from 'axios'
 import topbar from 'topbar'
 import router from '@/router'
-import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
 import { useShare } from '@vueuse/core'
+import { load } from "@/helpers/GlobalFuncs.js"
 import { useProductsStore } from '@/stores/products'
-import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
-import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
-import { load } from "@/helpers/GlobalFuncs.js";
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 
 const { share, isSupported } = useShare()
 

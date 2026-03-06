@@ -43,15 +43,11 @@
 
 
 <script>
-import axios from 'axios'
 import topbar from 'topbar'
 import router from '@/router'
-import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
 import { useShare } from '@vueuse/core'
 import { useProductsStore } from '@/stores/products'
-import { FilterMatchMode, FilterOperator } from '@primevue/core/api';
-import { load } from "@/helpers/GlobalFuncs.js";
 
 const { share, isSupported } = useShare()
 
@@ -187,9 +183,13 @@ export default {
   },
   mounted() {
     topbar.show();
-    load();
 
     let st = this.getStore();
+
+    if (productStore.data.length <= 0) {
+      productStore.get();
+      this.products = productStore.data;
+    }
 
     for (let j = 0; j < st.data.length; j++) {
       if (st.data[j].category.includes("Women's Perfumes")) {
@@ -198,7 +198,7 @@ export default {
     }
 
     window.addEventListener("scroll", this.handleScroll)
-    this.loadingProducts = this.products.slice(0, 15);
+    this.loadingProducts = this.products.slice(0, 15)
 
     this.loading = false;
 

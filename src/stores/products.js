@@ -11,6 +11,7 @@ export const useProductsStore = defineStore('products', {
       allKids: [],
       allUnisex: [],
       favorites: [],
+      newArrivals: [],
       allCosmetics: [],
       menBestSellers: [],
       womenBestSellers: [],
@@ -28,15 +29,40 @@ export const useProductsStore = defineStore('products', {
           if (response.status === 200) {
             this.data = JSON.parse(JSON.stringify(response.data)).data
 
-            for (let i = 90; i > 0; i--) {
-              let prd = this.data[i]
+            let w2 = this.data.find((item) => item.id === 99)
+            let w3 = this.data.find((item) => item.id === 132)
+            let w4 = this.data.find((item) => item.id === 135)
+            let w5 = this.data.find((item) => item.id === 151)
+            let w6 = this.data.find((item) => item.id === 154)
+            let w7 = this.data.find((item) => item.id === 167)
+            let w8 = this.data.find((item) => item.id === 175)
+            let w9 = this.data.find((item) => item.id === 187)
+            let w10 = this.data.find((item) => item.id === 202)
+            let w11 = this.data.find((item) => item.id === 207)
+            let w12 = this.data.find((item) => item.id === 297)
+            let w13 = this.data.find((item) => item.id === 298)
 
-              if (prd.category === "Women's Perfumes") {
-                this.womenBestSellers.push(prd)
-              } else if (prd.category === "Men's Colognes") {
-                this.menBestSellers.push(prd)
-              }
-            }
+            let m2 = this.data.find((item) => item.id === 199)
+            let m3 = this.data.find((item) => item.id === 206)
+            let m4 = this.data.find((item) => item.id === 211)
+            let m5 = this.data.find((item) => item.id === 226)
+            let m6 = this.data.find((item) => item.id === 227)
+            let m7 = this.data.find((item) => item.id === 277)
+            let m8 = this.data.find((item) => item.id === 291)
+            let m9 = this.data.find((item) => item.id === 302)
+            let m10 = this.data.find((item) => item.id === 311)
+            let m11 = this.data.find((item) => item.id === 312)
+            let m12 = this.data.find((item) => item.id === 391)
+            let m13 = this.data.find((item) => item.id === 423)
+
+            let n1 = this.data.find((item) => item.id === 1852)
+            let n2 = this.data.find((item) => item.id === 1853)
+            let n3 = this.data.find((item) => item.id === 1854)
+            let n4 = this.data.find((item) => item.id === 1855)
+
+            this.womenBestSellers.push(w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, w13)
+            this.menBestSellers.push(m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13)
+            this.newArrivals.push(n1, n2, n3, n4)
           }
         })
         .catch(function (error) {

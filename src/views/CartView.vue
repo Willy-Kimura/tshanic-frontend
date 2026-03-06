@@ -93,7 +93,7 @@
             </div>
           </div>
           <div v-if="!orderSubmitted" id="invoice" class="flex flex-col bg-[#F2F2F5] p-5 px-4">
-            <div class="summaries flex flex-row -mb-1 transition-all duration-200 ease-in-out text-[17px] mb-1">
+            <div class="summaries flex flex-row -mb-1 transition-all duration-200 ease-in-out text-[17px]">
               <div id="summaries-labels" class="w-1/2 text-[#9E9C9F] flex flex-col gap-2">
                 <span>Subtotal:</span>
                 <span>Discount:</span>
