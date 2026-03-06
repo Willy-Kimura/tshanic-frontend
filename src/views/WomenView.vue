@@ -186,9 +186,9 @@ export default {
 
     let st = this.getStore();
 
-    if (productStore.data.length <= 0) {
-      productStore.get();
-      this.products = productStore.data;
+    if (this.getStore().data.length <= 0) {
+      this.getStore().get();
+      this.products = this.getStore().data;
     }
 
     for (let j = 0; j < st.data.length; j++) {
