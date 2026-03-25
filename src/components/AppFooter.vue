@@ -57,6 +57,21 @@
             </p>
             <ul class="mt-2 space-y-1 text-lg text-left grid grid-cols-2 gap-x-8">
               <li>
+                <a href="/about" class="transition hover:opacity-75">About Us</a>
+              </li>
+              <li>
+                <a href="/delivery-details" class="transition hover:opacity-75">Delivery Details</a>
+              </li>
+              <li>
+                <a href="/terms-conditions" class="transition hover:opacity-75">Terms</a>
+              </li>
+              <li>
+                <a href="/contact" class="transition hover:opacity-75">Contact Us</a>
+              </li>
+              <li>
+                <a href="/return-policy" class="transition hover:opacity-75">Return Policy</a>
+              </li>
+              <li>
                 <a href="/shop" class="transition hover:opacity-75">Our Collection</a>
               </li>
               <li>

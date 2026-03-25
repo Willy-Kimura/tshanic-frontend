@@ -10,10 +10,15 @@ import BrandsView from '@/views/BrandsView.vue'
 import BrandPageView from '@/views/BrandPageView.vue'
 import DiffusersView from '@/views/DiffusersView.vue'
 import NotFound from '@/views/NotFound.vue'
+import AboutView from '@/views/AboutView.vue'
 import WPFinder from '@/views/WPFinder.vue'
 import HeartBucketView from '@/views/HeartBucketView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import KidsView from '@/views/KidsView.vue'
+import DeliveryDetailsView from '@/views/DeliveryDetailsView.vue'
+import TermsView from '@/views/TermsView.vue'
+import ReturnPolicyView from '@/views/ReturnPolicyView.vue'
+import ContactUsView from '@/views/ContactUsView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +29,46 @@ const router = createRouter({
       component: HomeView,
       meta: {
         title: 'Tshanic - Best perfumes and cosmetics online store',
+      },
+    },
+    {
+      name: 'about',
+      path: '/about',
+      component: AboutView,
+      meta: {
+        title: 'Tshanic - About Tshanic Skin & Scents',
+      },
+    },
+    {
+      name: 'delivery-details',
+      path: '/delivery-details',
+      component: DeliveryDetailsView,
+      meta: {
+        title: 'Tshanic - Delivery Details',
+      },
+    },
+    {
+      name: 'terms-conditions',
+      path: '/terms-conditions',
+      component: TermsView,
+      meta: {
+        title: 'Tshanic - Terms & Conditions',
+      },
+    },
+    {
+      name: 'return-policy',
+      path: '/return-policy',
+      component: ReturnPolicyView,
+      meta: {
+        title: 'Tshanic - Return Policy',
+      },
+    },
+    {
+      name: 'contact',
+      path: '/contact',
+      component: ContactUsView,
+      meta: {
+        title: 'Tshanic - Contact Us',
       },
     },
     {
