@@ -16,7 +16,7 @@
           </div>
           <div class="sm:flex hidden max-md:hidden sm:justify-start
               items-center justify-between w-full pl-2">
-            <div class="hidden sm:flex w-[88%]">
+            <div class="hidden sm:flex items-center w-[88%]">
               <AutoComplete v-model="searchTerm" :suggestions="filteredData" @complete="search"
                 @option-select="view(searchTerm)" optionLabel="name" scroll-height="220px"
                 :virtualScrollerOptions="{ itemSize: 32 }" overlayClass="w-[50%]" fluid inputStyle="width: 100%; background-color: #F8FAFC; border-color: #F8FAFC;
@@ -41,6 +41,15 @@
                   </div>
                 </template>
               </AutoComplete>
+              <div class="flex flex-row items-center gap-2">
+                <i class="pi pi-envelope content-center" style="font-size: 12px"></i>
+                <span>
+                  Email:
+                </span>
+                <a href="mailto:tshanicke@gmail.com" class="text-[#D10274]">
+                  tshanicke@gmail.com
+                </a>
+              </div>
             </div>
           </div>
           <div class="content-center text-[14.5px] hidden"> <!-- content-center text-[14.5px] xl:flex hidden -->
