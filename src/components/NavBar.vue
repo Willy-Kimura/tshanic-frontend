@@ -14,7 +14,36 @@
               <img src="/assets/images/identity/logo-light-creole.png" alt="tshanic-logo" class="w-70 -ml-7 -mt-3">
             </router-link>
           </div>
-          <div class="content-center text-[14.5px] xl:flex hidden">
+          <div class="sm:flex hidden max-md:hidden sm:justify-start
+              items-center justify-between w-full pl-2">
+            <div class="hidden sm:flex w-[88%]">
+              <AutoComplete v-model="searchTerm" :suggestions="filteredData" @complete="search"
+                @option-select="view(searchTerm)" optionLabel="name" scroll-height="220px"
+                :virtualScrollerOptions="{ itemSize: 32 }" overlayClass="w-[50%]" fluid inputStyle="width: 100%; background-color: #F8FAFC; border-color: #F8FAFC;
+                  font-size: 16.5px; border-left: 1px solid #EDEDED;" style="width: 112%;"
+                placeholder="Search for perfumes and cosmetics...">
+                <template #option="slotProps">
+                  <div class="flex flex-col w-full border-b-[1px] border-b-slate-100 pb-2">
+                    <div class="flex flex-row items-center gap-2 text-[16px] w-full">
+                      <div>
+                        <i class="pi pi-arrow-up-right text-slate-400" style="font-size: 10px;"></i>
+                      </div>
+                      <div>{{ slotProps.option.name }}</div>
+                    </div>
+                  </div>
+                </template>
+                <template #header>
+
+                </template>
+                <template #footer>
+                  <div class="px-4 py-2 text-md text-[#6C4604]">
+                    Found <span class="font-semibold">{{ filteredData.length }}</span> products
+                  </div>
+                </template>
+              </AutoComplete>
+            </div>
+          </div>
+          <div class="content-center text-[14.5px] hidden"> <!-- content-center text-[14.5px] xl:flex hidden -->
             <i class="pi pi-map-marker content-center" style="font-size: 13px"></i>&nbsp;
             Jamia Mall, 1st Floor F60, Kimathi St., Nairobi &nbsp;&nbsp; | &nbsp; &nbsp; <a href="tel:0727866642"
               class="text-[#D10274]">
@@ -56,8 +85,8 @@
               @click="menuDrawerVisible = !menuDrawerVisible">
               <i class="pi pi-bars content-center cursor-pointer -mt-0.5" style="font-size: 16px"></i>
             </div>
-            <div
-              class="flex max-sm:flex max-xl:flex max-md:hidden sm:justify-start items-center justify-between w-full pl-2">
+            <div class="flex max-sm:flex max-xl:flex max-md:hidden sm:justify-start
+              items-center justify-between w-full pl-2">
               <div class="flex w-[88%]">
                 <AutoComplete v-model="searchTerm" :suggestions="filteredData" @complete="search"
                   @option-select="view(searchTerm)" optionLabel="name" scroll-height="220px"

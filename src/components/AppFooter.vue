@@ -55,41 +55,42 @@
             <p class="font-medium text-lg text-white">
               SITEMAP
             </p>
-            <ul class="mt-2 space-y-1 text-lg text-left grid grid-cols-2 gap-x-8">
-              <li>
-                <a href="/about" class="transition hover:opacity-75">About Us</a>
-              </li>
-              <li>
-                <a href="/delivery-details" class="transition hover:opacity-75">Delivery Details</a>
-              </li>
-              <li>
-                <a href="/terms-conditions" class="transition hover:opacity-75">Terms</a>
-              </li>
-              <li>
-                <a href="/contact" class="transition hover:opacity-75">Contact Us</a>
-              </li>
-              <li>
-                <a href="/return-policy" class="transition hover:opacity-75">Return Policy</a>
-              </li>
-              <li>
-                <a href="/shop" class="transition hover:opacity-75">Our Collection</a>
-              </li>
-              <li>
-                <a href="/brands" class="transition hover:opacity-75">Brands</a>
-              </li>
-              <li>
-                <a href="/women" class="transition hover:opacity-75">Women's Perfumes</a>
-              </li>
-              <li>
-                <a href="/men" class="transition hover:opacity-75">Men's Colognes</a>
-              </li>
-              <li>
-                <a href="/unisex" class="transition hover:opacity-75">Unisex Perfumes</a>
-              </li>
-              <li>
-                <a href="/cosmetics" class="transition hover:opacity-75">Cosmetics</a>
-              </li>
-            </ul>
+            <div class="w-full flex flex-row gap-8">
+              <ul class="w-fit mt-2 space-y-1 text-lg text-left">
+                <li>
+                  <a href="/about" class="transition hover:opacity-75">About Us</a>
+                </li>
+                <li>
+                  <a href="/delivery-details" class="transition hover:opacity-75">Delivery</a>
+                </li>
+                <li>
+                  <a href="/terms-conditions" class="transition hover:opacity-75">Terms</a>
+                </li>
+                <li>
+                  <a href="/contact" class="transition hover:opacity-75">Contact Us</a>
+                </li>
+                <li>
+                  <a href="/return-policy" class="transition hover:opacity-75">Return Policy</a>
+                </li>
+              </ul>
+              <ul class="w-fit mt-2 space-y-1 text-lg text-left">
+                <li>
+                  <a href="/brands" class="transition hover:opacity-75">Brands</a>
+                </li>
+                <li>
+                  <a href="/women" class="transition hover:opacity-75">Women's Perfumes</a>
+                </li>
+                <li>
+                  <a href="/men" class="transition hover:opacity-75">Men's Colognes</a>
+                </li>
+                <li>
+                  <a href="/unisex" class="transition hover:opacity-75">Unisex Perfumes</a>
+                </li>
+                <li>
+                  <a href="/cosmetics" class="transition hover:opacity-75">Cosmetics</a>
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div class="text-[#CCB363] flex flex-col w-full px-6 py-1 gap-1">
@@ -182,26 +183,42 @@
             <p class="font-medium text-lg text-white justify-center tracking-wide">
               SITEMAP
             </p>
-            <ul class="mt-2 space-y-2.5 text-xl text-left grid grid-cols-1 gap-x-8">
-              <li>
-                <a href="/shop" class="transition hover:opacity-75">Our Collection</a>
-              </li>
-              <li>
-                <a href="/brands" class="transition hover:opacity-75">Brands</a>
-              </li>
-              <li>
-                <a href="/women" class="transition hover:opacity-75">Women's Perfumes</a>
-              </li>
-              <li>
-                <a href="/men" class="transition hover:opacity-75">Men's Colognes</a>
-              </li>
-              <li>
-                <a href="/unisex" class="transition hover:opacity-75">Unisex Perfumes</a>
-              </li>
-              <li>
-                <a href="/cosmetics" class="transition hover:opacity-75">Cosmetics</a>
-              </li>
-            </ul>
+            <div class="w-full flex flex-row gap-7">
+              <ul class="mt-2 space-y-2 text-lg text-left">
+                <li>
+                  <a href="/about" class="transition hover:opacity-75">About Us</a>
+                </li>
+                <li>
+                  <a href="/delivery-details" class="transition hover:opacity-75">Delivery</a>
+                </li>
+                <li>
+                  <a href="/terms-conditions" class="transition hover:opacity-75">Terms</a>
+                </li>
+                <li>
+                  <a href="/contact" class="transition hover:opacity-75">Contact Us</a>
+                </li>
+                <li>
+                  <a href="/return-policy" class="transition hover:opacity-75">Return Policy</a>
+                </li>
+              </ul>
+              <ul class="mt-2 space-y-2 text-lg text-left">
+                <li>
+                  <a href="/brands" class="transition hover:opacity-75">Brands</a>
+                </li>
+                <li>
+                  <a href="/women" class="transition hover:opacity-75">Women's Perfumes</a>
+                </li>
+                <li>
+                  <a href="/men" class="transition hover:opacity-75">Men's Colognes</a>
+                </li>
+                <li>
+                  <a href="/unisex" class="transition hover:opacity-75">Unisex Perfumes</a>
+                </li>
+                <li>
+                  <a href="/cosmetics" class="transition hover:opacity-75">Cosmetics</a>
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div class="text-[#CCB363] flex flex-col w-full px-6 py-1 gap-1 mt-10">
