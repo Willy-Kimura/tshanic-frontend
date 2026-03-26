@@ -19,6 +19,7 @@ import DeliveryDetailsView from '@/views/DeliveryDetailsView.vue'
 import TermsView from '@/views/TermsView.vue'
 import ReturnPolicyView from '@/views/ReturnPolicyView.vue'
 import ContactUsView from '@/views/ContactUsView.vue'
+import PrivacyPolicyView from '@/views/PrivacyPolicyView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -61,6 +62,14 @@ const router = createRouter({
       component: ReturnPolicyView,
       meta: {
         title: 'Tshanic - Return Policy',
+      },
+    },
+    {
+      name: 'privacy-policy',
+      path: '/privacy-policy',
+      component: PrivacyPolicyView,
+      meta: {
+        title: 'Tshanic - Privacy Policy',
       },
     },
     {
