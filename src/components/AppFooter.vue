@@ -72,8 +72,14 @@
                 <li>
                   <a href="/return-policy" class="transition hover:opacity-75">Return Policy</a>
                 </li>
+                <li>
+                  <a href="/privacy-policy" class="transition hover:opacity-75">Privacy Policy</a>
+                </li>
               </ul>
               <ul class="w-fit mt-2 space-y-1 text-lg text-left">
+                <li>
+                  <a href="/shop" class="transition hover:opacity-75">Our Collection</a>
+                </li>
                 <li>
                   <a href="/brands" class="transition hover:opacity-75">Brands</a>
                 </li>
