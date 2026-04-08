@@ -4,6 +4,7 @@ import router from './router'
 import { createApp } from 'vue'
 import 'primeicons/primeicons.css'
 import { createPinia } from 'pinia'
+import { createGtag } from "vue-gtag"
 import PrimeVue from 'primevue/config'
 import Aura from '@primeuix/themes/aura'
 import NavBar from '@/components/NavBar.vue'
@@ -185,6 +186,10 @@ const LaraMod = definePreset(Aura, {
   },
 })
 
+const gtag = createGtag({
+  tagId: "AW-17504646534"
+})
+
 app.directive('tooltip', Tooltip)
 
 app.use(PrimeVue, {
@@ -196,6 +201,7 @@ app.use(PrimeVue, {
   },
 })
 
+app.use(gtag)
 app.use(createPinia().use(piniaPersist))
 app.use(ConfirmationService)
 app.use(VueVirtualScroller)

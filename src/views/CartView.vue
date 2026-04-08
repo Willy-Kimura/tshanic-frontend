@@ -322,15 +322,13 @@ import axios from 'axios'
 import topbar from 'topbar'
 import router from '@/router'
 import '@/helpers/GlobalFuncs.js'
-import Toastify from 'toastify-js'
+import vDialog from "primevue/dialog"
+import vButton from "primevue/button"
+import { createGtag } from "vue-gtag"
 import "toastify-js/src/toastify.css"
-import { timestamp, useShare } from '@vueuse/core'
+import { useShare } from '@vueuse/core'
 import { useCartStore } from '@/stores/cart'
-import { vueTopprogress } from 'vue-top-progress'
-import { useProductsStore } from '@/stores/products'
 import vInputNumber from "primevue/inputnumber"
-import vDialog from "primevue/dialog";
-import vButton from "primevue/button";
 import { load } from "@/helpers/GlobalFuncs.js";
 
 const { share, isSupported } = useShare()
@@ -435,6 +433,8 @@ export default {
             y: checkoutBtn.scrollY
           }
         });
+
+        this.$gtag('event', 'conversion', { 'send_to': 'AW-17504646534/wSjICM2kxZ8bEIbr7ppB' });
 
         let content = "Hello Tshanic, I'd like to place my order (*" + orderNo + "*) for the following:\n\n" + cartInfo + "\nThank you.";
         location.href = "https://api.whatsapp.com/send?phone=254727866642&text=" + encodeURIComponent(content);

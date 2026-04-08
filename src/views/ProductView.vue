@@ -1,7 +1,4 @@
 <template>
-  <metainfo>
-    <template v-slot:title="Welcome">Greetings!</template>
-  </metainfo>
   <NavBar>
     <div id="hero-section" class="mt-37 text-[#0F172A] bg-white">
       <section id="mobile"
@@ -86,7 +83,7 @@
                   <span class="font-normal w-[90px] text-gray-700">Category:</span>
                   <span class="font-medium text-[#B38E16] cursor-pointer">{{
                     product.category
-                    }}</span>
+                  }}</span>
                 </div>
                 <div class="flex flex-row gap-3 mb-1.5 items-center">
                   <span class="font-normal w-[90px] text-gray-700">Type:</span>
@@ -348,12 +345,9 @@
 import axios from 'axios'
 import topbar from 'topbar'
 import router from '@/router'
-import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
 import { useShare } from '@vueuse/core'
 import { useCartStore } from "@/stores/cart.js";
-import { vueTopprogress } from 'vue-top-progress'
-import { useProductsStore } from '@/stores/products'
 import * as globals from '@/helpers/GlobalFuncs.js'
 import { load } from "@/helpers/GlobalFuncs.js";
 
