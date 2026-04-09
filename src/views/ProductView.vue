@@ -60,52 +60,61 @@
                 {{ product.short_desc }}
               </span>
               <vDivider type="dashed"></vDivider>
+
               <div class="flex flex-col w-full items-start text-[16px]">
-                <div class="flex flex-row gap-3 mb-1">
-                  <span class="text-gray-700">Availability:</span>
-                  <vTag severity="success"
-                    style="margin-left: 5px; margin-top: -2px; border-radius: 3px; font-size: 14px; font-weight: 500;">
-                    {{
-                      product.status
-                    }}
-                  </vTag>
-                </div>
-                <div class="flex flex-row gap-3 mb-1.5">
-                  <span class="font-normal w-[90px] text-gray-700">Weight:</span>
-                  <span class="font-normal tracking-tight">
+                <div class="w-full grid grid-cols-2 grid-rows-2 gap-2">
+                  <div class="flex flex-col p-4 rounded-lg border-[1px] border-gray-200">
+                    <span class="opacity-80 text-gray-500 text-sm tracking-normal" @click="navigate(product.brand)">
+                      BRAND
+                    </span>
+                    {{ product.brand }}
+                  </div>
+                  <div class="flex flex-col p-4 rounded-lg border-[1px] border-gray-200">
+                    <span class="opacity-80 text-gray-500 text-sm tracking-normal">CATEGORY</span>
+                    {{ product.category }}
+                  </div>
+                  <div class="flex flex-col p-4 rounded-lg border-[1px] border-[#91c6a3] bg-[#DCFCE7] ">
+                    <span class="opacity-80 text-[#08802C] text-sm tracking-normal">AVAILABILITY</span>
+                    <span class="text-green-800">{{ product.status }}</span>
+                  </div>
+                  <div class="flex flex-col p-4 rounded-lg border-[1px] border-gray-200">
+                    <span class="opacity-80 text-gray-500 text-sm tracking-normal">WEIGHT</span>
                     {{ getProductWeight(product.name) }}
-                  </span>
-                </div>
-                <div class="flex flex-row gap-3 mb-1.5">
-                  <span class="font-normal w-[90px] text-gray-700">Brand:</span>
-                  <span class="font-normal cursor-pointer">{{ product.brand }}</span>
-                </div>
-                <div class="flex flex-row gap-3 mb-1.5">
-                  <span class="font-normal w-[90px] text-gray-700">Category:</span>
-                  <span class="font-medium text-[#B38E16] cursor-pointer">{{
-                    product.category
-                  }}</span>
-                </div>
-                <div class="flex flex-row gap-3 mb-1.5 items-center">
-                  <span class="font-normal w-[90px] text-gray-700">Type:</span>
-                  <span class="font-normal tracking-tight">{{ getPerfumeType(product.name) }}</span>
-                </div>
-                <div class="flex flex-row gap-3 mb-1.5 items-center">
-                  <span class="font-normal w-[90px] text-gray-700">SKU:</span>
-                  <span class="font-normal tracking-tight">{{ product.sku }}</span>
-                  <vButton icon="pi pi-copy" size="small" variant="outlined" aria-label="Favorite"
-                    v-tooltip.bottom="'Copy SKU'" rounded />
-                </div>
-                <div v-if="product.tags !== ''" class="flex flex-wrap gap-3 mb-1 items-center">
-                  <div class="flex flex-col gap-2">
-                    <span class="font-normal w-[90px] text-gray-700">Tags:</span>
-                    <div class="flex flex-wrap gap-2">
-                      <vChip v-for="tag in product.tags.split(', ')" :key=tag style="font-size: 13px;">
+                  </div>
+                  <div class="flex flex-col p-4 rounded-lg border-[1px] border-gray-200">
+                    <span class="opacity-80 text-gray-500 text-sm tracking-normal">STATUS</span>
+                    <span class="flex flex-row gap-1.5 items-center text-green-700">
+                      <i class="pi pi-check-circle size-4" />
+                      Authentic
+                    </span>
+                  </div>
+                  <div class="flex flex-col p-4 rounded-lg border-[1px] border-gray-200">
+                    <span class="opacity-80 text-gray-500 text-sm tracking-normal">SKU</span>
+                    <div class="flex flex-row gap-2 my-auto tracking-tighter">
+                      {{ product.sku }}
+                    </div>
+                  </div>
+                  <div v-if="product.tags != ''"
+                    class="flex flex-col col-span-2 p-4 rounded-lg border-[1px] border-gray-200 gap-1.5">
+                    <span class="opacity-80 text-gray-500 text-sm tracking-wide">TAGS</span>
+                    <div v-if="product.tags != ''" class="flex flex-wrap gap-1.5">
+                      <vChip v-for="tag in product.tags.split(', ')" :key=tag style="font-size: 14px;">
                         {{ tag }}
+                      </vChip>
+                    </div>
+                    <div v-else class="flex flex-wrap gap-2">
+                      <vChip style="font-size: 14px;">
+                        No tags available
                       </vChip>
                     </div>
                   </div>
                 </div>
+              </div>
+
+              <div class="flex flex-col w-full items-start text-[16px]">
+
+                <!-- Old code wa here -->
+
                 <vDivider type="dashed"></vDivider>
                 <div class="flex flex-col mb-1 mt-1.5 items-start w-full gap-2">
                   <div class="w-full">
@@ -397,6 +406,11 @@ export default {
     checkout() {
       router.push({
         path: '/cart'
+      });
+    },
+    navigate(brand) {
+      router.push({
+        path: '/brands/' + brand.replace(/\s/g, "-")
       });
     },
     markAsFavorite(event) {
