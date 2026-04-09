@@ -24,7 +24,8 @@
                 <template #item="slotProps">
                   <div class="border-b-[0px] border-b-gray-200">
                     <div class="m-4">
-                      <vButton icon="pi pi-heart" variant="text" size="large" raised rounded aria-label="Favorite" />
+                      <vButton :icon="isFavorite" variant="text" size="large" raised rounded aria-label="Favorite"
+                        @click="markAsFavorite" />
                     </div>
                     <img :src="getHDImageLink(slotProps.item)" style="width: 100%;" />
                   </div>
@@ -119,20 +120,19 @@
                       </template>
                     </vInputNumber>
                   </div>
-                  <vButton id="add-to-cart-btn"
-                    class="w-full p-1.5 py-[8px] rounded-[2px] text-[14px] hover:shadow-lg transition-all duration-300 ease-in-out"
-                    icon="pi pi-cart-plus" label="&nbsp;Add to cart" @click="addToCart"
+                  <vButton id="add-to-cart-btn" class="w-full p-1.5 py-[8px] rounded-[2px] text-[14px] hover:shadow-lg transition-all
+                    duration-300 ease-in-out" icon="pi pi-cart-plus" label="&nbsp;Add to cart" @click="addToCart"
                     style="background-color: #0F172A; border-color: #0F172A; color: white; padding: 8px;" />
                   <vButton id="buy-on-whatsapp-btn"
-                    class="w-full py-[8px] hover:shadow-lg transition-all duration-300 ease-in-out" label="Checkout"
-                    iconPos="left" icon="pi pi-whatsapp" @click="checkout"
+                    class="w-full py-[8px] hover:shadow-lg transition-all duration-300 ease-in-out"
+                    label="WhatsApp Checkout" iconPos="left" icon="pi pi-whatsapp" @click="instantCheckout"
                     style="background-color: #08802C; border-color: #08802C; border-radius: 2px; color: white; padding: 8px;" />
                 </div>
                 <div class="flex flex-row mt-3 mb-4 gap-3 justify-center items-center w-full">
                   <vButton icon="pi pi-share-alt" size="large" severity="secondary" variant="outlined" rounded
                     aria-label="Share product" @click="shareThis(product.name)" />
-                  <vButton icon="pi pi-heart" size="large" severity="warn" variant="outlined" rounded
-                    aria-label="Share product" @click="shareThis(product.name)" />
+                  <vButton :icon="isFavorite" size="large" severity="warn" variant="outlined" rounded
+                    aria-label="Favorite product" @click="markAsFavorite" />
                 </div>
               </div>
             </div>
@@ -147,8 +147,7 @@
                 </vTabList>
                 <vTabPanels>
                   <vTabPanel value="0">
-                    <div id="product-desc" class="text-lg">
-                      {{ parseHtml(product.long_desc) }}
+                    <div id="product-desc" class="text-lg" v-html="product.long_desc">
                     </div>
                   </vTabPanel>
                   <vTabPanel value="1">
@@ -286,15 +285,15 @@
                     icon="pi pi-cart-plus" label="&nbsp;Add to cart" @click="addToCart"
                     style="background-color: #0F172A; border-color: #0F172A; color: white; padding: 8px;" />
                   <vButton id="buy-on-whatsapp-btn"
-                    class="w-full py-[8px] hover:shadow-lg transition-all duration-300 ease-in-out" label="Checkout"
-                    iconPos="left" icon="pi pi-whatsapp" @click="checkout"
+                    class="w-full py-[8px] hover:shadow-lg transition-all duration-300 ease-in-out"
+                    label="WhatsApp Checkout" iconPos="left" icon="pi pi-whatsapp" @click="instantCheckout"
                     style="background-color: #08802C; border-color: #08802C; border-radius: 2px; color: white; padding: 8px;" />
                 </div>
                 <div class="flex flex-row mt-3 mb-4 gap-3 justify-center items-center w-full">
                   <vButton icon="pi pi-share-alt" size="large" severity="secondary" variant="outlined" rounded
                     aria-label="Share product" @click="shareThis(product.name)" />
-                  <vButton icon="pi pi-heart" size="large" severity="warn" variant="outlined" rounded
-                    aria-label="Share product" @click="shareThis(product.name)" />
+                  <vButton :icon="isFavorite" size="large" severity="warn" variant="outlined" rounded
+                    aria-label="Share product" @click="markAsFavorite" />
                 </div>
               </div>
             </div>
@@ -347,9 +346,10 @@ import topbar from 'topbar'
 import router from '@/router'
 import "toastify-js/src/toastify.css"
 import { useShare } from '@vueuse/core'
-import { useCartStore } from "@/stores/cart.js";
+import { load } from "@/helpers/GlobalFuncs.js"
+import { useCartStore } from "@/stores/cart.js"
 import * as globals from '@/helpers/GlobalFuncs.js'
-import { load } from "@/helpers/GlobalFuncs.js";
+import { useProductsStore } from "@/stores/products"
 
 const { share, isSupported } = useShare()
 
@@ -378,7 +378,16 @@ export default {
       ]
     };
   },
+  computed: {
+    isFavorite() {
+      let item = this.getStore().data.find(prd => prd.id == this.product.id);
+      return item.favorite ? 'pi pi-heart-fill' : 'pi pi-heart';
+    }
+  },
   methods: {
+    getStore() {
+      return useProductsStore();
+    },
     addToCart() {
       const cart = useCartStore();
       cart.add(this.product, this.quantity);
@@ -389,6 +398,121 @@ export default {
       router.push({
         path: '/cart'
       });
+    },
+    markAsFavorite(event) {
+      if (this.$route.name === 'heart-bucket') {
+        this.$confirm.require({
+          target: event.currentTarget,
+          message: 'Confirm unhearting this item?',
+          icon: 'pi pi-info-circle',
+          rejectProps: {
+            label: 'No cancel',
+            severity: 'secondary',
+            outlined: true
+          },
+          acceptProps: {
+            label: 'Unheart it',
+            severity: 'danger'
+          },
+          accept: () => {
+            let f_item = this.getStore().favorites.find(prd => prd.id == this.product.id);
+            let m_item = this.getStore().data.find(prd => prd.id == this.product.id);
+
+            let index_1 = this.getStore().favorites.indexOf(f_item);
+            this.getStore().favorites.splice(index_1, 1);
+            f_item.favorite = false;
+
+            let index_2 = this.getStore().favorites.indexOf(m_item);
+            this.getStore().data.splice(index_2, 1);
+            m_item.favorite = false;
+
+            globals.message('Product unhearted.');
+            this.$emit('item-updated');
+          },
+          reject: () => {
+
+          }
+        });
+      } else {
+        let item = this.getStore().data.find(prd => prd.id == this.product.id);
+        item.favorite = !item.favorite;
+
+        if (item.favorite) {
+          this.getStore().favorites.push(item);
+          globals.message('Product hearted!');
+        } else {
+          let index = this.getStore().favorites.indexOf(item);
+          this.getStore().favorites.splice(index, 1);
+          globals.message('Product unhearted.');
+        }
+
+        this.$emit('item-updated');
+      }
+    },
+    generateOrderId(length) {
+      let result = '';
+      let dt = new Date();
+      const characters = '0123456789';
+      const charactersLength = characters.length;
+      for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+      return result + dt.getMinutes() + dt.getSeconds();
+    },
+    instantCheckout() {
+      topbar.show();
+
+      const url = import.meta.env.VITE_API_URL;
+      let orderCreated = {};
+      let cartInfo = '';
+      let orderNo = this.generateOrderId(3);
+      let orderInfo = {
+        'order_no': orderNo,
+        'subtotal': this.product.sale_price,
+        'total': this.product.sale_price
+      };
+
+      axios
+        .post(`${url}/orders/`, orderInfo, {
+          Accept: `application/json`
+        })
+        .then((response) => {
+          if (response.status === 200) {
+            orderCreated = JSON.parse(JSON.stringify(response.data)).data;
+          } else {
+            console.error(`Order '${orderNo}' not created; see error log.\n${response.data}`)
+          }
+        })
+        .catch(function (error) {
+          console.error(error)
+        })
+
+      cartInfo = `*${this.product.name}* - Qty: ${1}, SKU: ${this.product.sku} \n`;
+
+      let prd = {
+        'order_id': orderCreated.id,
+        'product_id': this.product.id,
+        'quantity': 1,
+        'cost': 1 * this.product.sale_price
+      };
+
+      axios
+        .post(`${url}/orders/products/`, prd, {
+          Accept: `application/json`
+        })
+        .then((response) => {
+          if (response.status !== 200) {
+            console.error(`Product '${prd.name}' not added to order; see error log.\n${response.data}`)
+          }
+        })
+        .catch(function (error) {
+          console.error(error)
+        })
+
+      topbar.hide();
+
+      let content = "Hello Tshanic, I'd like to place my order (*" + orderNo + "*) for the following:\n\n" + cartInfo + "\nThank you.";
+      location.href = "https://api.whatsapp.com/send?phone=254727866642&text=" + encodeURIComponent(content);
     },
     shareThis(product) {
       if (isSupported) {
