@@ -20,6 +20,7 @@ import TermsView from '@/views/TermsView.vue'
 import ReturnPolicyView from '@/views/ReturnPolicyView.vue'
 import ContactUsView from '@/views/ContactUsView.vue'
 import PrivacyPolicyView from '@/views/PrivacyPolicyView.vue'
+import WhyShopWithUs from '@/views/WhyShopWithUs.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,14 @@ const router = createRouter({
       component: AboutView,
       meta: {
         title: 'Tshanic - About Tshanic Skin & Scents',
+      },
+    },
+    {
+      name: 'why-us',
+      path: '/why-us',
+      component: WhyShopWithUs,
+      meta: {
+        title: 'Tshanic - Why Shop With Us',
       },
     },
     {

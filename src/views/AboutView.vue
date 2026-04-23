@@ -8,10 +8,12 @@
 
         <span class="text-[16px]/6">
           <b>Tshanic Skin & Scents</b> is your premier Kenyan destination for authentic,
-          high-quality perfumes and premium cosmetics. We curate a luxurious collection of
-          scents and beauty products designed to elevate your personal style, offering
-          confidence and sophistication for every occasion. Discover signature scents and
-          beauty essentials tailored to your needs.
+          high-quality perfumes and premium cosmetics. We are a legitimate retailer of
+          authentic fragrances and cosmetics. We do not sell counterfeit, replica, or
+          imitation goods. We curate a luxurious collection of scents and beauty products
+          designed to elevate your personal style, offering confidence and sophistication
+          for every occasion. Discover signature scents and beauty essentials tailored to
+          your needs.
         </span>
 
         <span class="text-2xl font-bold mb-3 mt-5">
@@ -50,19 +52,8 @@
 </template>
 
 <script>
-import axios from 'axios'
-import topbar from 'topbar'
-import router from '@/router'
-import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
-import { useShare } from '@vueuse/core'
-import { useCartStore } from "@/stores/cart.js";
-import { vueTopprogress } from 'vue-top-progress'
-import { useProductsStore } from '@/stores/products'
-import * as globals from '@/helpers/GlobalFuncs.js'
 import { load } from "@/helpers/GlobalFuncs.js";
-
-const { share, isSupported } = useShare()
 
 export default {
   data() {

@@ -61,6 +61,9 @@
                   <a href="/about" class="transition hover:opacity-75">About Us</a>
                 </li>
                 <li>
+                  <a href="/why-us" class="transition hover:opacity-75">Why Us</a>
+                </li>
+                <li>
                   <a href="/delivery-details" class="transition hover:opacity-75">Delivery</a>
                 </li>
                 <li>
@@ -94,6 +97,9 @@
                 </li>
                 <li>
                   <a href="/cosmetics" class="transition hover:opacity-75">Cosmetics</a>
+                </li>
+                <li>
+                  <a href="/diffusers" class="transition hover:opacity-75">Diffusers</a>
                 </li>
               </ul>
             </div>

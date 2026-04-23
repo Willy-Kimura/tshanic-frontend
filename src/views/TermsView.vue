@@ -41,6 +41,12 @@
           located at Jamia Mall, 1st Floor, Shop F60, along Kimathi Street, Nairobi.
         </span>
 
+        <span class="text-left text-[16px]/6 text-balance">
+          Tshanic strictly sells authentic, genuine products only. We do not stock, sell, or
+          promote counterfeit, replica, fake, or imitation goods of any kind. All products are
+          sourced from reputable suppliers and authorized distributors.
+        </span>
+
         <span class="text-left text-2xl font-bold mb-3 mt-4">
           Offers And Promotions
         </span>
@@ -94,7 +100,7 @@
 
           <span class="text-balance">
             Once our fulfilment warehouse begins processing your order, we cannot stop it. However,
-            you can return your unopened order using our original packaging for a full refund.
+            you can return your unopened order using our authentic packaging for a full refund.
           </span>
 
           <span class="text-balance">
@@ -132,7 +138,7 @@
 
           <span class="text-balance">
             Once our fulfilment warehouse begins processing your order, we cannot stop it. However,
-            you can return your unopened order using our original packaging for a full refund.
+            you can return your unopened order using our authentic packaging for a full refund.
           </span>
 
           <span class="text-balance">
@@ -196,19 +202,8 @@
 </template>
 
 <script>
-import axios from 'axios'
-import topbar from 'topbar'
-import router from '@/router'
-import Toastify from 'toastify-js'
 import "toastify-js/src/toastify.css"
-import { useShare } from '@vueuse/core'
-import { useCartStore } from "@/stores/cart.js";
-import { vueTopprogress } from 'vue-top-progress'
-import { useProductsStore } from '@/stores/products'
-import * as globals from '@/helpers/GlobalFuncs.js'
 import { load } from "@/helpers/GlobalFuncs.js";
-
-const { share, isSupported } = useShare()
 
 export default {
   data() {
