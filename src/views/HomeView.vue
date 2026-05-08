@@ -132,7 +132,7 @@
         <div id="best-seller-women"
           class="block text-center mt-10 mx-auto w-full items-center rounded-2xl h-55 content-center justify-center">
 
-          <div class="flex flex-col my-2">
+          <div  class="hidden flex-col my-2">
             <span
               class="justify-center font-normal text-[#B08B0F] text-[40px] sm:text-[42px] font-[arumik-signature] mr-1">
               Cosmetics
@@ -143,21 +143,22 @@
           </div>
 
           <div v-if="getStoreData().length === 0"
-            class="mx-auto mb-10 mt-4 gap-3 flex flex-wrap items-center justify-center">
+            class="mx-auto mb-10 mt-4 gap-3 hidden flex-wrap items-center justify-center">
             <vProgressSpinner style="width: 40px; height: 40px" strokeWidth="3" fill="transparent"
               animationDuration=".5s" aria-label="loading" />
           </div>
 
           <div id="new-arrivals-list-mobile" v-if="$isMobile()"
-            class="mx-auto w-[95%] grid grid-cols-1 justify-center items-center rounded-2xl">
+            class="mx-auto w-[95%] hidden grid-cols-1 justify-center items-center rounded-2xl">
             <div id="new-arrivals" class="border-t-1 border-gray-100"></div>
-            <ProductItem v-for="(product) in newArrivals" :key="product.id" :product="product" />
+            <!-- <ProductItem v-for="(product) in newArrivals" :key="product.id" :product="product" /> -->
           </div>
 
-          <div id="new-arrivals-list-desktop" v-if="!$isMobile()" class="mx-auto w-[95%] md:w-[88%]
-            xl:w-[87%] 2xl:w-3/4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4
+          <div id="new-arrivals-list-desktop" v-if="!$isMobile() && newArrivals.length > 0"
+            class="mx-auto w-[95%] md:w-[88%]
+            xl:w-[87%] 2xl:w-3/4 hidden sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4
             xl:grid-cols-5 2xl:grid-cols-5 gap-5 justify-center items-center rounded-md">
-            <ProductItem v-for="(product) in newArrivals" :key="product.id" :product="product" />
+            <!-- <ProductItem v-for="(product) in newArrivals" :key="product.id" :product="product" /> -->
           </div>
 
           <div class="flex flex-col my-5">
