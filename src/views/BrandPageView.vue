@@ -9,8 +9,8 @@
         <div id="brands-sub" class="mt-14 mx-auto w-full items-center rounded-2xl h-55 content-center justify-center">
           <div id="products-section" class="flex flex-col text-center items-center justify-center">
             <div id="title"
-              class="w-3/4 mx-auto justify-between items-center flex flex-row pt-20 transition-all duration-[1s] ease-in-out">
-              <vButton label="Back" class="max-md:hidden fit w-fit h-fit justify-left ml-10" icon="pi pi-arrow-left"
+              class="w-3/4 ml-3 mx-auto justify-center items-center flex flex-row pt-20 transition-all duration-[1s] ease-in-out">
+              <vButton class="max-md:hidden fit w-fit h-fit justify-left ml-10" icon="pi pi-arrow-left"
                 severity="secondary" variant="outlined" rounded @click="this.$router.back()" />
               <img :src="getBrandImageLink(brand.logo)" width="100" :alt="brand.name" class="justify-center">
               <span></span>
