@@ -192,6 +192,64 @@
             <img src="/assets/images/identity/review-01.png" alt="Tshanic Customer Reviews" class="w-fit h-auto">
           </div>
 
+          <div id="customer-reviews" class="mt-10 flex flex-col w-full text-center items-center justify-center px-4">
+            <div class="flex flex-col">
+              <span class="justify-center font-normal text-[#B08B0F] text-[40px] sm:text-[42px] font-[arumik-signature] mr-1">
+                Customer Reviews
+              </span>
+              <span class="mb-7 text-center text-3xl md:text-[36px] tracking-tight">
+                What Our Customers Say
+              </span>
+            </div>
+
+            <div
+              class="w-full max-w-lg mx-auto relative overflow-hidden rounded-2xl border border-stone-200/80 bg-gradient-to-b from-stone-50 to-white shadow-lg"
+              @mouseenter="pauseReviewAutoplay"
+              @mouseleave="resumeReviewAutoplay"
+            >
+              <div
+                class="flex transition-transform duration-700 ease-in-out"
+                :style="{ transform: `translateX(-${currentReviewIndex * 100}%)` }"
+              >
+                <article
+                  v-for="review in customerReviews"
+                  :key="review.id"
+                  class="w-full shrink-0 flex flex-col items-center px-6 sm:px-10 py-10 gap-4"
+                >
+                  <img
+                    :src="review.image"
+                    :alt="review.name"
+                    width="96"
+                    height="96"
+                    class="w-20 h-20 rounded-full object-cover ring-4 ring-[#E0CD7E]/60 shadow-md"
+                    loading="lazy"
+                  />
+                  <div class="flex flex-col items-center gap-2">
+                    <span class="text-lg font-semibold text-stone-800">{{ review.name }}</span>
+                    <div class="flex flex-row items-center justify-center">
+                      <vRating v-model="review.rating" readonly />
+                    </div>
+                  </div>
+                  <blockquote class="text-stone-600 text-balance leading-relaxed text-[15px] sm:text-base max-w-md">
+                    “{{ review.comment }}”
+                  </blockquote>
+                </article>
+              </div>
+              <div class="flex justify-center gap-2 pb-6" role="tablist" aria-label="Customer review slides">
+                <button
+                  v-for="(review, idx) in customerReviews"
+                  :key="'review-dot-' + review.id"
+                  type="button"
+                  class="h-2 rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B08B0F] focus-visible:ring-offset-2"
+                  :class="idx === currentReviewIndex ? 'w-8 bg-[#B08B0F]' : 'w-2 bg-stone-300 hover:bg-stone-400'"
+                  :aria-label="'Show review ' + (idx + 1)"
+                  :aria-current="idx === currentReviewIndex ? 'true' : undefined"
+                  @click="goToReview(idx)"
+                />
+              </div>
+            </div>
+          </div>
+
           <div id="product-best-sellers" class="mt-10 block text-center items-center justify-center">
             <div class="flex flex-col">
               <span
@@ -251,7 +309,56 @@ export default {
       menBestSellers: [],
       newArrivals: [],
       productCartDrawerVisible: false,
-      loading: true
+      loading: true,
+      currentReviewIndex: 0,
+      reviewsAutoplayTimer: null,
+      customerReviews: [
+        {
+          id: 1,
+          name: 'Wanjiku M.',
+          rating: 5,
+          comment:
+            'My signature scent arrived carefully packed and smells absolutely authentic. Delivery to Nairobi was faster than I expected.',
+          image:
+            'https://ui-avatars.com/api/?name=Wanjiku+M&size=128&background=B08B0F&color=fff&rounded=true&bold=true',
+        },
+        {
+          id: 2,
+          name: 'James O.',
+          rating: 5,
+          comment:
+            'Great range of men’s colognes and the team helped me pick something that lasts all day. Will definitely order again.',
+          image:
+            'https://ui-avatars.com/api/?name=James+O&size=128&background=E0CD7E&color=202020&rounded=true&bold=true',
+        },
+        {
+          id: 3,
+          name: 'Grace N.',
+          rating: 4,
+          comment:
+            'Loved the lipstick shade match from the photos. Beautiful packaging and genuine products—worth every shilling.',
+          image:
+            'https://ui-avatars.com/api/?name=Grace+N&size=128&background=D10274&color=fff&rounded=true&bold=true',
+        },
+        {
+          id: 4,
+          name: 'Peter K.',
+          rating: 5,
+          comment:
+            'Ordered a niche perfume I could not find elsewhere. Communication on WhatsApp was smooth and the bottle was perfect.',
+          image:
+            'https://ui-avatars.com/api/?name=Peter+K&size=128&background=202020&color=E0CD7E&rounded=true&bold=true',
+        },
+        {
+          id: 5,
+          name: 'Aisha H.',
+          rating: 5,
+          comment:
+            'Tshanic has become my go-to for gifts. The unisex options are a hit with friends, and delivery outside the city was reliable.',
+          image:
+            'https://ui-avatars.com/api/?name=Aisha+H&size=128&background=B08B0F&color=fff&rounded=true&bold=true',
+        },
+      ],
     };
   },
   props: {
@@ -364,6 +471,32 @@ export default {
     getBrandImageLink(imageFile) {
       return window.location.origin + '/assets/images/brands/' + imageFile;
     },
+    startReviewAutoplay() {
+      if (this.reviewsAutoplayTimer) {
+        clearInterval(this.reviewsAutoplayTimer);
+      }
+      this.reviewsAutoplayTimer = setInterval(() => {
+        const n = this.customerReviews.length;
+        if (n === 0) {
+          return;
+        }
+        this.currentReviewIndex = (this.currentReviewIndex + 1) % n;
+      }, 5000);
+    },
+    pauseReviewAutoplay() {
+      if (this.reviewsAutoplayTimer) {
+        clearInterval(this.reviewsAutoplayTimer);
+        this.reviewsAutoplayTimer = null;
+      }
+    },
+    resumeReviewAutoplay() {
+      this.startReviewAutoplay();
+    },
+    goToReview(idx) {
+      this.currentReviewIndex = idx;
+      this.pauseReviewAutoplay();
+      this.startReviewAutoplay();
+    },
   },
   created() {
     this.items = Array.from({ length: 100000 }).map((_, i) => `Item #${i}`);
@@ -383,6 +516,10 @@ export default {
     this.newArrivals = productStore.newArrivals;
 
     topbar.hide();
-  }
+    this.startReviewAutoplay();
+  },
+  beforeUnmount() {
+    this.pauseReviewAutoplay();
+  },
 };
 </script>
