@@ -14,7 +14,7 @@
 
           <div class="flex sm:flex-row flex-col gap-4 items-center">
             <div class="flex flex-col gap-3 p-5 items-center rounded-xl shadow-xl border border-gray-100">
-              <i class="pi pi-phone rounded-full text-white bg-black p-5" style="font-size: 1.8rem"></i>
+              <i class="pi pi-phone rounded-full text-white bg-amber-600 p-5" style="font-size: 1.8rem"></i>
               <span class="text-2xl font-bold">
                 Talk To Sales
               </span>
@@ -27,7 +27,7 @@
             </div>
 
             <div class="flex flex-col gap-3 p-5 items-center rounded-xl shadow-xl border border-gray-100">
-              <i class="pi pi-whatsapp rounded-full text-white bg-black p-5" style="font-size: 1.8rem"></i>
+              <i class="pi pi-whatsapp rounded-full text-white bg-green-600 p-5" style="font-size: 1.8rem"></i>
               <span class="text-2xl font-bold">
                 WhatsApp Chat
               </span>
@@ -39,6 +39,20 @@
               </vButton>
             </div>
           </div>
+
+          <div class="flex flex-col gap-3 p-5 items-center rounded-xl shadow-xl border border-gray-100">
+              <i class="pi pi-map-marker rounded-full text-white bg-black p-5" style="font-size: 1.8rem"></i>
+              <span class="text-2xl font-bold">
+                Visit Our Store
+              </span>
+              <span class="text-md text-left">
+                Jamia Mall, F60, Kimathi Street <br> <br>
+                <b>Working Hours:</b> <br>
+                Monday - Saturday: <b>9:00 am - 6:30 pm</b><br>
+                Sundays & Holidays: <b>Closed</b> <br> <br>
+                <i>Delivery available weekdays from <b>10:00 am - 4:00 pm</b></i><br>
+              </span>
+            </div>
         </div>
 
         <span class="mt-4 text-[#A36907] text-[32px] font-[arumik-signature]">

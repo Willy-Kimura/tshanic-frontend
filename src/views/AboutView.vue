@@ -38,6 +38,13 @@
           Customer-Centric Service: Experience effortless browsing, secure ordering, and reliable service
           tailored to you. Enhance your beauty routine and discover the art of scent with Tshanic.
         </span>
+        <span class="text-[16px]/6 text-amber-800 font-bold mb-3 mt-5">
+          Please note that Tshanic is a distributor of genuine brand name fragrances and skincare.
+          We are not the manufacturer of any of the products we carry. All products sold by Tshanic
+          Skin & Scents are sourced from verified distributors and authorized wholesale suppliers.
+          We do not deal in counterfeit, imitation, inspired-by, or replica products. Product batch
+          codes and packaging details are preserved to maintain authenticity standards.
+        </span>
         <span class="mt-2 text-[#A36907] text-[40px] font-[arumik-signature]">
           Tshanic Skin & Scents.
         </span>

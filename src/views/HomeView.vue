@@ -188,6 +188,10 @@
             <ProductItem v-for="(product) in womenBestSellers" :key="product.id" :product="product" />
           </div>
 
+          <div id="product-best-sellers" class="hidden mt-10 block text-center items-center justify-center">
+            <img src="/assets/images/identity/review-01.png" alt="Tshanic Customer Reviews" class="w-fit h-auto">
+          </div>
+
           <div id="product-best-sellers" class="mt-10 block text-center items-center justify-center">
             <div class="flex flex-col">
               <span

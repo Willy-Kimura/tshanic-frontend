@@ -19,7 +19,8 @@
             <div class="hidden sm:flex items-center w-[88%]">
               <AutoComplete v-model="searchTerm" :suggestions="filteredData" @complete="search"
                 @option-select="view(searchTerm)" optionLabel="name" scroll-height="220px"
-                :virtualScrollerOptions="{ itemSize: 32 }" overlayClass="w-[50%]" fluid inputStyle="width: 100%; background-color: #F8FAFC; border-color: #F8FAFC;
+                :virtualScrollerOptions="{ itemSize: 32 }" overlayClass="w-[50%]" fluid
+                inputStyle="width: 100%; background-color: #F8FAFC; border-color: #F8FAFC;
                   font-size: 16.5px; border-left: 1px solid #EDEDED;" style="width: 112%;"
                 placeholder="Search for perfumes and cosmetics...">
                 <template #option="slotProps">
@@ -32,22 +33,19 @@
                     </div>
                   </div>
                 </template>
-                <template #header>
-
-                </template>
                 <template #footer>
                   <div class="px-4 py-2 text-md text-[#6C4604]">
                     Found <span class="font-semibold">{{ filteredData.length }}</span> products
                   </div>
                 </template>
               </AutoComplete>
-              <div class="flex flex-row items-center gap-2">
-                <i class="pi pi-envelope content-center" style="font-size: 12px"></i>
+              <div class="flex flex-row gap-2 items-center w-[300px] justify-end">
+                <i class="pi pi-phone content-center" style="font-size: 12px"></i>
                 <span>
-                  Email:
+                  Phone:
                 </span>
-                <a href="mailto:tshanicke@gmail.com" class="text-[#D10274]">
-                  tshanicke@gmail.com
+                <a href="tel:0727866642" class="text-[#D10274]">
+                  0727-866-642
                 </a>
               </div>
             </div>
