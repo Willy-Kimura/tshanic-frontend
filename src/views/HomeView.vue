@@ -330,7 +330,7 @@ export default {
         },
         {
           id: 2,
-          name: 'James O.',
+          name: 'James Ochoa',
           rating: 5,
           comment:
             'Great range of men’s colognes and the team helped me pick something that lasts all day. Will definitely order again.',
@@ -339,16 +339,16 @@ export default {
         },
         {
           id: 3,
-          name: 'Grace N.',
+          name: 'Grace Njuguna',
           rating: 4,
           comment:
-            'Loved the lipstick shade match from the photos. Beautiful packaging and genuine products—worth every shilling.',
+            'Loved the lipstick shade match from the photos. Beautiful packaging and genuine products... Worth every shilling!',
           image:
             'https://ui-avatars.com/api/?name=Grace+N&size=128&background=D10274&color=fff&rounded=true&bold=true',
         },
         {
           id: 4,
-          name: 'Peter K.',
+          name: 'Pedro',
           rating: 5,
           comment:
             'Ordered a niche perfume I could not find elsewhere. Communication on WhatsApp was smooth and the bottle was perfect.',
@@ -357,19 +357,19 @@ export default {
         },
         {
           id: 5,
-          name: 'Aisha H.',
+          name: 'Aisha FineGirl',
           rating: 5,
           comment:
-            'Tshanic has become my go-to for gifts. The unisex options are a hit with friends, and delivery outside the city was reliable.',
+            'Waah, Tshanic has become my go-to for gifts! The unisex options are a hit with friends, and delivery outside the city was reliable.',
           image:
             'https://ui-avatars.com/api/?name=Aisha+H&size=128&background=B08B0F&color=fff&rounded=true&bold=true',
         },
         {
           id: 6,
-          name: 'David M.',
+          name: 'Brayo Msoh',
           rating: 5,
           comment:
-            'First time buying a designer fragrance online here and I was nervous—turns out the batch code checked out and the scent is spot on. Impressed.',
+            'First time buying a designer fragrance online here and I was nervous... Turns out the batch code checked out and the scent is spot on. Impressed guys!',
           image:
             'https://ui-avatars.com/api/?name=David+M&size=128&background=0F172A&color=E0CD7E&rounded=true&bold=true',
         },
@@ -378,16 +378,16 @@ export default {
           name: 'Njeri W.',
           rating: 4,
           comment:
-            'The skincare bundle I ordered was well sealed and arrived in good condition. Customer care answered all my questions before I paid.',
+            'The skincare bundle I ordered was well sealed and arrived in good condition. Customer care answered all my questions before I paid... Kurudi narudi for sure.',
           image:
             'https://ui-avatars.com/api/?name=Njeri+W&size=128&background=91c6a3&color=202020&rounded=true&bold=true',
         },
         {
           id: 8,
-          name: 'Brian T.',
+          name: 'Vicky Wesonga',
           rating: 5,
           comment:
-            'Fast turnaround from order to doorstep. My wife loved the perfume I picked with their recommendation—already planning our next purchase.',
+            "Fast turnaround from order to doorstep. Need I say just how my wife loved the perfume I picked with Tabby's recommendation! Sasa I'm planning my next purchase...",
           image:
             'https://ui-avatars.com/api/?name=Brian+T&size=128&background=D10274&color=fff&rounded=true&bold=true',
         },
