@@ -335,7 +335,7 @@ export default {
           comment:
             'Great range of men’s colognes and the team helped me pick something that lasts all day. Will definitely order again.',
           image:
-            'https://ui-avatars.com/api/?name=James+O&size=128&background=E0CD7E&color=202020&rounded=true&bold=true',
+            'https://ui-avatars.com/api/?name=James+Ochoa&size=128&background=E0CD7E&color=202020&rounded=true&bold=true',
         },
         {
           id: 3,
@@ -344,7 +344,7 @@ export default {
           comment:
             'Loved the lipstick shade match from the photos. Beautiful packaging and genuine products... Worth every shilling!',
           image:
-            'https://ui-avatars.com/api/?name=Grace+N&size=128&background=D10274&color=fff&rounded=true&bold=true',
+            'https://ui-avatars.com/api/?name=Grace+Njuguna&size=128&background=D10274&color=fff&rounded=true&bold=true',
         },
         {
           id: 4,
@@ -353,7 +353,7 @@ export default {
           comment:
             'Ordered a niche perfume I could not find elsewhere. Communication on WhatsApp was smooth and the bottle was perfect.',
           image:
-            'https://ui-avatars.com/api/?name=Peter+K&size=128&background=202020&color=E0CD7E&rounded=true&bold=true',
+            'https://ui-avatars.com/api/?name=Pedro+K&size=128&background=202020&color=E0CD7E&rounded=true&bold=true',
         },
         {
           id: 5,
@@ -362,7 +362,7 @@ export default {
           comment:
             'Waah, Tshanic has become my go-to for gifts! The unisex options are a hit with friends, and delivery outside the city was reliable.',
           image:
-            'https://ui-avatars.com/api/?name=Aisha+H&size=128&background=B08B0F&color=fff&rounded=true&bold=true',
+            'https://ui-avatars.com/api/?name=Aisha+FineGirl&size=128&background=B08B0F&color=fff&rounded=true&bold=true',
         },
         {
           id: 6,
@@ -371,7 +371,7 @@ export default {
           comment:
             'First time buying a designer fragrance online here and I was nervous... Turns out the batch code checked out and the scent is spot on. Impressed guys!',
           image:
-            'https://ui-avatars.com/api/?name=David+M&size=128&background=0F172A&color=E0CD7E&rounded=true&bold=true',
+            'https://ui-avatars.com/api/?name=Brayo+Msoh&size=128&background=0F172A&color=E0CD7E&rounded=true&bold=true',
         },
         {
           id: 7,
@@ -389,7 +389,7 @@ export default {
           comment:
             "Fast turnaround from order to doorstep. Need I say just how my wife loved the perfume I picked with Tabby's recommendation! Sasa I'm planning my next purchase...",
           image:
-            'https://ui-avatars.com/api/?name=Brian+T&size=128&background=D10274&color=fff&rounded=true&bold=true',
+            'https://ui-avatars.com/api/?name=Vicky+Wesonga&size=128&background=D10274&color=fff&rounded=true&bold=true',
         },
       ],
     };
