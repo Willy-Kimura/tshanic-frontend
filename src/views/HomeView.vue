@@ -282,6 +282,98 @@
             </div>
           </div>
 
+          <div id="featured-brands" class="mt-12 md:mt-14 flex flex-col w-full items-center px-4">
+            <div class="flex flex-col text-center mb-8 md:mb-10">
+              <span class="justify-center font-normal text-[#B08B0F] text-[40px] sm:text-[42px] font-[arumik-signature] mr-1">
+                Top Class
+              </span>
+              <span class="mb-2 text-center text-3xl md:text-[36px] tracking-tight">
+                Our Featured Brands
+              </span>
+              <span class="text-sm md:text-[15px] text-stone-500 max-w-md mx-auto font-normal tracking-wide">
+                A glimpse of the brands we sell. Tap any to explore.
+              </span>
+            </div>
+
+            <div
+              v-if="brandsHomeLoading"
+              class="flex min-h-[12rem] w-full max-w-6xl flex-wrap items-center justify-center rounded-[28px] border border-dashed border-stone-200 bg-stone-50/50"
+            >
+              <vProgressSpinner
+                style="width: 44px; height: 44px"
+                strokeWidth="3"
+                fill="transparent"
+                animationDuration=".5s"
+                aria-label="Loading brands"
+              />
+            </div>
+
+            <div
+              v-else-if="featuredBrandsHome.length > 0"
+              class="relative w-full max-w-6xl overflow-hidden rounded-[28px] border border-stone-200/80 bg-gradient-to-br from-[#fcf9f4] via-white to-[#f7f2ea] px-5 py-9 shadow-[0_24px_60px_-28px_rgba(15,23,42,0.18)] md:rounded-[32px] md:px-10 md:py-12"
+            >
+              <div
+                class="pointer-events-none absolute inset-0 opacity-[0.35]"
+                style="background-image: radial-gradient(circle at 20% 0%, rgba(176,139,15,0.08) 0%, transparent 45%), radial-gradient(circle at 85% 100%, rgba(224,205,126,0.2) 0%, transparent 42%);"
+              />
+              <div
+                class="pointer-events-none absolute left-1/2 top-0 h-px w-[min(90%,28rem)] -translate-x-1/2 bg-gradient-to-r from-transparent via-[#B08B0F]/35 to-transparent"
+              />
+              <div class="relative flex flex-wrap justify-center gap-5 md:gap-6 lg:gap-7">
+                <RouterLink
+                  v-for="brand in featuredBrandsHome"
+                  :key="brand.id"
+                  :to="getBrandPageLink(brand)"
+                  class="group relative flex w-40 flex-shrink-0 flex-col overflow-hidden rounded-2xl border border-stone-200/70 bg-white/85 shadow-[0_8px_24px_-12px_rgba(15,23,42,0.12)] transition-all duration-500 ease-out hover:-translate-y-2 hover:border-[#B08B0F]/45 hover:bg-white hover:shadow-[0_20px_40px_-18px_rgba(176,139,15,0.15)] odd:-rotate-[0.6deg] even:rotate-[0.6deg] hover:rotate-0 sm:w-44 md:w-[11.25rem]"
+                >
+                  <div class="relative flex aspect-[5/4] items-center justify-center p-4 md:p-6">
+                    <div
+                      class="absolute inset-x-3 top-2 h-12 rounded-[100%] bg-gradient-to-b from-[#E0CD7E]/25 to-transparent opacity-0 blur-md transition-opacity duration-500 group-hover:opacity-100"
+                    />
+                    <img
+                      :src="getBrandImageLink(brand.logo)"
+                      :alt="`${brand.name} logo`"
+                      class="relative z-10 max-h-[70%] max-w-[82%] object-contain transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+                    />
+                  </div>
+                  <div
+                    class="mx-auto h-px w-[55%] bg-gradient-to-r from-transparent via-[#B08B0F]/45 to-transparent"
+                    aria-hidden="true"
+                  />
+                  <p
+                    class="px-2 pb-3.5 pt-2.5 text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-stone-500 group-hover:text-stone-700 truncate"
+                  >
+                    {{ brand.name }}
+                  </p>
+                </RouterLink>
+              </div>
+              <div class="relative mt-8 flex justify-center md:mt-10">
+                <RouterLink
+                  to="/brands"
+                  class="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white/90 px-5 py-2.5 text-xs font-medium uppercase tracking-[0.14em] text-stone-600 shadow-sm transition hover:border-[#B08B0F]/40 hover:text-[#B08B0F]"
+                >
+                  All brands
+                  <i class="pi pi-arrow-up-right text-[10px]" aria-hidden="true" />
+                </RouterLink>
+              </div>
+            </div>
+
+            <div
+              v-else
+              class="flex max-w-md flex-col items-center gap-4 rounded-2xl border border-stone-200 bg-stone-50/80 px-8 py-10 text-center text-stone-600"
+            >
+              <p class="text-sm leading-relaxed">
+                Browse our full directory of designer and niche houses.
+              </p>
+              <RouterLink
+                to="/brands"
+                class="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-5 py-2.5 text-xs font-medium uppercase tracking-[0.12em] text-stone-700 transition hover:border-[#B08B0F]/50 hover:text-[#B08B0F]"
+              >
+                Explore brands
+                <i class="pi pi-arrow-right text-[10px]" aria-hidden="true" />
+              </RouterLink>
+            </div>
+          </div>
           <br> <br>
           <AppFooter />
         </div>
@@ -318,6 +410,7 @@ export default {
       visibleReviewCount: 1,
       reviewsAutoplayTimer: null,
       reviewsResizeHandler: null,
+      brandsHomeLoading: false,
       customerReviews: [
         {
           id: 1,
@@ -429,6 +522,10 @@ export default {
       const n = this.customerReviews.length;
       return n > 0 ? { flex: `0 0 calc(100% / ${n})` } : { flex: '0 0 100%' };
     },
+    featuredBrandsHome() {
+      const brands = useProductsStore().brands;
+      return Array.isArray(brands) ? brands.slice(0, 8) : [];
+    },
   },
   methods: {
     onShowCartDrawer() {
@@ -525,6 +622,21 @@ export default {
     getBrandImageLink(imageFile) {
       return window.location.origin + '/assets/images/brands/' + imageFile;
     },
+    getBrandPageLink(brand) {
+      return '/brands/' + brand.name.replace(/\s/g, '-');
+    },
+    async ensureFeaturedBrands() {
+      const productStore = useProductsStore();
+      if (productStore.brands.length > 0) {
+        return;
+      }
+      this.brandsHomeLoading = true;
+      try {
+        await productStore.getBrands();
+      } finally {
+        this.brandsHomeLoading = false;
+      }
+    },
     updateVisibleReviewCount() {
       if (typeof window === 'undefined') {
         return;
@@ -594,6 +706,7 @@ export default {
     this.updateVisibleReviewCount();
     window.addEventListener('resize', this.reviewsResizeHandler);
     this.startReviewAutoplay();
+    void this.ensureFeaturedBrands();
   },
   beforeUnmount() {
     if (this.reviewsResizeHandler) {
