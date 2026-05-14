@@ -203,48 +203,51 @@
             </div>
 
             <div
-              class="w-full max-w-lg mx-auto relative overflow-hidden rounded-2xl border border-stone-200/80 bg-gradient-to-b from-stone-50 to-white shadow-lg"
+              class="w-full max-w-lg md:max-w-4xl xl:max-w-6xl mx-auto relative overflow-hidden rounded-2xl border border-stone-200/80 bg-gradient-to-b from-stone-50 to-white shadow-lg"
               @mouseenter="pauseReviewAutoplay"
               @mouseleave="resumeReviewAutoplay"
             >
               <div
                 class="flex transition-transform duration-700 ease-in-out"
-                :style="{ transform: `translateX(-${currentReviewIndex * 100}%)` }"
+                :style="reviewCarouselInnerStyle"
               >
                 <article
                   v-for="review in customerReviews"
                   :key="review.id"
-                  class="w-full shrink-0 flex flex-col items-center px-6 sm:px-10 py-10 gap-4"
+                  :style="reviewCardFlexBasisStyle"
+                  class="shrink-0 flex flex-col items-center px-6 sm:px-10 py-10 gap-4 md:px-4 xl:px-5"
                 >
                   <img
                     :src="review.image"
                     :alt="review.name"
                     width="96"
                     height="96"
-                    class="w-20 h-20 rounded-full object-cover ring-4 ring-[#E0CD7E]/60 shadow-md"
+                    class="w-20 h-20 md:w-16 md:h-16 xl:w-20 xl:h-20 rounded-full object-cover ring-4 ring-[#E0CD7E]/60 shadow-md"
                     loading="lazy"
                   />
                   <div class="flex flex-col items-center gap-2">
-                    <span class="text-lg font-semibold text-stone-800">{{ review.name }}</span>
+                    <span class="text-lg md:text-[15px] xl:text-lg font-semibold text-stone-800">{{ review.name }}</span>
                     <div class="flex flex-row items-center justify-center">
                       <vRating v-model="review.rating" readonly />
                     </div>
                   </div>
-                  <blockquote class="text-stone-600 text-balance leading-relaxed text-[15px] sm:text-base max-w-md">
+                  <blockquote
+                    class="text-stone-600 text-balance leading-relaxed text-[15px] sm:text-base md:text-sm xl:text-base max-w-md md:max-w-none"
+                  >
                     “{{ review.comment }}”
                   </blockquote>
                 </article>
               </div>
               <div class="flex justify-center gap-2 pb-6" role="tablist" aria-label="Customer review slides">
                 <button
-                  v-for="(review, idx) in customerReviews"
-                  :key="'review-dot-' + review.id"
+                  v-for="pageIdx in reviewPageIndices"
+                  :key="'review-dot-' + pageIdx"
                   type="button"
                   class="h-2 rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B08B0F] focus-visible:ring-offset-2"
-                  :class="idx === currentReviewIndex ? 'w-8 bg-[#B08B0F]' : 'w-2 bg-stone-300 hover:bg-stone-400'"
-                  :aria-label="'Show review ' + (idx + 1)"
-                  :aria-current="idx === currentReviewIndex ? 'true' : undefined"
-                  @click="goToReview(idx)"
+                  :class="pageIdx === currentReviewIndex ? 'w-8 bg-[#B08B0F]' : 'w-2 bg-stone-300 hover:bg-stone-400'"
+                  :aria-label="'Show review page ' + (pageIdx + 1)"
+                  :aria-current="pageIdx === currentReviewIndex ? 'true' : undefined"
+                  @click="goToReview(pageIdx)"
                 />
               </div>
             </div>
@@ -311,7 +314,10 @@ export default {
       productCartDrawerVisible: false,
       loading: true,
       currentReviewIndex: 0,
+      /** 1 = mobile (one card); 2 = md–lg; 3 = xl+ */
+      visibleReviewCount: 1,
       reviewsAutoplayTimer: null,
+      reviewsResizeHandler: null,
       customerReviews: [
         {
           id: 1,
@@ -358,6 +364,33 @@ export default {
           image:
             'https://ui-avatars.com/api/?name=Aisha+H&size=128&background=B08B0F&color=fff&rounded=true&bold=true',
         },
+        {
+          id: 6,
+          name: 'David M.',
+          rating: 5,
+          comment:
+            'First time buying a designer fragrance online here and I was nervous—turns out the batch code checked out and the scent is spot on. Impressed.',
+          image:
+            'https://ui-avatars.com/api/?name=David+M&size=128&background=0F172A&color=E0CD7E&rounded=true&bold=true',
+        },
+        {
+          id: 7,
+          name: 'Njeri W.',
+          rating: 4,
+          comment:
+            'The skincare bundle I ordered was well sealed and arrived in good condition. Customer care answered all my questions before I paid.',
+          image:
+            'https://ui-avatars.com/api/?name=Njeri+W&size=128&background=91c6a3&color=202020&rounded=true&bold=true',
+        },
+        {
+          id: 8,
+          name: 'Brian T.',
+          rating: 5,
+          comment:
+            'Fast turnaround from order to doorstep. My wife loved the perfume I picked with their recommendation—already planning our next purchase.',
+          image:
+            'https://ui-avatars.com/api/?name=Brian+T&size=128&background=D10274&color=fff&rounded=true&bold=true',
+        },
       ],
     };
   },
@@ -374,7 +407,28 @@ export default {
     },
     cartPrice() {
       return 'Ksh ' + parseFloat(this.selectedProduct.sale_price * this.cartQuantity).toLocaleString();
-    }
+    },
+    maxReviewIndex() {
+      const n = this.customerReviews.length;
+      const v = this.visibleReviewCount;
+      return Math.max(0, n - v);
+    },
+    reviewPageIndices() {
+      return Array.from({ length: this.maxReviewIndex + 1 }, (_, i) => i);
+    },
+    reviewCarouselInnerStyle() {
+      const n = this.customerReviews.length;
+      const v = Math.max(1, this.visibleReviewCount);
+      const pct = n > 0 ? (this.currentReviewIndex * 100) / n : 0;
+      return {
+        width: n > 0 ? `calc(${n} * 100% / ${v})` : '100%',
+        transform: `translateX(-${pct}%)`,
+      };
+    },
+    reviewCardFlexBasisStyle() {
+      const n = this.customerReviews.length;
+      return n > 0 ? { flex: `0 0 calc(100% / ${n})` } : { flex: '0 0 100%' };
+    },
   },
   methods: {
     onShowCartDrawer() {
@@ -471,6 +525,23 @@ export default {
     getBrandImageLink(imageFile) {
       return window.location.origin + '/assets/images/brands/' + imageFile;
     },
+    updateVisibleReviewCount() {
+      if (typeof window === 'undefined') {
+        return;
+      }
+      const w = window.innerWidth;
+      let next = 1;
+      if (w >= 1280) {
+        next = 3;
+      } else if (w >= 768) {
+        next = 2;
+      }
+      this.visibleReviewCount = next;
+      const max = Math.max(0, this.customerReviews.length - next);
+      if (this.currentReviewIndex > max) {
+        this.currentReviewIndex = max;
+      }
+    },
     startReviewAutoplay() {
       if (this.reviewsAutoplayTimer) {
         clearInterval(this.reviewsAutoplayTimer);
@@ -480,7 +551,8 @@ export default {
         if (n === 0) {
           return;
         }
-        this.currentReviewIndex = (this.currentReviewIndex + 1) % n;
+        const max = this.maxReviewIndex;
+        this.currentReviewIndex = this.currentReviewIndex >= max ? 0 : this.currentReviewIndex + 1;
       }, 5000);
     },
     pauseReviewAutoplay() {
@@ -492,8 +564,9 @@ export default {
     resumeReviewAutoplay() {
       this.startReviewAutoplay();
     },
-    goToReview(idx) {
-      this.currentReviewIndex = idx;
+    goToReview(pageIdx) {
+      const max = this.maxReviewIndex;
+      this.currentReviewIndex = Math.min(Math.max(0, pageIdx), max);
       this.pauseReviewAutoplay();
       this.startReviewAutoplay();
     },
@@ -516,9 +589,16 @@ export default {
     this.newArrivals = productStore.newArrivals;
 
     topbar.hide();
+
+    this.reviewsResizeHandler = () => this.updateVisibleReviewCount();
+    this.updateVisibleReviewCount();
+    window.addEventListener('resize', this.reviewsResizeHandler);
     this.startReviewAutoplay();
   },
   beforeUnmount() {
+    if (this.reviewsResizeHandler) {
+      window.removeEventListener('resize', this.reviewsResizeHandler);
+    }
     this.pauseReviewAutoplay();
   },
 };
