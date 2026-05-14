@@ -310,7 +310,7 @@
 
             <div
               v-else-if="featuredBrandsHome.length > 0"
-              class="relative w-full max-w-6xl overflow-hidden rounded-[28px] border border-stone-200/80 bg-gradient-to-br from-[#fcf9f4] via-white to-[#f7f2ea] px-5 py-9 shadow-[0_24px_60px_-28px_rgba(15,23,42,0.18)] md:rounded-[32px] md:px-10 md:py-12"
+              class="relative w-full max-w-6xl overflow-hidden rounded-[28px] border border-stone-200/80 bg-gradient-to-br from-[#fcf9f4] via-white to-[#f7f2ea] px-3 py-7 shadow-[0_24px_60px_-28px_rgba(15,23,42,0.18)] md:rounded-[32px] md:px-10 md:py-12"
             >
               <div
                 class="pointer-events-none absolute inset-0 opacity-[0.35]"
@@ -319,7 +319,7 @@
               <div
                 class="pointer-events-none absolute left-1/2 top-0 h-px w-[min(90%,28rem)] -translate-x-1/2 bg-gradient-to-r from-transparent via-[#B08B0F]/35 to-transparent"
               />
-              <div class="relative flex flex-wrap justify-center gap-5 md:gap-6 lg:gap-7">
+              <div class="relative flex flex-wrap justify-center gap-2.5 md:gap-6 lg:gap-7">
                 <RouterLink
                   v-for="brand in featuredBrandsHome"
                   :key="brand.id"
